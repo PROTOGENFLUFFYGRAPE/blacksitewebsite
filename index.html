@@ -11,21 +11,18 @@
             padding: 0;
             box-sizing: border-box;
         }
-        body{
-            overflow: auto;
-        }
         
-       body {
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0f0f1e 100%);
-    min-height: 100vh;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    font-family: 'Poppins', sans-serif;
-    overflow: auto;
-    position: relative;
-    padding: 20px;
-}
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0f0f1e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            position: relative;
+            padding: 20px;
+        }
 
         body::before {
             content: '';
@@ -218,19 +215,19 @@
             justify-content: center;
             flex-wrap: wrap;
         }
-.form-container {
-    position: relative;
-    z-index: 10;
-    background: rgba(26, 10, 46, 0.8);
-    border: 1px solid rgba(167, 51, 255, 0.3);
-    border-radius: 15px;
-    padding: 40px;
-    max-width: 600px;
-    width: 100%;
-    backdrop-filter: blur(10px);
-    display: none;
-    margin-top: 50px;
-}
+
+        .form-container {
+            position: relative;
+            z-index: 10;
+            background: rgba(26, 10, 46, 0.8);
+            border: 1px solid rgba(167, 51, 255, 0.3);
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+            display: none;
+        }
 
         .form-container.active {
             display: block;
