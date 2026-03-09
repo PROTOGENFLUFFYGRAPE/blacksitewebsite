@@ -111,3 +111,280 @@
             content: ' *';
             color: #ff5af0;
         }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(167, 51, 255, 0.3);
+            border-radius: 8px;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]::placeholder,
+        input[type="email"]::placeholder,
+        input[type="number"]::placeholder,
+        textarea::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="number"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #a733ff;
+            box-shadow: 0 0 15px rgba(167, 51, 255, 0.2);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #a733ff;
+        }
+
+        .checkbox-group label {
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #a733ff 0%, #ff5af0 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(167, 51, 255, 0.4);
+        }
+
+        .back-button {
+            background: rgba(167, 51, 255, 0.3);
+            color: white;
+            border: 1px solid rgba(167, 51, 255, 0.5);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(167, 51, 255, 0.5);
+        }
+
+        .success-message {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #a733ff;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .form-container {
+                padding: 25px;
+            }
+
+            .form-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1 class="form-title" id="formTitle"></h1>
+        <p class="form-description" id="formDescription"></p>
+        <form id="applicationForm"></form>
+        <a href="index.html" class="back-button">Back to Welcome</a>
+    </div>
+
+    <div class="success-message" id="successMessage">Application submitted successfully!</div>
+
+    <script>
+        async function loadApplicationForm() {
+            try {
+                const response = await fetch('application.json');
+                const data = await response.json();
+
+                document.getElementById('formTitle').textContent = data.applicationTitle;
+                document.getElementById('formDescription').textContent = data.description;
+
+                const form = document.getElementById('applicationForm');
+
+                data.fields.forEach(field => {
+                    const formGroup = document.createElement('div');
+                    formGroup.className = 'form-group';
+
+                    if (field.type === 'checkbox') {
+                        const checkboxGroup = document.createElement('div');
+                        checkboxGroup.className = 'checkbox-group';
+
+                        const checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.id = field.id;
+                        checkbox.name = field.id;
+                        checkbox.required = field.required;
+
+                        const label = document.createElement('label');
+                        label.htmlFor = field.id;
+                        label.textContent = field.label;
+                        if (field.required) {
+                            label.className = 'required';
+                        }
+
+                        checkboxGroup.appendChild(checkbox);
+                        checkboxGroup.appendChild(label);
+                        formGroup.appendChild(checkboxGroup);
+                    } else if (field.type === 'textarea') {
+                        const label = document.createElement('label');
+                        label.htmlFor = field.id;
+                        label.textContent = field.label;
+                        if (field.required) {
+                            label.className = 'required';
+                        }
+
+                        const textarea = document.createElement('textarea');
+                        textarea.id = field.id;
+                        textarea.name = field.id;
+                        textarea.placeholder = field.placeholder;
+                        textarea.required = field.required;
+
+                        formGroup.appendChild(label);
+                        formGroup.appendChild(textarea);
+                    } else if (field.type === 'select') {
+                        const label = document.createElement('label');
+                        label.htmlFor = field.id;
+                        label.textContent = field.label;
+                        if (field.required) {
+                            label.className = 'required';
+                        }
+
+                        const select = document.createElement('select');
+                        select.id = field.id;
+                        select.name = field.id;
+                        select.required = field.required;
+
+                        const defaultOption = document.createElement('option');
+                        defaultOption.value = '';
+                        defaultOption.textContent = 'Select an option';
+                        select.appendChild(defaultOption);
+
+                        field.options.forEach(option => {
+                            const optionElement = document.createElement('option');
+                            optionElement.value = option;
+                            optionElement.textContent = option;
+                            select.appendChild(optionElement);
+                        });
+
+                        formGroup.appendChild(label);
+                        formGroup.appendChild(select);
+                    } else {
+                        const label = document.createElement('label');
+                        label.htmlFor = field.id;
+                        label.textContent = field.label;
+                        if (field.required) {
+                            label.className = 'required';
+                        }
+
+                        const input = document.createElement('input');
+                        input.type = field.type;
+                        input.id = field.id;
+                        input.name = field.id;
+                        input.placeholder = field.placeholder;
+                        input.required = field.required;
+
+                        formGroup.appendChild(label);
+                        formGroup.appendChild(input);
+                    }
+
+                    form.appendChild(formGroup);
+                });
+
+                const submitButton = document.createElement('button');
+                submitButton.type = 'submit';
+                submitButton.className = 'submit-button';
+                submitButton.textContent = data.submitButton.text;
+                form.appendChild(submitButton);
+
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(form);
+                    const formValues = Object.fromEntries(formData);
+                    
+                    console.log('Form submitted:', formValues);
+                    
+                    const successMsg = document.getElementById('successMessage');
+                    successMsg.style.display = 'block';
+                    
+                    setTimeout(() => {
+                        successMsg.style.display = 'none';
+                    }, 3000);
+
+                    form.reset();
+                });
+
+            } catch (error) {
+                console.error('Error loading form:', error);
+            }
+        }
+
+        loadApplicationForm();
+    </script>
+</body>
+</html>
