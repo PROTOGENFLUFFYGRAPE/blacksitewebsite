@@ -15,14 +15,14 @@
             overflow: auto;
         }
         
-        body {
+       body {
     background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0f0f1e 100%);
     min-height: 100vh;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     font-family: 'Poppins', sans-serif;
-    overflow: hidden;
+    overflow: auto;
     position: relative;
     padding: 20px;
 }
@@ -218,8 +218,7 @@
             justify-content: center;
             flex-wrap: wrap;
         }
-
-       .form-container {
+.form-container {
     position: relative;
     z-index: 10;
     background: rgba(26, 10, 46, 0.8);
@@ -230,8 +229,7 @@
     width: 100%;
     backdrop-filter: blur(10px);
     display: none;
-    max-height: 90vh;
-    overflow-y: auto;
+    margin-top: 50px;
 }
 
         .form-container.active {
