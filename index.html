@@ -216,18 +216,20 @@
             flex-wrap: wrap;
         }
 
-        .form-container {
-            position: relative;
-            z-index: 10;
-            background: rgba(26, 10, 46, 0.8);
-            border: 1px solid rgba(167, 51, 255, 0.3);
-            border-radius: 15px;
-            padding: 40px;
-            max-width: 600px;
-            width: 100%;
-            backdrop-filter: blur(10px);
-            display: none;
-        }
+       .form-container {
+    position: relative;
+    z-index: 10;
+    background: rgba(26, 10, 46, 0.8);
+    border: 1px solid rgba(167, 51, 255, 0.3);
+    border-radius: 15px;
+    padding: 40px;
+    max-width: 600px;
+    width: 100%;
+    backdrop-filter: blur(10px);
+    display: none;
+    max-height: 90vh;
+    overflow-y: auto;
+}
 
         .form-container.active {
             display: block;
