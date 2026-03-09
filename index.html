@@ -197,12 +197,14 @@
             font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            border-radius: 50px;
         }
         .app-button:hover{
             transform: translateY(-3px);
             box-shadow: 0 10px 30px rgba(167,51,255,0.4);
         }
-        .app-list {
+        
+        .apps-list {
             margin-top: 60px;
             display: flex;
             gap: 20px;
@@ -211,14 +213,14 @@
         }
       
     </style>
-   <script>
+    <script>
         async function loadApplications(){
             const response = await fetch('applications.json');
             const data = await response.json();
             const container = document.querySelector('.container');
 
             const appsDiv = document.createElement('div');
-            appsDiv.class = 'apps-list';
+            appsDiv.className = 'apps-list';
 
             data.applications.forEach(app => {
                 const appLink = document.createElement('a');
@@ -232,7 +234,6 @@
         }
         loadApplications();
     </script>
-    </scrpit>
 </head>
 <body>
     <div class="container">
