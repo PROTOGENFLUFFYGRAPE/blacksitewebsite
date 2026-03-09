@@ -16,10 +16,10 @@
             background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0f0f1e 100%);
             min-height: 100vh;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
             font-family: 'Poppins', sans-serif;
-            overflow: hidden;
+            overflow: auto;
             position: relative;
             padding: 20px;
         }
@@ -71,6 +71,7 @@
             z-index: 10;
             text-align: center;
             padding: 40px;
+            margin-top: 50px;
         }
 
         .welcome-text {
@@ -227,6 +228,8 @@
             width: 100%;
             backdrop-filter: blur(10px);
             display: none;
+            margin-top: 50px;
+            margin-bottom: 50px;
         }
 
         .form-container.active {
