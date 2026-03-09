@@ -4,7 +4,7 @@
   "fields": [
     {
       "id": "discord_name",
-      "label": "What is you Discord name?",
+      "label": "What is your Discord name?",
       "type": "text",
       "required": true,
       "placeholder": "Enter your Discord name"
@@ -38,22 +38,20 @@
       "placeholder": "Explain why you want to join"
     },
     {
-      {
-  "id": "availability",
-  "label": "Availability",
-  "type": "select",
-  "required": true,
-  "style": {
-    "backgroundColor": "#a733ff",
-    "textColor": "#ffffff",
-  },
-  "options": [
-    "Weekdays",
-    "Weekends",
-    "Both",
-    "Occasionally"
-  ]
-}
+      "id": "availability",
+      "label": "Availability",
+      "type": "select",
+      "required": true,
+      "style": {
+        "backgroundColor": "#a733ff",
+        "textColor": "#ffffff"
+      },
+      "options": [
+        "Weekdays",
+        "Weekends",
+        "Both",
+        "Occasionally"
+      ]
     },
     {
       "id": "tos_agreement",
