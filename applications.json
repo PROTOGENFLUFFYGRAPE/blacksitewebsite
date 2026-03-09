@@ -1,5 +1,5 @@
 {
-  "applicationTitle": "Staff app",
+  "applicationTitle": "Website Application",
   "description": "Please fill out all fields honestly and completely.",
   "fields": [
     {
@@ -38,16 +38,22 @@
       "placeholder": "Explain why you want to join"
     },
     {
-      "id": "availability",
-      "label": "Availability",
-      "type": "select",
-      "required": true,
-      "options": [
-        "Weekdays",
-        "Weekends",
-        "Both",
-        "Occasionally"
-      ]
+      {
+  "id": "availability",
+  "label": "Availability",
+  "type": "select",
+  "required": true,
+  "style": {
+    "backgroundColor": "#a733ff",
+    "textColor": "#ffffff",
+  },
+  "options": [
+    "Weekdays",
+    "Weekends",
+    "Both",
+    "Occasionally"
+  ]
+}
     },
     {
       "id": "tos_agreement",
