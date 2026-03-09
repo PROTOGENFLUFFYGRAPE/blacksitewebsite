@@ -18,7 +18,7 @@
     },
     {
       "id": "steam_id",
-      "label": "What is your stream id?",
+      "label": "What is your steam id?",
       "type": "text",
       "required": true,
       "placeholder": "Enter your steam id"
