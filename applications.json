@@ -12,14 +12,14 @@
     {
       "id": "stean_id",
       "label": "What is your steam ID?",
-      "type": "email",
+      "type": "number",
       "required": true,
       "placeholder": "Enter your steam ID"
     },
     {
       "id": "why_join_staff",
       "label": "Why do you want to become staff? (min of 2 sentences)",
-      "type": "number",
+      "type": "text",
       "required": true,
       "placeholder": "Enter why you wanna join staff"
     },
