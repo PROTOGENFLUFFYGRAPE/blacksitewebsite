@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>protolikesdick</title>
+    <title>Welcome</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
     <style>
-        * {
+            * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -14,16 +14,13 @@
         
         body {
             background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0f0f1e 100%);
-            width: 100%;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             font-family: 'Poppins', sans-serif;
             overflow: hidden;
             position: relative;
-            padding: 20px;
         }
 
         body::before {
@@ -189,53 +186,61 @@
                 width: 80px;
             }
         }
-
-        .app-button {
+        .app-button{
             display: inline-block;
-            margin: 15px 10px;
+            margin: 10px;
             padding: 15px 40px;
-            background: linear-gradient(135deg, #a733ff 0%, #ff5af0 100%);
+            background: linear-gradient(135deg,#a733ff 0%, #ff5af0 100%);
             color: white;
             text-decoration: none;
             font-weight: 600;
             font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            border-radius: 50px;
-            border: none;
         }
-
-        .app-button:hover {
+        .app-button:hover{
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(167, 51, 255, 0.4);
+            box-shadow: 0 10px 30px rgba(167,51,255,0.4);
         }
-
-        .apps-list {
-            margin-top: 40px;
+        .app-list {
+            margin-top: 60px;
             display: flex;
             gap: 20px;
             justify-content: center;
             flex-wrap: wrap;
         }
-
-        @media (max-width: 600px) {
-            .app-button {
-                padding: 12px 30px;
-                font-size: 0.9rem;
-            }
-        }
+      
     </style>
+   <script>
+        async function loadApplications(){
+            const response = await fetch('applications.json');
+            const data = await response.json();
+            const container = document.querySelector('.container');
+
+            const appsDiv = document.createElement('div');
+            appsDiv.class = 'apps-list';
+
+            data.applications.forEach(app => {
+                const appLink = document.createElement('a');
+                appLink.href = app.link;
+                appLink.textContent = app.name;
+                appLink.className = 'app-button';
+                appsDiv.appendChild(appLink);
+            }) 
+            container.appendChild(appsDiv);
+            
+        }
+        loadApplications();
+    </script>
+    </scrpit>
 </head>
 <body>
     <div class="container">
         <div class="glow-container">
-            <h1 class="welcome-text">Welcome dax hope u have ur fursuit ready</h1>
+            <h1 class="welcome-text">Welcome</h1>
         </div>
         <div class="accent-line"></div>
-        <p class="subtitle">Go put those thigh highs on dax</p>
-        <div class="apps-list">
-            <a href="applications.html" class="app-button">Application</a>
-        </div>
+        <p class="subtitle">Get Started</p>
     </div>
 </body>
 </html>
