@@ -1,0 +1,16 @@
+{
+  "applications": [
+    {
+      "name": "Application",
+      "link": "javascript:void(0)"
+    },
+    {
+      "name": "App 2",
+      "link": "https://example.com"
+    },
+    {
+      "name": "App 3",
+      "link": "https://example.com"
+    }
+  ]
+}
