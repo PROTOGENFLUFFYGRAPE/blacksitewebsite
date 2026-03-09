@@ -54,6 +54,52 @@
         0%, 100%{transform: translate(0, 0);}
         50%{transform: translate(-50px, 50px);}
        }
+       
+
+        body {
+            background-image: 
+                linear-gradient(rgba(167, 51, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(167, 51, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0f0f1e 100%);
+            background-size: 50px 50px, 50px 50px, 100% 100%;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .welcome-text {
+            font-size: 7rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #a733ff 0%, #ff5af0 50%, #a733ff 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
+            letter-spacing: -2px;
+            animation: slideInText 1s ease-out, gradientShift 6s ease-in-out infinite;
+            line-height: 1;
+        }
+
+        @keyframes slideInText {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
         
     </style>
 </head>
