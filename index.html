@@ -190,7 +190,7 @@
 
         .app-button {
             display: inline-block;
-            margin: 10px;
+            margin: 15px 10px;
             padding: 15px 40px;
             background: linear-gradient(135deg, #a733ff 0%, #ff5af0 100%);
             color: white;
@@ -200,6 +200,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             border-radius: 50px;
+            border: none;
         }
 
         .app-button:hover {
@@ -208,7 +209,7 @@
         }
 
         .apps-list {
-            margin-top: 60px;
+            margin-top: 40px;
             display: flex;
             gap: 20px;
             justify-content: center;
@@ -430,173 +431,21 @@
     <div class="success-message" id="successMessage">Application submitted successfully!</div>
 
     <script>
-        async function loadApplications() {
-            try {
-                const response = await fetch('applications.json');
-                const data = await response.json();
-                const appsList = document.getElementById('appsList');
+        function loadApplications() {
+            const appsDiv = document.getElementById('appsList');
+            
+            const apps = [
+                { name: "Application", link: "#" },
+                { name: "GitHub", link: "https://github.com" },
+                { name: "Portfolio", link: "https://example.com" }
+            ];
 
-                const appsDiv = document.createElement('div');
-                appsDiv.className = 'apps-list';
-
-                data.applications.forEach(app => {
-                    const appLink = document.createElement('a');
-                    appLink.href = 'javascript:void(0)';
-                    appLink.textContent = app.name;
-                    appLink.className = 'app-button';
-                    appLink.onclick = () => {
-                        if (app.name.toLowerCase().includes('application')) {
-                            loadApplicationForm();
-                        }
-                    };
-                    appsDiv.appendChild(appLink);
-                });
-
-                appsList.appendChild(appsDiv);
-            } catch (error) {
-                console.error('Error loading applications:', error);
-            }
-        }
-
-        async function loadApplicationForm() {
-            try {
-                const response = await fetch('application.json');
-                const data = await response.json();
-
-                document.getElementById('welcomeSection').classList.add('hidden');
-                document.getElementById('formContainer').classList.add('active');
-
-                document.getElementById('formTitle').textContent = data.applicationTitle;
-                document.getElementById('formDescription').textContent = data.description;
-
-                const form = document.getElementById('applicationForm');
-                form.innerHTML = '';
-
-                data.fields.forEach(field => {
-                    const formGroup = document.createElement('div');
-                    formGroup.className = 'form-group';
-
-                    if (field.type === 'checkbox') {
-                        const checkboxGroup = document.createElement('div');
-                        checkboxGroup.className = 'checkbox-group';
-
-                        const checkbox = document.createElement('input');
-                        checkbox.type = 'checkbox';
-                        checkbox.id = field.id;
-                        checkbox.name = field.id;
-                        checkbox.required = field.required;
-
-                        const label = document.createElement('label');
-                        label.htmlFor = field.id;
-                        label.textContent = field.label;
-                        if (field.required) {
-                            label.className = 'required';
-                        }
-
-                        checkboxGroup.appendChild(checkbox);
-                        checkboxGroup.appendChild(label);
-                        formGroup.appendChild(checkboxGroup);
-                    } else if (field.type === 'textarea') {
-                        const label = document.createElement('label');
-                        label.htmlFor = field.id;
-                        label.textContent = field.label;
-                        if (field.required) {
-                            label.className = 'required';
-                        }
-
-                        const textarea = document.createElement('textarea');
-                        textarea.id = field.id;
-                        textarea.name = field.id;
-                        textarea.placeholder = field.placeholder;
-                        textarea.required = field.required;
-
-                        formGroup.appendChild(label);
-                        formGroup.appendChild(textarea);
-                    } else if (field.type === 'select') {
-                        const label = document.createElement('label');
-                        label.htmlFor = field.id;
-                        label.textContent = field.label;
-                        if (field.required) {
-                            label.className = 'required';
-                        }
-
-                        const select = document.createElement('select');
-                        select.id = field.id;
-                        select.name = field.id;
-                        select.required = field.required;
-
-                        const defaultOption = document.createElement('option');
-                        defaultOption.value = '';
-                        defaultOption.textContent = 'Select an option';
-                        select.appendChild(defaultOption);
-
-                        field.options.forEach(option => {
-                            const optionElement = document.createElement('option');
-                            optionElement.value = option;
-                            optionElement.textContent = option;
-                            select.appendChild(optionElement);
-                        });
-
-                        formGroup.appendChild(label);
-                        formGroup.appendChild(select);
+            apps.forEach(app => {
+                const button = document.createElement('button');
+                button.className = 'app-button';
+                button.textContent = app.name;
+                button.onclick = () => {
+                    if (app.name === 'Application') {
+                        loadApplicationForm();
                     } else {
-                        const label = document.createElement('label');
-                        label.htmlFor = field.id;
-                        label.textContent = field.label;
-                        if (field.required) {
-                            label.className = 'required';
-                        }
-
-                        const input = document.createElement('input');
-                        input.type = field.type;
-                        input.id = field.id;
-                        input.name = field.id;
-                        input.placeholder = field.placeholder;
-                        input.required = field.required;
-
-                        formGroup.appendChild(label);
-                        formGroup.appendChild(input);
-                    }
-
-                    form.appendChild(formGroup);
-                });
-
-                const submitButton = document.createElement('button');
-                submitButton.type = 'submit';
-                submitButton.className = 'submit-button';
-                submitButton.textContent = data.submitButton.text;
-                form.appendChild(submitButton);
-
-                form.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    
-                    const formData = new FormData(form);
-                    const formValues = Object.fromEntries(formData);
-                    
-                    console.log('Form submitted:', formValues);
-                    
-                    const successMsg = document.getElementById('successMessage');
-                    successMsg.style.display = 'block';
-                    
-                    setTimeout(() => {
-                        successMsg.style.display = 'none';
-                    }, 3000);
-
-                    form.reset();
-                    goBack();
-                });
-
-            } catch (error) {
-                console.error('Error loading form:', error);
-            }
-        }
-
-        function goBack() {
-            document.getElementById('welcomeSection').classList.remove('hidden');
-            document.getElementById('formContainer').classList.remove('active');
-        }
-
-        loadApplications();
-    </script>
-</body>
-</html>
+                        window.open(app.link, '_blank');
