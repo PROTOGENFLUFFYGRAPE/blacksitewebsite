@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>protolikesdick</title>
+    <title>Welcome</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
     <style>
-        * {
+            * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -16,12 +16,11 @@
             background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0f0f1e 100%);
             min-height: 100vh;
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             justify-content: center;
             font-family: 'Poppins', sans-serif;
-            overflow: auto;
+            overflow: hidden;
             position: relative;
-            padding: 20px;
         }
 
         body::before {
@@ -71,7 +70,6 @@
             z-index: 10;
             text-align: center;
             padding: 40px;
-            margin-top: 50px;
         }
 
         .welcome-text {
@@ -188,413 +186,61 @@
                 width: 80px;
             }
         }
-
-        .app-button {
+        .app-button{
             display: inline-block;
-            margin: 15px 10px;
+            margin: 10px;
             padding: 15px 40px;
-            background: linear-gradient(135deg, #a733ff 0%, #ff5af0 100%);
+            background: linear-gradient(135deg,#a733ff 0%, #ff5af0 100%);
             color: white;
             text-decoration: none;
             font-weight: 600;
             font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            border-radius: 50px;
-            border: none;
         }
-
-        .app-button:hover {
+        .app-button:hover{
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(167, 51, 255, 0.4);
+            box-shadow: 0 10px 30px rgba(167,51,255,0.4);
         }
-
-        .apps-list {
-            margin-top: 40px;
+        .app-list {
+            margin-top: 60px;
             display: flex;
             gap: 20px;
             justify-content: center;
             flex-wrap: wrap;
         }
-
-        .form-container {
-            position: relative;
-            z-index: 10;
-            background: rgba(26, 10, 46, 0.8);
-            border: 1px solid rgba(167, 51, 255, 0.3);
-            border-radius: 15px;
-            padding: 40px;
-            max-width: 600px;
-            width: 100%;
-            backdrop-filter: blur(10px);
-            display: none;
-            margin-top: 50px;
-            margin-bottom: 50px;
-        }
-
-        .form-container.active {
-            display: block;
-        }
-
-        .welcome-section {
-            display: block;
-        }
-
-        .welcome-section.hidden {
-            display: none;
-        }
-
-        .form-title {
-            font-size: 2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #a733ff 0%, #ff5af0 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        .form-description {
-            color: rgba(255, 255, 255, 0.6);
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 0.95rem;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        label {
-            display: block;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 8px;
-            font-weight: 500;
-            font-size: 0.95rem;
-        }
-
-        .required::after {
-            content: ' *';
-            color: #ff5af0;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="number"],
-        textarea,
-        select {
-            width: 100%;
-            padding: 12px 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(167, 51, 255, 0.3);
-            border-radius: 8px;
-            color: white;
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-        }
-
-        input[type="text"]::placeholder,
-        input[type="email"]::placeholder,
-        input[type="number"]::placeholder,
-        textarea::placeholder {
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        input[type="text"]:focus,
-        input[type="email"]:focus,
-        input[type="number"]:focus,
-        textarea:focus,
-        select:focus {
-            outline: none;
-            background: rgba(255, 255, 255, 0.08);
-            border-color: #a733ff;
-            box-shadow: 0 0 15px rgba(167, 51, 255, 0.2);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        select {
-            cursor: pointer;
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            accent-color: #a733ff;
-        }
-
-        .checkbox-group label {
-            margin-bottom: 0;
-            cursor: pointer;
-        }
-
-        .submit-button {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #a733ff 0%, #ff5af0 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 20px;
-        }
-
-        .submit-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(167, 51, 255, 0.4);
-        }
-
-        .back-button {
-            background: rgba(167, 51, 255, 0.3);
-            color: white;
-            border: 1px solid rgba(167, 51, 255, 0.5);
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 15px;
-            width: 100%;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .back-button:hover {
-            background: rgba(167, 51, 255, 0.5);
-        }
-
-        .success-message {
-            display: none;
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #a733ff;
-            color: white;
-            padding: 15px 25px;
-            border-radius: 8px;
-            z-index: 1000;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .form-container {
-                padding: 25px;
-            }
-
-            .form-title {
-                font-size: 1.5rem;
-            }
-        }
+      
     </style>
-</head>
-<body>
-    <div class="welcome-section" id="welcomeSection">
-        <div class="container">
-            <div class="glow-container">
-                <h1 class="welcome-text">Welcome dax hope u have ur fursuit ready</h1>
-            </div>
-            <div class="accent-line"></div>
-            <p class="subtitle">Go put those thigh highs on dax</p>
-            <div class="apps-list" id="appsList"></div>
-        </div>
-    </div>
+   <script>
+        async function loadApplications(){
+            const response = await fetch('applications.json');
+            const data = await response.json();
+            const container = document.querySelector('.container');
 
-    <div class="form-container" id="formContainer">
-        <h1 class="form-title" id="formTitle"></h1>
-        <p class="form-description" id="formDescription"></p>
-        <form id="applicationForm"></form>
-        <button class="back-button" onclick="goBack()">Back to Welcome</button>
-    </div>
+            const appsDiv = document.createElement('div');
+            appsDiv.class = 'apps-list';
 
-    <div class="success-message" id="successMessage">Application submitted successfully!</div>
-
-    <script>
-        function loadApplications() {
-            const appsDiv = document.getElementById('appsList');
+            data.applications.forEach(app => {
+                const appLink = document.createElement('a');
+                appLink.href = app.link;
+                appLink.textContent = app.name;
+                appLink.className = 'app-button';
+                appsDiv.appendChild(appLink);
+            }) 
+            container.appendChild(appsDiv);
             
-            const apps = [
-                { name: "Application", link: "#" },
-            ];
-
-            apps.forEach(app => {
-                const button = document.createElement('button');
-                button.className = 'app-button';
-                button.textContent = app.name;
-                button.onclick = () => {
-                    if (app.name === 'Application') {
-                        loadApplicationForm();
-                    } else {
-                        window.open(app.link, '_blank');
-                    }
-                };
-                appsDiv.appendChild(button);
-            });
         }
-
-        async function loadApplicationForm() {
-            try {
-                const response = await fetch('application.json');
-                const data = await response.json();
-
-                document.getElementById('welcomeSection').classList.add('hidden');
-                document.getElementById('formContainer').classList.add('active');
-
-                document.getElementById('formTitle').textContent = data.applicationTitle;
-                document.getElementById('formDescription').textContent = data.description;
-
-                const form = document.getElementById('applicationForm');
-                form.innerHTML = '';
-
-                data.fields.forEach(field => {
-                    const formGroup = document.createElement('div');
-                    formGroup.className = 'form-group';
-
-                    if (field.type === 'checkbox') {
-                        const checkboxGroup = document.createElement('div');
-                        checkboxGroup.className = 'checkbox-group';
-
-                        const checkbox = document.createElement('input');
-                        checkbox.type = 'checkbox';
-                        checkbox.id = field.id;
-                        checkbox.name = field.id;
-                        checkbox.required = field.required;
-
-                        const label = document.createElement('label');
-                        label.htmlFor = field.id;
-                        label.textContent = field.label;
-                        if (field.required) {
-                            label.className = 'required';
-                        }
-
-                        checkboxGroup.appendChild(checkbox);
-                        checkboxGroup.appendChild(label);
-                        formGroup.appendChild(checkboxGroup);
-                    } else if (field.type === 'textarea') {
-                        const label = document.createElement('label');
-                        label.htmlFor = field.id;
-                        label.textContent = field.label;
-                        if (field.required) {
-                            label.className = 'required';
-                        }
-
-                        const textarea = document.createElement('textarea');
-                        textarea.id = field.id;
-                        textarea.name = field.id;
-                        textarea.placeholder = field.placeholder;
-                        textarea.required = field.required;
-
-                        formGroup.appendChild(label);
-                        formGroup.appendChild(textarea);
-                    } else if (field.type === 'select') {
-                        const label = document.createElement('label');
-                        label.htmlFor = field.id;
-                        label.textContent = field.label;
-                        if (field.required) {
-                            label.className = 'required';
-                        }
-
-                        const select = document.createElement('select');
-                        select.id = field.id;
-                        select.name = field.id;
-                        select.required = field.required;
-
-                        const defaultOption = document.createElement('option');
-                        defaultOption.value = '';
-                        defaultOption.textContent = 'Select an option';
-                        select.appendChild(defaultOption);
-
-                        field.options.forEach(option => {
-                            const optionElement = document.createElement('option');
-                            optionElement.value = option;
-                            optionElement.textContent = option;
-                            select.appendChild(optionElement);
-                        });
-
-                        formGroup.appendChild(label);
-                        formGroup.appendChild(select);
-                    } else {
-                        const label = document.createElement('label');
-                        label.htmlFor = field.id;
-                        label.textContent = field.label;
-                        if (field.required) {
-                            label.className = 'required';
-                        }
-
-                        const input = document.createElement('input');
-                        input.type = field.type;
-                        input.id = field.id;
-                        input.name = field.id;
-                        input.placeholder = field.placeholder;
-                        input.required = field.required;
-
-                        formGroup.appendChild(label);
-                        formGroup.appendChild(input);
-                    }
-
-                    form.appendChild(formGroup);
-                });
-
-                const submitButton = document.createElement('button');
-                submitButton.type = 'submit';
-                submitButton.className = 'submit-button';
-                submitButton.textContent = data.submitButton.text;
-                form.appendChild(submitButton);
-
-                form.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    
-                    const formData = new FormData(form);
-                    const formValues = Object.fromEntries(formData);
-                    
-                    console.log('Form submitted:', formValues);
-                    
-                    const successMsg = document.getElementById('successMessage');
-                    successMsg.style.display = 'block';
-                    
-                    setTimeout(() => {
-                        successMsg.style.display = 'none';
-                    }, 3000);
-
-                    form.reset();
-                    goBack();
-                });
-
-            } catch (error) {
-                console.error('Error loading form:', error);
-            }
-        }
-
-        function goBack() {
-            document.getElementById('welcomeSection').classList.remove('hidden');
-            document.getElementById('formContainer').classList.remove('active');
-        }
-
         loadApplications();
     </script>
+    </scrpit>
+</head>
+<body>
+    <div class="container">
+        <div class="glow-container">
+            <h1 class="welcome-text">Welcome</h1>
+        </div>
+        <div class="accent-line"></div>
+        <p class="subtitle">Get Started</p>
+    </div>
 </body>
 </html>
