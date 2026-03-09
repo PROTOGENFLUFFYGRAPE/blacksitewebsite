@@ -6,7 +6,7 @@
         <title>Welcome</title>
         <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
         <style> 
-        * {
+        *{
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -14,12 +14,36 @@
         body{
             background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0f0f1e 100%);
             min-height: 100vh;
-            display: flex;
+            display: felx;
             align-items: center;
             justify-content: center;
             font-family: 'Poppins', sans-serif;
             overflow: hidden;
             position: relative;
         }
+         body::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(167, 51, 255, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -200px;
+            left: -200px;
+            animation: float1 8s ease-in-out infinite;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(167, 51, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: -150px;
+            right: -150px;
+            animation: float2 10s ease-in-out infinite;
+        }
+
     </head>
 </html>
