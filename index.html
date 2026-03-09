@@ -449,3 +449,151 @@
                         loadApplicationForm();
                     } else {
                         window.open(app.link, '_blank');
+                    }
+                };
+                appsDiv.appendChild(button);
+            });
+        }
+
+        async function loadApplicationForm() {
+            try {
+                const response = await fetch('application.json');
+                const data = await response.json();
+
+                document.getElementById('welcomeSection').classList.add('hidden');
+                document.getElementById('formContainer').classList.add('active');
+
+                document.getElementById('formTitle').textContent = data.applicationTitle;
+                document.getElementById('formDescription').textContent = data.description;
+
+                const form = document.getElementById('applicationForm');
+                form.innerHTML = '';
+
+                data.fields.forEach(field => {
+                    const formGroup = document.createElement('div');
+                    formGroup.className = 'form-group';
+
+                    if (field.type === 'checkbox') {
+                        const checkboxGroup = document.createElement('div');
+                        checkboxGroup.className = 'checkbox-group';
+
+                        const checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.id = field.id;
+                        checkbox.name = field.id;
+                        checkbox.required = field.required;
+
+                        const label = document.createElement('label');
+                        label.htmlFor = field.id;
+                        label.textContent = field.label;
+                        if (field.required) {
+                            label.className = 'required';
+                        }
+
+                        checkboxGroup.appendChild(checkbox);
+                        checkboxGroup.appendChild(label);
+                        formGroup.appendChild(checkboxGroup);
+                    } else if (field.type === 'textarea') {
+                        const label = document.createElement('label');
+                        label.htmlFor = field.id;
+                        label.textContent = field.label;
+                        if (field.required) {
+                            label.className = 'required';
+                        }
+
+                        const textarea = document.createElement('textarea');
+                        textarea.id = field.id;
+                        textarea.name = field.id;
+                        textarea.placeholder = field.placeholder;
+                        textarea.required = field.required;
+
+                        formGroup.appendChild(label);
+                        formGroup.appendChild(textarea);
+                    } else if (field.type === 'select') {
+                        const label = document.createElement('label');
+                        label.htmlFor = field.id;
+                        label.textContent = field.label;
+                        if (field.required) {
+                            label.className = 'required';
+                        }
+
+                        const select = document.createElement('select');
+                        select.id = field.id;
+                        select.name = field.id;
+                        select.required = field.required;
+
+                        const defaultOption = document.createElement('option');
+                        defaultOption.value = '';
+                        defaultOption.textContent = 'Select an option';
+                        select.appendChild(defaultOption);
+
+                        field.options.forEach(option => {
+                            const optionElement = document.createElement('option');
+                            optionElement.value = option;
+                            optionElement.textContent = option;
+                            select.appendChild(optionElement);
+                        });
+
+                        formGroup.appendChild(label);
+                        formGroup.appendChild(select);
+                    } else {
+                        const label = document.createElement('label');
+                        label.htmlFor = field.id;
+                        label.textContent = field.label;
+                        if (field.required) {
+                            label.className = 'required';
+                        }
+
+                        const input = document.createElement('input');
+                        input.type = field.type;
+                        input.id = field.id;
+                        input.name = field.id;
+                        input.placeholder = field.placeholder;
+                        input.required = field.required;
+
+                        formGroup.appendChild(label);
+                        formGroup.appendChild(input);
+                    }
+
+                    form.appendChild(formGroup);
+                });
+
+                const submitButton = document.createElement('button');
+                submitButton.type = 'submit';
+                submitButton.className = 'submit-button';
+                submitButton.textContent = data.submitButton.text;
+                form.appendChild(submitButton);
+
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(form);
+                    const formValues = Object.fromEntries(formData);
+                    
+                    console.log('Form submitted:', formValues);
+                    
+                    const successMsg = document.getElementById('successMessage');
+                    successMsg.style.display = 'block';
+                    
+                    setTimeout(() => {
+                        successMsg.style.display = 'none';
+                    }, 3000);
+
+                    form.reset();
+                    goBack();
+                });
+
+            } catch (error) {
+                console.error('Error loading form:', error);
+            }
+        }
+
+        function goBack() {
+            document.getElementById('welcomeSection').classList.remove('hidden');
+            document.getElementById('formContainer').classList.remove('active');
+        }
+
+        loadApplications();
+    </script>
+</body>
+</html>
