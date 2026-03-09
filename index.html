@@ -6,12 +6,12 @@
     <title>Welcome</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
     <style>
-        * {
+            * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
             background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0f0f1e 100%);
             min-height: 100vh;
@@ -186,7 +186,31 @@
                 width: 80px;
             }
         }
+        
+      
     </style>
+   <script>
+        async function loadApplications(){
+            const response = await fetch('applications.json');
+            const data = await response.json();
+            const container = document.querySelector('.container');
+
+            const appsDiv = document.createElement('div');
+            appsDiv.class = 'apps-list';
+
+            data.applications.forEach(app => {
+                const appLink = document.createElement('a');
+                appLink.href = app.link;
+                appLink.textContent = app.name;
+                appLink.className = 'app-button';
+                appsDiv.appendChild(appLink);
+            }) 
+            container.appendChild(appsDiv);
+            
+        }
+        loadApplications();
+    </script>s();
+    </scrpit>
 </head>
 <body>
     <div class="container">
