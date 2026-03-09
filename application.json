@@ -4,7 +4,7 @@
   "fields": [
     {
       "id": "discord_name",
-      "label": "What is your Discord name?",
+      "label": "What is you Discord name?",
       "type": "text",
       "required": true,
       "placeholder": "Enter your Discord name"
@@ -17,15 +17,15 @@
       "placeholder": "Enter your age"
     },
     {
-      "id": "steam_id",
-      "label": "What is your stream id?",
+      "id": "username",
+      "label": "Username",
       "type": "text",
       "required": true,
-      "placeholder": "Enter your steam id"
+      "placeholder": "Enter your username"
     },
     {
       "id": "experience",
-      "label": "Do you have any prior staff experience in SCP SL? (if not put N/A)",
+      "label": "Do you have any prior experience?",
       "type": "textarea",
       "required": true,
       "placeholder": "Describe your experience"
@@ -42,10 +42,6 @@
       "label": "Availability",
       "type": "select",
       "required": true,
-      "style": {
-        "backgroundColor": "#a733ff",
-        "textColor": "#ffffff"
-      },
       "options": [
         "Weekdays",
         "Weekends",
