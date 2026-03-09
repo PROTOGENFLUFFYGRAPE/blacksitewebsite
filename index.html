@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Welcome</title>
-        <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
-        <style> 
-        *{
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
+    <style>
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        body{
+
+        body {
             background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0f0f1e 100%);
             min-height: 100vh;
-            display: felx;
+            display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Poppins', sans-serif;
             overflow: hidden;
             position: relative;
         }
-         body::before {
+
+        body::before {
             content: '';
             position: absolute;
             width: 600px;
@@ -45,5 +47,16 @@
             animation: float2 10s ease-in-out infinite;
         }
 
-    </head>
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="glow-container">
+            <h1 class="welcome-text">Welcome</h1>
+        </div>
+        <div class="accent-line"></div>
+        <p class="subtitle">Get Started</p>
+    </div>
+</body>
 </html>
