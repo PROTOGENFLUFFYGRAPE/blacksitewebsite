@@ -76,6 +76,15 @@
             backdrop-filter: blur(10px);
         }
 
+        .modle{
+           display: none;
+           position: fixed;
+           top: 50%;
+           left: 50%;
+           transform: translate(-50%, -50%);
+
+        }
+
         .sidebar-title {
             font-size: 1.5rem;
             font-weight: 800;
@@ -205,25 +214,7 @@
             }
         }
 
-        .enter-button {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 15px 50px;
-            background: linear-gradient(135deg, #a733ff 0%, #ff5af0 100%);
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-radius: 50px;
-            border: none;
-        }
-
-        .enter-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(167, 51, 255, 0.4);
-        }
+        
 
         @media (max-width: 768px) {
             body {
@@ -254,6 +245,7 @@
                 font-size: 2.5rem;
             }
         }
+        
     </style>
 </head>
 <body>
@@ -289,5 +281,16 @@
             
         </div>
     </div>
+    <div class="modal" id="serverModal">
+        <h3 class="modal-title">Servers</h3>
+        <div class="modal-item">Server 1 -US EAST</div>
+    </div>
+    <script>
+        function toggleModal(){
+            document.getElementById('serverModal').classList.toggle('active');
+        }
+        </script>
+
 </body>
 </html>
+
