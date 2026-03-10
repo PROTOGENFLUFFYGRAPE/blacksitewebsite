@@ -1,325 +1,320 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foundation</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0f0f1e 100%);
-            min-height: 100vh;
-            display: flex;
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(167, 51, 255, 0.15) 0%, transparent 70%);
-            border-radius: 50%;
-            top: -200px;
-            left: -200px;
-            animation: float1 8s ease-in-out infinite;
-            z-index: 1;
-        }
-
-        body::after {
-            content: '';
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(167, 51, 255, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            bottom: -150px;
-            right: -150px;
-            animation: float2 10s ease-in-out infinite;
-            z-index: 1;
-        }
-
-        @keyframes float1 {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(50px, -50px); }
-        }
-
-        @keyframes float2 {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(-50px, 50px); }
-        }
-
-        body {
-            background-image: 
-                linear-gradient(rgba(167, 51, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(167, 51, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0f0f1e 100%);
-            background-size: 50px 50px, 50px 50px, 100% 100%;
-        }
-
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 99;
-            backdrop-filter: blur(5px);
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-       .modal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(26, 10, 46, 0.95);
-    border: 2px solid rgba(167, 51, 255, 0.5);
-    border-radius: 15px;
-    padding: 40px;
-    max-width: 1000px;
-    width: 80%;
-    height: 70%;
-    z-index: 100;
-    backdrop-filter: blur(10px);
-    animation: slideUp 0.3s ease;
-    overflow-y: auto;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Foundation Blacksite</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg-1:#120222;
+  --bg-2:#19032b;
+  --sidebar:#11031d;
+  --sidebar-2:#130420;
+  --border:rgba(210,93,255,0.14);
+  --border-strong:rgba(210,93,255,0.28);
+  --text:#f7f1ff;
+  --muted:#9e91b8;
+  --muted-2:#6f628d;
+  --accent:#d25dff;
+  --accent-soft:rgba(210,93,255,0.12);
+  --accent-glow:rgba(210,93,255,0.3);
+  --success:#18d26b;
 }
-        .modal.active {
-            display: block;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translate(-50%, -45%);
-            }
-            to {
-                opacity: 1;
-                transform: translate(-50%, -50%);
-            }
-        }
-
-        .modal-title {
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #a733ff 0%, #ff5af0 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .modal-item {
-    color: rgba(255, 255, 255, 0.8);
-    padding: 12px 0;
-    font-size: 0.95rem;
+body{
+  font-family:'Inter',sans-serif;
+  color:var(--text);
+  min-height:100vh;
+  background:
+    linear-gradient(rgba(210,93,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(210,93,255,0.03) 1px, transparent 1px),
+    radial-gradient(circle at center, rgba(75,18,110,0.28), transparent 52%),
+    linear-gradient(90deg,var(--bg-1) 0%,var(--bg-2) 50%,var(--bg-1) 100%);
+  background-size:48px 48px,48px 48px,100% 100%,100% 100%;
 }
-
-
-        .sidebar {
-            position: relative;
-            z-index: 10;
-            width: 300px;
-            background: rgba(26, 10, 46, 0.8);
-            border-right: 1px solid rgba(167, 51, 255, 0.3);
-            padding: 30px 20px;
-            overflow-y: auto;
-            backdrop-filter: blur(10px);
-        }
-
-        .sidebar-title {
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #a733ff 0%, #ff5af0 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .sidebar-section {
-            margin-bottom: 30px;
-        }
-
-        .sidebar-section-title {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(167, 51, 255, 0.2);
-        }
-
-        .sidebar-item {
-            color: rgba(255, 255, 255, 0.8);
-            padding: 10px 0;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-left: 2px solid transparent;
-            padding-left: 10px;
-        }
-
-        .sidebar-item:hover {
-            color: #a733ff;
-            border-left-color: #a733ff;
-        }
-
-        .main-content {
-            position: relative;
-            z-index: 10;
-            flex: 1;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                flex-direction: column;
-            }
-
-            .sidebar {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid rgba(167, 51, 255, 0.3);
-                max-height: 200px;
-                overflow-x: auto;
-                display: flex;
-                gap: 30px;
-                padding: 20px;
-            }
-
-            .sidebar-section {
-                margin-bottom: 0;
-                white-space: nowrap;
-            }
-
-            .main-content {
-                min-height: 100vh;
-            }
-        }
-    </style>
+.dashboard{display:flex;min-height:100vh}
+.sidebar{
+  width:245px;
+  background:linear-gradient(180deg,var(--sidebar) 0%,var(--sidebar-2) 100%);
+  border-right:1px solid var(--border);
+  display:flex;
+  flex-direction:column;
+}
+.logo-wrap{
+  height:122px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.logo{
+  text-align:center;
+  line-height:1.15;
+}
+.logo-mark{
+  display:none;
+}
+.logo-title{
+  color:var(--accent);
+  font-size:18px;
+  font-weight:800;
+  letter-spacing:.01em;
+}
+.logo-subtitle{
+  display:none;
+}
+.sidebar-label{
+  padding:44px 24px 14px;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--muted-2);
+}
+.nav{padding:0 12px}
+.nav-item{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  text-decoration:none;
+  color:var(--muted);
+  padding:14px 16px;
+  margin-bottom:6px;
+  border-radius:15px;
+  border:1px solid transparent;
+  transition:.2s ease;
+}
+.nav-item:hover{
+  background:rgba(255,255,255,0.03);
+  color:#fff;
+}
+.nav-item.active{
+  color:var(--accent);
+  border-color:var(--border-strong);
+  background:linear-gradient(180deg, rgba(210,93,255,0.1) 0%, rgba(210,93,255,0.07) 100%);
+  box-shadow:0 0 22px rgba(210,93,255,0.08);
+}
+.nav-left{display:flex;align-items:center;gap:14px}
+.nav-icon{
+  width:18px;
+  font-size:15px;
+  text-align:center;
+  opacity:.95;
+}
+.nav-text{
+  font-size:15px;
+  font-weight:500;
+}
+.nav-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 10px var(--accent-glow);
+}
+.main{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  padding:18px 22px 12px 22px;
+}
+.topbar{
+  min-height:62px;
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:22px;
+  background:rgba(11,13,21,0.55);
+  display:flex;
+  align-items:center;
+  gap:18px;
+  padding:0 18px 0 24px;
+  box-shadow:inset 0 0 0 1px rgba(210,93,255,0.02);
+}
+.menu-btn{
+  background:transparent;
+  border:none;
+  color:#a89abc;
+  font-size:28px;
+  line-height:1;
+  cursor:pointer;
+}
+.divider{
+  width:1px;
+  height:28px;
+  background:rgba(255,255,255,0.08);
+}
+.topbar-spacer{flex:1}
+.login-btn{
+  padding:10px 16px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.05);
+  color:#fff;
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer;
+}
+.login-btn:hover{background:rgba(255,255,255,0.08)}
+.content{
+  flex:1;
+  padding:22px 8px 0 8px;
+}
+.error-title{
+  font-size:18px;
+  font-weight:700;
+  margin-bottom:6px;
+  color:#fff;
+}
+.error-subtitle{
+  font-size:18px;
+  font-weight:600;
+  color:#fff;
+}
+.footer{
+  border-top:1px solid rgba(255,255,255,0.06);
+  padding:22px 0 10px;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.footer-left-main{
+  font-size:15px;
+  color:#8e82a5;
+}
+.footer-left-main strong{color:#fff}
+.footer-left-sub{
+  margin-top:8px;
+  font-size:12px;
+  color:#635777;
+}
+.footer-right{
+  display:flex;
+  align-items:center;
+  gap:22px;
+  flex-wrap:wrap;
+  font-size:14px;
+  color:#9a8eb1;
+}
+.footer-right a{
+  color:inherit;
+  text-decoration:none;
+}
+.footer-right a:hover{color:#fff}
+.footer-divider{
+  width:1px;
+  height:20px;
+  background:rgba(255,255,255,0.08);
+}
+.status{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color:#b8abc9;
+}
+.status-dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:var(--success);
+  box-shadow:0 0 10px rgba(24,210,107,0.55);
+}
+@media (max-width: 900px){
+  .dashboard{flex-direction:column}
+  .sidebar{width:100%}
+  .main{padding:16px}
+  .footer{padding-bottom:20px}
+}
+</style>
 </head>
 <body>
-    <div class="modal-overlay" id="modalOverlay"></div>
-
-    <div class="sidebar">
-        <h2 class="sidebar-title">Foundation Blacksite</h2>
-        
-        <div class="sidebar-section">
-            <div class="sidebar-item" onclick="toggleModal('servers')">Servers</div>
-        
-        </div>
-
-        <div class="sidebar-section">
-            <div class="sidebar-section-title">Leaderboards</div>
-            <div class="sidebar-item" onclick="toggleModal('leaderboards')">Top PlayTime</div>
-        </div>
-
-        <div class="sidebar-section">
-            <div class="sidebar-section-title">Community</div>
-            <div class="sidebar-item" onclick="toggleModal('joinus')">Join Us</div>
-            <div class="sidebar-item" onclick="toggleModal('discord')">Discord</div>
-            <div class="sidebar-item" onclick="toggleModal('rules')">Rules</div>
-        </div>
-
-        <div class="sidebar-section">
-            <div class="sidebar-section-title">Moderate</div>
-            <div class="sidebar-item" onclick="toggleModal('warns')">Warns</div>
-            <div class="sidebar-item" onclick="toggleModal('bans')">Bans</div>
-        </div>
+<div class="dashboard">
+  <aside class="sidebar">
+    <div class="logo-wrap">
+      <div class="logo">
+        <div class="logo-mark">FB</div>
+        <div class="logo-title">Foundation Blacksite</div>
+        <div class="logo-subtitle">The Foundation</div>
+      </div>
     </div>
 
-    <div class="main-content"></div>
+    <div class="sidebar-label">The Foundation</div>
 
-    <div class="modal" id="serversModal">
-        <h3 class="modal-title">Servers</h3>
-        <div class="modal-item">Server 1 US EAST</div>
-    </div>
+    <nav class="nav">
+      <a class="nav-item active" href="#">
+        <span class="nav-left">
+          <span class="nav-icon">⌂</span>
+          <span class="nav-text">Dashboard</span>
+        </span>
+        <span class="nav-dot"></span>
+      </a>
 
-    <div class="modal" id="leaderboardsModal">
-        <h3 class="modal-title">Top PlayTime</h3>
-        <div class="modal-item">Player Houses</div>
-    </div>
+      <a class="nav-item" href="#">
+        <span class="nav-left">
+          <span class="nav-icon">🛡</span>
+          <span class="nav-text">Staff List</span>
+        </span>
+      </a>
 
-    <div class="modal" id="joinusModal">
-        <h3 class="modal-title">Join Us</h3>
-        <div class="modal-item">Click Application to join</div>
-    </div>
+      <a class="nav-item" href="#">
+        <span class="nav-left">
+          <span class="nav-icon">▦</span>
+          <span class="nav-text">Server Status</span>
+        </span>
+      </a>
 
-    <div class="modal" id="discordModal">
-        <h3 class="modal-title">Discord</h3>
-        <div class="modal-item">https://discord.gg/4N69Repj2p</div>
-    </div>
+      <a class="nav-item" href="#">
+        <span class="nav-left">
+          <span class="nav-icon">$</span>
+          <span class="nav-text">Patrons</span>
+        </span>
+      </a>
 
-    <div class="modal" id="rulesModal">
-    <h3 class="modal-title">Rules</h3>
-    <div class="modal-item">1. No cheat / Exploiting (these will be PERMANENT bans and are unappealable)</div>
-    <div class="modal-item">2. No Racism / Discrimination (any Homophobic, Racist, or Sexist slurs this also includes drawing on walls)</div>
-    <div class="modal-item">3. No Harassment / Toxicity (Joking around is ok)</div>
-    <div class="modal-item">4. No impersonating staff</div>
-    <div class="modal-item">5. Soundboards / Voice changers are allowed in global chats as long as they follow the rules</div>
-    <div class="modal-item">6. No Mic-spam / Ear Rape</div>
-    <div class="modal-item">7. No inappropriate talk of other players</div>
-    <div class="modal-item">8. No killing Cuffed D class / Scientist</div>
-    <div class="modal-item">9. Staff Hold the right to punish for Common Sense Rules</div>
-    <div class="modal-item">10. If talk of drama from other servers is brought up you WILL be muted for a 1 day to 1 week</div>
-    <div class="modal-item">11. These are the ingame rules</div>
+      <a class="nav-item" href="#">
+        <span class="nav-left">
+          <span class="nav-icon">▮</span>
+          <span class="nav-text">Leaderboard</span>
+        </span>
+      </a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="menu-btn">☰</button>
+      <div class="divider"></div>
+      <div class="topbar-spacer"></div>
+      <div class="divider"></div>
+      <button class="login-btn">Login</button>
+    </header>
+
+    <section class="content">
+      <div class="error-title">Something went wrong!</div>
+      <div class="error-subtitle">Try again</div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-left">
+        <div class="footer-left-main">© 2026 <strong>Foundation Blacksite.</strong></div>
+        <div class="footer-left-sub">All rights reserved. Not affiliated with SCP:SL.</div>
+      </div>
+
+      <div class="footer-right">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Support</a>
+        <span class="footer-divider"></span>
+        <span class="status">
+          <span class="status-dot"></span>
+          System Normal
+        </span>
+      </div>
+    </footer>
+  </main>
 </div>
-
-    <div class="modal" id="warnsModal">
-        <h3 class="modal-title">Warns</h3>
-        <div class="modal-item">No active warns</div>
-    </div>
-
-    <div class="modal" id="bansModal">
-        <h3 class="modal-title">Bans</h3>
-        <div class="modal-item">No active bans</div>
-    </div>
-
-    <script>
-        function toggleModal(type) {
-            const overlay = document.getElementById('modalOverlay');
-            const modals = document.querySelectorAll('.modal');
-            
-            modals.forEach(m => m.classList.remove('active'));
-            
-            const modalId = type + 'Modal';
-            document.getElementById(modalId).classList.add('active');
-            overlay.classList.add('active');
-        }
-
-        document.getElementById('modalOverlay').addEventListener('click', function() {
-            document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
-            this.classList.remove('active');
-        });
-    </script>
 </body>
 </html>
