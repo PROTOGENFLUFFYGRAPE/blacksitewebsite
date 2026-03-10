@@ -1,5 +1,5 @@
 {
-  "applicationTitle": "In-Game Staff Application",
+  "applicationTitle": "Website Application",
   "description": "Please fill out all fields honestly and completely.",
   "fields": [
     {
@@ -42,13 +42,7 @@
       "label": "Availability",
       "type": "select",
       "required": true,
-      "options": ["Weekdays", "Weekends", "Both", "Occasionally"]
-    },
-    {
-      "id": "tos_agreement",
-      "label": "I agree that all information provided is truthful.",
-      "type": "checkbox",
-      "required": true
+      "options": ["Weekdays", "Weekends", "Both"]
     }
   ],
   "submitButton": {
