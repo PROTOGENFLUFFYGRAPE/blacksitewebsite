@@ -1,5 +1,5 @@
 {
-  "applicationTitle": "Website Application",
+  "applicationTitle": "Staff Application",
   "description": "Please fill out all fields honestly and completely.",
   "fields": [
     {
@@ -8,7 +8,7 @@
       "type": "select",
       "required": true,
       "options": ["dmod", "in game staff"]
-    }
+    },
     {
       "id": "discord_name",
       "label": "What is your Discord name?",
