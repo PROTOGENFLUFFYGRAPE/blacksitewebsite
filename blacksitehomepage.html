@@ -91,23 +91,24 @@
             }
         }
 
-        .modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(26, 10, 46, 0.95);
-            border: 2px solid rgba(167, 51, 255, 0.5);
-            border-radius: 15px;
-            padding: 40px;
-            max-width: 600px;
-            width: 90%;
-            z-index: 100;
-            backdrop-filter: blur(10px);
-            animation: slideUp 0.3s ease;
-        }
-
+       .modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(26, 10, 46, 0.95);
+    border: 2px solid rgba(167, 51, 255, 0.5);
+    border-radius: 15px;
+    padding: 40px;
+    max-width: 1000px;
+    width: 80%;
+    height: 70%;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    animation: slideUp 0.3s ease;
+    overflow-y: auto;
+}
         .modal.active {
             display: block;
         }
