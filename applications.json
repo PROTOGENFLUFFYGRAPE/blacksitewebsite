@@ -1,5 +1,5 @@
 {
-  "applicationTitle": "Website Application",
+  "applicationTitle": "staff Application",
   "description": "Please fill out all fields honestly and completely.",
   "fields": [
     {
@@ -7,7 +7,7 @@
       "label": "postion",
       "type": "select",
       "required": true,
-      "options": ["dmod", "in game staff"]
+      "options": ["discord mod", "in game staff"]
     },
     {
       "id": "discord_name",
@@ -32,7 +32,7 @@
     },
     {
       "id": "experience",
-      "label": "Do you have any prior staff experience in SCP SL? (if not put N/A)",
+      "label": "Do you have any prior staff experience in SCP SL or discord?(if not put N/A)",
       "type": "textarea",
       "required": true,
       "placeholder": "Describe your experience"
