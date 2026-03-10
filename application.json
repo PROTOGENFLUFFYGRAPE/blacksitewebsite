@@ -42,9 +42,7 @@
       "label": "Availability",
       "type": "select",
       "required": true,
-      "style": {
-        "backgroundColor": "#a733ff",
-        "textColor": "#ffffff"
+  
       },
       "options": [
         "Weekdays",
