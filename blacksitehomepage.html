@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foundation2</title>
+    <title>Foundation Blacksite</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
     <style>
         * {
@@ -65,6 +65,85 @@
             background-size: 50px 50px, 50px 50px, 100% 100%;
         }
 
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(26, 10, 46, 0.95);
+            border: 2px solid rgba(167, 51, 255, 0.5);
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            animation: slideUp 0.3s ease;
+        }
+
+        .modal.active {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -45%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #a733ff 0%, #ff5af0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .modal-item {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(167, 51, 255, 0.2);
+        }
+
+        .modal-item:last-child {
+            border-bottom: none;
+        }
+
         .sidebar {
             position: relative;
             z-index: 10;
@@ -76,45 +155,6 @@
             backdrop-filter: blur(10px);
         }
 
-        .modle{
-           display: none;
-           position: fixed;
-           top: 50%;
-           left: 50%;
-           transform: translate(-50%, -50%);
-           background: rgb(57, 17, 105);
-           border: 1px solid rgba(167, 51, 255, 0.3);
-           border-radius: 15px;
-           padding: 40px;
-           max-width: 500px;
-           width: 90%;
-           z-index: 100;
-           backdrop-filter: blur(10px);
-        }
-        .modal.active{
-            display: block;
-        }
-
-        .modal-title{
-            font-size: 1.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #a733ff 0%, #ff5af0 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin: 20px;
-            text-align: center;
-        }
-        .modal-item{
-            color: rgba(255, 255, 255, 0.03);
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(51, 197, 255, 0.03);
-            cursor: pointer;
-            transition: all 0.4 s ease;
-        }
-        .modal-item:hover{
-            color: #a733ff;
-        }
         .sidebar-title {
             font-size: 1.5rem;
             font-weight: 800;
@@ -244,7 +284,25 @@
             }
         }
 
-        
+        .enter-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 50px;
+            background: linear-gradient(135deg, #a733ff 0%, #ff5af0 100%);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 50px;
+            border: none;
+        }
+
+        .enter-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(167, 51, 255, 0.4);
+        }
 
         @media (max-width: 768px) {
             body {
@@ -274,53 +332,86 @@
             .welcome-text {
                 font-size: 2.5rem;
             }
+
+            .modal {
+                max-width: 90%;
+            }
         }
-        
     </style>
 </head>
 <body>
+    <div class="modal-overlay" id="modalOverlay"></div>
+
     <div class="sidebar">
         <h2 class="sidebar-title">Foundation Blacksite</h2>
         
         <div class="sidebar-section">
-            <div class="sidebar-item" onclick="toggleModal()">Servers</div>
-            <div class="sidebar-item">● Online</div>
-            <div class="sidebar-item">Players: 0/25</div>
-            
+            <div class="sidebar-section-title">Server Status</div>
+            <div class="sidebar-item" onclick="openModal('servers')">Testing</div>
         </div>
 
         <div class="sidebar-section">
             <div class="sidebar-section-title">Leaderboards</div>
-            <div class="sidebar-item"> Top PlayTime</div>
+            <div class="sidebar-item" onclick="openModal('leaderboards')">Top PlayTime</div>
         </div>
 
         <div class="sidebar-section">
             <div class="sidebar-section-title">Community</div>
-            <div class="sidebar-item"> Join Us</div>
-            <div class="sidebar-item"> Discord</div>
-            <div class="sidebar-item"> Rules</div>
+            <div class="sidebar-item" onclick="openModal('joinus')">Join Us</div>
         </div>
     </div>
 
-    <div class="sidebar-section">
-        <di class="sidebar-section-title">Moddrate</div>
-            <div class="sidebar-item"> warns</div>
-            <div class="sidebar-item"> bans</div>
-
-   
-            
+    <div class="main-content">
+        <div class="content-container">
+            <h1 class="welcome-text">Foundation</h1>
+            <div class="accent-line"></div>
+            <p class="subtitle">Blacksite</p>
+            <a href="index.html" class="enter-button">Enter</a>
         </div>
     </div>
-    <div class="modal" id="serverModal">
-        <h3 class="modal-title">Servers</h3>
-        <div class="modal-item">Server 1 -US EAST</div>
+
+    <!-- MODALS -->
+    <div class="modal" id="serversModal">
+        <h3 class="modal-title">Testing Server</h3>
+        <div class="modal-item">Player Houses</div>
+        <div class="modal-item">Status: Online</div>
     </div>
+
+    <div class="modal" id="leaderboardsModal">
+        <h3 class="modal-title">Top PlayTime</h3>
+        <div class="modal-item">Player Houses</div>
+    </div>
+
+    <div class="modal" id="joinusModal">
+        <h3 class="modal-title">Join Us</h3>
+        <div class="modal-item">Click Application to join</div>
+    </div>
+
     <script>
-        function toggleModal(){
-            document.getElementById('serverModal').classList.toggle('active');
+        function openModal(modalType) {
+            const overlay = document.getElementById('modalOverlay');
+            const modals = document.querySelectorAll('.modal');
+            
+            modals.forEach(modal => modal.classList.remove('active'));
+            
+            const modalId = modalType + 'Modal';
+            const modal = document.getElementById(modalId);
+            
+            if (modal) {
+                modal.classList.add('active');
+                overlay.classList.add('active');
+            }
         }
-        </script>
 
+        function closeModal() {
+            const overlay = document.getElementById('modalOverlay');
+            const modals = document.querySelectorAll('.modal');
+            
+            modals.forEach(modal => modal.classList.remove('active'));
+            overlay.classList.remove('active');
+        }
+
+        document.getElementById('modalOverlay').addEventListener('click', closeModal);
+    </script>
 </body>
 </html>
-
