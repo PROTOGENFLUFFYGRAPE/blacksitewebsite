@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function loadForm() {
-  fetch('application.json')
+  fetch('applications.json')
     .then(response => response.json())
     .then(data => {
       const titleEl = document.getElementById('formTitle');
