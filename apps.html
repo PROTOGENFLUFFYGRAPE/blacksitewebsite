@@ -132,13 +132,19 @@
             box-shadow: 0 0 15px rgba(167, 51, 255, 0.2);
         }
 
+        select {
+            cursor: pointer;
+        }
+
+        option {
+            background: #1a0a2e;
+            color: white;
+            padding: 10px;
+        }
+
         textarea {
             resize: vertical;
             min-height: 120px;
-        }
-
-        select {
-            cursor: pointer;
         }
 
         .checkbox-wrapper {
@@ -351,7 +357,7 @@ function handleSubmit(e) {
     }]
   };
 
-  fetch('nowebhookforuLOL', {
+  fetch('XDNOWEBHOOKFORU', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(discordMessage)
@@ -370,7 +376,6 @@ function handleSubmit(e) {
   })
   .catch(error => console.error('Error sending to Discord:', error));
 }
-
     </script>
 </body>
 </html>
