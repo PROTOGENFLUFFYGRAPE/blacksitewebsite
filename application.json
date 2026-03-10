@@ -7,7 +7,7 @@
       "label": "postion",
       "type": "select",
       "required": true,
-      "options": ["dmod", "in game staff"]
+      "options": ["discord mod", "in game staff"]
     },
     {
       "id": "discord_name",
