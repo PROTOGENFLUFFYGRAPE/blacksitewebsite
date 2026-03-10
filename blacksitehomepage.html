@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Foundation Blacksite</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -18,229 +18,75 @@
   --muted:#a89abc;
   --muted-2:#7a6f8f;
   --accent:#e855ff;
-  --accent-soft:rgba(232,85,255,0.15);
   --accent-glow:rgba(232,85,255,0.4);
   --success:#00ff88;
 }
-body{
-  font-family:'Inter',sans-serif;
-  color:var(--text);
-  min-height:100vh;
-  background:
-    linear-gradient(rgba(232,85,255,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(232,85,255,0.04) 1px, transparent 1px),
-    radial-gradient(circle at 20% 50%, rgba(100,20,150,0.25), transparent 45%),
-    radial-gradient(circle at 80% 80%, rgba(50,20,100,0.2), transparent 50%),
-    linear-gradient(135deg,var(--bg-1) 0%,var(--bg-2) 100%);
-  background-size:50px 50px,50px 50px,100% 100%,100% 100%,100% 100%;
-}
+body{font-family:'Inter',sans-serif;color:var(--text);min-height:100vh;background:linear-gradient(rgba(232,85,255,0.04) 1px, transparent 1px),linear-gradient(90deg, rgba(232,85,255,0.04) 1px, transparent 1px),radial-gradient(circle at 20% 50%, rgba(100,20,150,0.25), transparent 45%),radial-gradient(circle at 80% 80%, rgba(50,20,100,0.2), transparent 50%),linear-gradient(135deg,var(--bg-1) 0%,var(--bg-2) 100%);background-size:50px 50px,50px 50px,100% 100%,100% 100%,100% 100%;}
 .dashboard{display:flex;min-height:100vh}
-.sidebar{
-  width:260px;
-  background:linear-gradient(180deg,var(--sidebar) 0%,var(--sidebar-2) 100%);
-  border-right:1px solid var(--border);
-  display:flex;
-  flex-direction:column;
-  padding-bottom:20px;
-}
-.logo-wrap{
-  height:130px;
-  border-bottom:1px solid var(--border);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
-.logo{
-  text-align:center;
-  line-height:1.2;
-}
-.logo-title{
-  color:var(--accent);
-  font-size:20px;
-  font-weight:800;
-  letter-spacing:.02em;
-  margin-bottom:4px;
-}
-.logo-subtitle{
-  font-size:12px;
-  color:var(--muted-2);
-  font-weight:500;
-}
-.sidebar-label{
-  padding:32px 24px 14px;
-  font-size:11px;
-  font-weight:700;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  color:var(--muted-2);
-}
+.sidebar{width:260px;background:linear-gradient(180deg,var(--sidebar) 0%,var(--sidebar-2) 100%);border-right:1px solid var(--border);display:flex;flex-direction:column;padding-bottom:20px;}
+.logo-wrap{height:130px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:center;padding:20px;}
+.logo{text-align:center;line-height:1.2;}
+.logo-title{color:var(--accent);font-size:20px;font-weight:800;letter-spacing:.02em;margin-bottom:4px;}
+.logo-subtitle{font-size:12px;color:var(--muted-2);font-weight:500;}
+.sidebar-label{padding:32px 24px 14px;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-2);}
 .nav{padding:0 12px;flex:1}
-.nav-item{
-  width:100%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  text-decoration:none;
-  color:var(--muted);
-  padding:14px 16px;
-  margin-bottom:8px;
-  border-radius:14px;
-  border:1px solid transparent;
-  transition:.2s ease;
-  cursor:pointer;
-}
-.nav-item:hover{
-  background:rgba(232,85,255,0.08);
-  color:var(--text);
-  border-color:var(--border);
-}
-.nav-item.active{
-  color:var(--accent);
-  border-color:var(--border-strong);
-  background:linear-gradient(135deg, rgba(232,85,255,0.12) 0%, rgba(232,85,255,0.08) 100%);
-  box-shadow:0 0 20px rgba(232,85,255,0.1);
-}
+.nav-item{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;text-decoration:none;color:var(--muted);padding:14px 16px;margin-bottom:8px;border-radius:14px;border:1px solid transparent;transition:.2s ease;cursor:pointer;}
+.nav-item:hover{background:rgba(232,85,255,0.08);color:var(--text);border-color:var(--border);}
+.nav-item.active{color:var(--accent);border-color:var(--border-strong);background:linear-gradient(135deg, rgba(232,85,255,0.12) 0%, rgba(232,85,255,0.08) 100%);box-shadow:0 0 20px rgba(232,85,255,0.1);}
 .nav-left{display:flex;align-items:center;gap:12px}
-.nav-icon{
-  width:20px;
-  font-size:16px;
-  text-align:center;
-}
-.nav-text{
-  font-size:14px;
-  font-weight:500;
-}
-.nav-dot{
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:var(--accent);
-  box-shadow:0 0 12px var(--accent-glow);
-}
-.main{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  padding:16px 20px 12px 20px;
-}
-.topbar{
-  min-height:68px;
-  border:1px solid rgba(232,85,255,0.1);
-  border-radius:16px;
-  background:linear-gradient(135deg, rgba(20,10,40,0.6) 0%, rgba(15,10,35,0.5) 100%);
-  display:flex;
-  align-items:center;
-  gap:16px;
-  padding:0 20px;
-  box-shadow:0 4px 20px rgba(0,0,0,0.3);
-  backdrop-filter:blur(8px);
-}
-.menu-btn{
-  background:transparent;
-  border:none;
-  color:var(--muted);
-  font-size:24px;
-  line-height:1;
-  cursor:pointer;
-  transition:.2s ease;
-}
+.nav-text{font-size:14px;font-weight:500;}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent-glow);}
+.main{flex:1;display:flex;flex-direction:column;padding:16px 20px 12px 20px;}
+.topbar{min-height:68px;border:1px solid rgba(232,85,255,0.1);border-radius:16px;background:linear-gradient(135deg, rgba(20,10,40,0.6) 0%, rgba(15,10,35,0.5) 100%);display:flex;align-items:center;gap:16px;padding:0 20px;box-shadow:0 4px 20px rgba(0,0,0,0.3);backdrop-filter:blur(8px);}
+.menu-btn{background:transparent;border:none;color:var(--muted);font-size:24px;line-height:1;cursor:pointer;transition:.2s ease;}
 .menu-btn:hover{color:var(--accent)}
-.divider{
-  width:1px;
-  height:32px;
-  background:rgba(232,85,255,0.1);
-}
+.divider{width:1px;height:32px;background:rgba(232,85,255,0.1);}
 .topbar-spacer{flex:1}
-.login-btn{
-  padding:12px 24px;
-  border-radius:12px;
-  border:1px solid var(--border);
-  background:linear-gradient(135deg, rgba(232,85,255,0.15) 0%, rgba(232,85,255,0.08) 100%);
-  color:var(--accent);
-  font-size:14px;
-  font-weight:700;
-  cursor:pointer;
-  transition:.2s ease;
-}
-.login-btn:hover{
-  background:linear-gradient(135deg, rgba(232,85,255,0.25) 0%, rgba(232,85,255,0.15) 100%);
-  border-color:var(--border-strong);
-}
-.content{
-  flex:1;
-  padding:28px 12px 0 12px;
-}
-.error-title{
-  font-size:32px;
-  font-weight:800;
-  margin-bottom:12px;
-  background:linear-gradient(135deg, var(--accent) 0%, #ff88ff 100%);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
-}
-.error-subtitle{
-  font-size:16px;
-  font-weight:500;
-  color:var(--muted);
-}
-.footer{
-  border-top:1px solid rgba(232,85,255,0.1);
-  padding:24px 0 12px;
-  display:flex;
-  align-items:flex-end;
-  justify-content:space-between;
-  gap:20px;
-  flex-wrap:wrap;
-  font-size:13px;
-}
-.footer-left-main{
-  color:var(--muted);
-}
-.footer-left-main strong{color:var(--accent)}
-.footer-left-sub{
-  margin-top:6px;
-  font-size:12px;
-  color:var(--muted-2);
-}
-.footer-right{
-  display:flex;
-  align-items:center;
-  gap:20px;
-  flex-wrap:wrap;
-  color:var(--muted);
-}
-.footer-right a{
-  color:inherit;
-  text-decoration:none;
-  transition:.2s ease;
-}
+.login-btn{padding:12px 24px;border-radius:12px;border:1px solid var(--border);background:linear-gradient(135deg, rgba(232,85,255,0.15) 0%, rgba(232,85,255,0.08) 100%);color:var(--accent);font-size:14px;font-weight:700;cursor:pointer;transition:.2s ease;}
+.login-btn:hover{background:linear-gradient(135deg, rgba(232,85,255,0.25) 0%, rgba(232,85,255,0.15) 100%);border-color:var(--border-strong);}
+.content{flex:1;padding:28px 12px 20px 12px;overflow-y:auto;}
+.footer{border-top:1px solid rgba(232,85,255,0.1);padding:24px 0 12px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:13px;}
+.footer-left-sub{margin-top:6px;font-size:12px;color:var(--muted-2);}
+.footer-right{display:flex;align-items:center;gap:20px;flex-wrap:wrap;color:var(--muted);}
+.footer-right a{color:inherit;text-decoration:none;transition:.2s ease;}
 .footer-right a:hover{color:var(--accent)}
-.footer-divider{
-  width:1px;
-  height:18px;
-  background:rgba(232,85,255,0.1);
-}
-.status{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-}
-.status-dot{
-  width:10px;
-  height:10px;
-  border-radius:50%;
-  background:var(--success);
-  box-shadow:0 0 10px rgba(0,255,136,0.6);
-}
-@media (max-width: 900px){
-  .dashboard{flex-direction:column}
-  .sidebar{width:100%;padding-bottom:0}
-  .main{padding:14px}
-  .footer{padding-bottom:16px}
-}
+.footer-divider{width:1px;height:18px;background:rgba(232,85,255,0.1);}
+.status{display:inline-flex;align-items:center;gap:8px;}
+.status-dot{width:10px;height:10px;border-radius:50%;background:var(--success);box-shadow:0 0 10px rgba(0,255,136,0.6);}
+.page{display:none}
+.page.active{display:block}
+.page-title{font-size:28px;font-weight:800;color:var(--accent);margin-bottom:30px;}
+.staff-table{width:100%;color:rgba(255,255,255,0.8);}
+.staff-table tr{border-bottom:1px solid rgba(232,85,255,0.1);}
+.staff-table th{text-align:left;padding:16px 0;color:var(--accent);font-weight:600;border-bottom:1px solid rgba(232,85,255,0.3);}
+.staff-table td{padding:16px 0;}
+.role-badge{padding:6px 14px;border-radius:6px;font-size:0.85rem;font-weight:600;}
+.role-badge.owner{background:rgba(255,215,0,0.2);color:#ffd700;}
+.role-badge.admin{background:rgba(134,8,236,0.2);color:#8608ec;}
+.role-badge.o5{background:rgba(76,175,80,0.2);color:#4caf50;}
+.role-badge.council{background:rgba(76,175,80,0.2);color:#4caf50;}
+.role-badge.siteDirector{background:rgba(100,200,255,0.2);color:#64c8ff;}
+.role-badge.headMod{background:rgba(255,165,0,0.2);color:#ffa500;}
+.role-badge.discordMod{background:rgba(184,8,75,0.2);color:#ff1744;}
+.role-badge.trailDiscordMod{background:rgba(156,39,176,0.2);color:#9c27b0;}
+.role-badge.tacticalCommander{background:rgba(255,87,34,0.2);color:#ff5722;}
+.role-badge.commandOfficer{background:rgba(63,81,181,0.2);color:#3f51b5;}
+.role-badge.foundationAgent{background:rgba(0,188,212,0.2);color:#00bcd4;}
+.role-badge.fieldTrainee{background:rgba(158,158,158,0.2);color:#9e9e9e;}
+.server-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px;}
+.server-card{background:rgba(232,85,255,0.05);border:1px solid rgba(232,85,255,0.2);border-radius:12px;padding:24px;}
+.server-card-name{font-weight:600;font-size:1.1rem;margin-bottom:16px;}
+.server-card-info{display:flex;justify-content:space-between;align-items:center;}
+.status-online{color:#00ff88;font-weight:600;}
+.status-offline{color:#ff6b6b;font-weight:600;}
+.player-count{color:rgba(255,255,255,0.6);}
+.leaderboard-list{margin-top:20px;}
+.leaderboard-row{display:flex;align-items:center;gap:20px;padding:20px 0;border-bottom:1px solid rgba(232,85,255,0.1);}
+.leaderboard-rank{font-weight:700;color:var(--accent);font-size:1.2rem;min-width:40px;}
+.leaderboard-name{flex:1;color:rgba(255,255,255,0.8);}
+.rules-list{margin-top:20px;}
+.rule-item{padding:20px 0;border-bottom:1px solid rgba(232,85,255,0.1);color:rgba(255,255,255,0.8);line-height:1.6;}
+@media (max-width:900px){.dashboard{flex-direction:column}.sidebar{width:100%;padding-bottom:0}.main{padding:14px}.server-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -252,44 +98,23 @@ body{
         <div class="logo-subtitle">Blacksite Access Portal</div>
       </div>
     </div>
-
     <div class="sidebar-label">Navigation</div>
-
     <nav class="nav">
-      <a class="nav-item active" href="#">
-        <span class="nav-left">
-          
-          <span class="nav-text">Dashboard</span>
-        </span>
+      <a class="nav-item active" onclick="showPage('dashboard', this); return false;" href="#">
+        <span class="nav-left"><span class="nav-text">Dashboard</span></span>
         <span class="nav-dot"></span>
       </a>
-
-      <a class="nav-item" href="#">
-        <span class="nav-left">
-          
-          <span class="nav-text">Staff List</span>
-        </span>
+      <a class="nav-item" onclick="showPage('staff', this); return false;" href="#">
+        <span class="nav-left"><span class="nav-text">Staff List</span></span>
       </a>
-
-      <a class="nav-item" href="#">
-        <span class="nav-left">
-          
-          <span class="nav-text">Server Status</span>
-        </span>
+      <a class="nav-item" onclick="showPage('status', this); return false;" href="#">
+        <span class="nav-left"><span class="nav-text">Server Status</span></span>
       </a>
-
-      <a class="nav-item" href="#">
-        <span class="nav-left">
-          
-          <span class="nav-text">Leaderboard</span>
-        </span>
+      <a class="nav-item" onclick="showPage('leaderboard', this); return false;" href="#">
+        <span class="nav-left"><span class="nav-text">Leaderboard</span></span>
       </a>
-
-      <a class="nav-item" href="#">
-        <span class="nav-left">
-          
-          <span class="nav-text">Rules</span>
-        </span>
+      <a class="nav-item" onclick="showPage('rules', this); return false;" href="#">
+        <span class="nav-left"><span class="nav-text">Rules</span></span>
       </a>
     </nav>
   </aside>
@@ -300,20 +125,138 @@ body{
       <div class="divider"></div>
       <div class="topbar-spacer"></div>
       <div class="divider"></div>
-      <button class="login-btn" onclick="window.location.href='applications.html'">Apply Now</button>
+      <button class="login-btn" onclick="window.location.href='apps.html'">Apply Now</button>
     </header>
 
     <section class="content">
-      <div class="error-title">Welcome Back</div>
-      <div class="error-subtitle">Foundation Blacksite Access Portal</div>
+      <div class="page active" id="dashboardPage">
+        <h1 class="page-title">Welcome Back</h1>
+        <p style="color:var(--muted)">Foundation Blacksite Access Portal</p>
+      </div>
+
+      <div class="page" id="staffPage">
+        <h1 class="page-title">Staff List</h1>
+        <table class="staff-table">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Therod</td>
+              <td><span class="role-badge owner">Owner</span></td>
+            </tr>
+            <tr>
+              <td>PumpkinProto</td>
+              <td><span class="role-badge admin">System Administrator</span></td>
+            </tr>
+            <tr>
+              <td>Penwon</td>
+              <td><span class="role-badge o5">O5 Council</span></td>
+            </tr>
+            <tr>
+              <td>DaxCJ</td>
+              <td><span class="role-badge siteDirector">Site Director</span></td>
+            </tr>
+            <tr>
+              <td>K605</td>
+              <td><span class="role-badge headMod">Head Discord Moderator</span></td>
+            </tr>
+            <tr>
+              <td>Staff Member</td>
+              <td><span class="role-badge council">Ethics Committee</span></td>
+            </tr>
+            <tr>
+              <td>Staff Member</td>
+              <td><span class="role-badge discordMod">Discord Moderator</span></td>
+            </tr>
+            <tr>
+              <td>Staff Member</td>
+              <td><span class="role-badge trailDiscordMod">Trail Discord Moderator</span></td>
+            </tr>
+            <tr>
+              <td>Staff Member</td>
+              <td><span class="role-badge tacticalCommander">Tactical Commander</span></td>
+            </tr>
+            <tr>
+              <td>Staff Member</td>
+              <td><span class="role-badge commandOfficer">Command Officer</span></td>
+            </tr>
+            <tr>
+              <td>Staff Member</td>
+              <td><span class="role-badge foundationAgent">Foundation Agent</span></td>
+            </tr>
+            <tr>
+              <td>Staff Member</td>
+              <td><span class="role-badge fieldTrainee">Field Trainee</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="page" id="statusPage">
+        <h1 class="page-title">Server Status</h1>
+        <div class="server-grid">
+          <div class="server-card">
+            <div class="server-card-name">FOUNDATION BLACKSITE #US EAST 1</div>
+            <div class="server-card-info">
+              <span class="status-online">● ONLINE</span>
+              <span class="player-count">0/25</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page" id="leaderboardPage">
+        <h1 class="page-title">Leaderboard</h1>
+        <div class="leaderboard-list">
+          <div class="leaderboard-row">
+            <div class="leaderboard-rank">1</div>
+            <div class="leaderboard-name">wewewe</div>
+          </div>
+          <div class="leaderboard-row">
+            <div class="leaderboard-rank">2</div>
+            <div class="leaderboard-name">wewew</div>
+          </div>
+          <div class="leaderboard-row">
+            <div class="leaderboard-rank">3</div>
+            <div class="leaderboard-name">waee</div>
+          </div>
+          <div class="leaderboard-row">
+            <div class="leaderboard-rank">4</div>
+            <div class="leaderboard-name">weae</div>
+          </div>
+          <div class="leaderboard-row">
+            <div class="leaderboard-rank">5</div>
+            <div class="leaderboard-name">TEST</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page" id="rulesPage">
+        <h1 class="page-title">Rules</h1>
+        <div class="rules-list">
+          <div class="rule-item">1. No cheat / Exploiting (PERMANENT bans, unappealable)</div>
+          <div class="rule-item">2. No Racism / Discrimination (Homophobic, Racist, Sexist slurs + walls)</div>
+          <div class="rule-item">3. No Harassment / Toxicity (Joking around is ok)</div>
+          <div class="rule-item">4. No impersonating staff</div>
+          <div class="rule-item">5. Soundboards / Voice changers allowed if they follow rules</div>
+          <div class="rule-item">6. No Mic-spam / Ear Rape</div>
+          <div class="rule-item">7. No inappropriate talk of other players</div>
+          <div class="rule-item">8. No killing Cuffed D class / Scientist</div>
+          <div class="rule-item">9. Staff hold right to punish for Common Sense Rules</div>
+          <div class="rule-item">10. Drama from other servers = muted 1 day to 1 week</div>
+          <div class="rule-item">11. These are the ingame rules</div>
+        </div>
+      </div>
     </section>
 
     <footer class="footer">
       <div class="footer-left">
-        
         <div class="footer-left-sub">Secure Access Portal - Not affiliated with SCP:SL</div>
       </div>
-
       <div class="footer-right">
         <a href="#">Privacy</a>
         <a href="#">Terms</a>
@@ -326,6 +269,17 @@ body{
       </div>
     </footer>
   </main>
-</div>
+</div><script>
+function showPage(pageName, element) {
+  const pages = document.querySelectorAll('.page');
+  const navItems = document.querySelectorAll('.nav-item');
+  
+  pages.forEach(page => page.classList.remove('active'));
+  navItems.forEach(item => item.classList.remove('active'));
+  
+  document.getElementById(pageName + 'Page').classList.add('active');
+  element.classList.add('active');
+}
+</script>
 </body>
 </html>
