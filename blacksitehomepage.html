@@ -8,41 +8,43 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg-1:#120222;
-  --bg-2:#19032b;
-  --sidebar:#11031d;
-  --sidebar-2:#130420;
-  --border:rgba(210,93,255,0.14);
-  --border-strong:rgba(210,93,255,0.28);
-  --text:#f7f1ff;
-  --muted:#9e91b8;
-  --muted-2:#6f628d;
-  --accent:#d25dff;
-  --accent-soft:rgba(210,93,255,0.12);
-  --accent-glow:rgba(210,93,255,0.3);
-  --success:#18d26b;
+  --bg-1:#0a0a14;
+  --bg-2:#0f0f1a;
+  --sidebar:#0d0d17;
+  --sidebar-2:#12121f;
+  --border:rgba(210,93,255,0.2);
+  --border-strong:rgba(210,93,255,0.35);
+  --text:#ffffff;
+  --muted:#a89abc;
+  --muted-2:#7a6f8f;
+  --accent:#e855ff;
+  --accent-soft:rgba(232,85,255,0.15);
+  --accent-glow:rgba(232,85,255,0.4);
+  --success:#00ff88;
 }
 body{
   font-family:'Inter',sans-serif;
   color:var(--text);
   min-height:100vh;
   background:
-    linear-gradient(rgba(210,93,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(210,93,255,0.03) 1px, transparent 1px),
-    radial-gradient(circle at center, rgba(75,18,110,0.28), transparent 52%),
-    linear-gradient(90deg,var(--bg-1) 0%,var(--bg-2) 50%,var(--bg-1) 100%);
-  background-size:48px 48px,48px 48px,100% 100%,100% 100%;
+    linear-gradient(rgba(232,85,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(232,85,255,0.04) 1px, transparent 1px),
+    radial-gradient(circle at 20% 50%, rgba(100,20,150,0.25), transparent 45%),
+    radial-gradient(circle at 80% 80%, rgba(50,20,100,0.2), transparent 50%),
+    linear-gradient(135deg,var(--bg-1) 0%,var(--bg-2) 100%);
+  background-size:50px 50px,50px 50px,100% 100%,100% 100%,100% 100%;
 }
 .dashboard{display:flex;min-height:100vh}
 .sidebar{
-  width:245px;
+  width:260px;
   background:linear-gradient(180deg,var(--sidebar) 0%,var(--sidebar-2) 100%);
   border-right:1px solid var(--border);
   display:flex;
   flex-direction:column;
+  padding-bottom:20px;
 }
 .logo-wrap{
-  height:122px;
+  height:130px;
   border-bottom:1px solid var(--border);
   display:flex;
   align-items:center;
@@ -51,183 +53,193 @@ body{
 }
 .logo{
   text-align:center;
-  line-height:1.15;
-}
-.logo-mark{
-  display:none;
+  line-height:1.2;
 }
 .logo-title{
   color:var(--accent);
-  font-size:18px;
+  font-size:20px;
   font-weight:800;
-  letter-spacing:.01em;
+  letter-spacing:.02em;
+  margin-bottom:4px;
 }
 .logo-subtitle{
-  display:none;
+  font-size:12px;
+  color:var(--muted-2);
+  font-weight:500;
 }
 .sidebar-label{
-  padding:44px 24px 14px;
+  padding:32px 24px 14px;
   font-size:11px;
   font-weight:700;
   letter-spacing:.18em;
   text-transform:uppercase;
   color:var(--muted-2);
 }
-.nav{padding:0 12px}
+.nav{padding:0 12px;flex:1}
 .nav-item{
   width:100%;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:10px;
+  gap:12px;
   text-decoration:none;
   color:var(--muted);
   padding:14px 16px;
-  margin-bottom:6px;
-  border-radius:15px;
+  margin-bottom:8px;
+  border-radius:14px;
   border:1px solid transparent;
   transition:.2s ease;
+  cursor:pointer;
 }
 .nav-item:hover{
-  background:rgba(255,255,255,0.03);
-  color:#fff;
+  background:rgba(232,85,255,0.08);
+  color:var(--text);
+  border-color:var(--border);
 }
 .nav-item.active{
   color:var(--accent);
   border-color:var(--border-strong);
-  background:linear-gradient(180deg, rgba(210,93,255,0.1) 0%, rgba(210,93,255,0.07) 100%);
-  box-shadow:0 0 22px rgba(210,93,255,0.08);
+  background:linear-gradient(135deg, rgba(232,85,255,0.12) 0%, rgba(232,85,255,0.08) 100%);
+  box-shadow:0 0 20px rgba(232,85,255,0.1);
 }
-.nav-left{display:flex;align-items:center;gap:14px}
+.nav-left{display:flex;align-items:center;gap:12px}
 .nav-icon{
-  width:18px;
-  font-size:15px;
+  width:20px;
+  font-size:16px;
   text-align:center;
-  opacity:.95;
 }
 .nav-text{
-  font-size:15px;
+  font-size:14px;
   font-weight:500;
 }
 .nav-dot{
-  width:7px;
-  height:7px;
+  width:8px;
+  height:8px;
   border-radius:50%;
   background:var(--accent);
-  box-shadow:0 0 10px var(--accent-glow);
+  box-shadow:0 0 12px var(--accent-glow);
 }
 .main{
   flex:1;
   display:flex;
   flex-direction:column;
-  padding:18px 22px 12px 22px;
+  padding:16px 20px 12px 20px;
 }
 .topbar{
-  min-height:62px;
-  border:1px solid rgba(255,255,255,0.07);
-  border-radius:22px;
-  background:rgba(11,13,21,0.55);
+  min-height:68px;
+  border:1px solid rgba(232,85,255,0.1);
+  border-radius:16px;
+  background:linear-gradient(135deg, rgba(20,10,40,0.6) 0%, rgba(15,10,35,0.5) 100%);
   display:flex;
   align-items:center;
-  gap:18px;
-  padding:0 18px 0 24px;
-  box-shadow:inset 0 0 0 1px rgba(210,93,255,0.02);
+  gap:16px;
+  padding:0 20px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.3);
+  backdrop-filter:blur(8px);
 }
 .menu-btn{
   background:transparent;
   border:none;
-  color:#a89abc;
-  font-size:28px;
+  color:var(--muted);
+  font-size:24px;
   line-height:1;
   cursor:pointer;
+  transition:.2s ease;
 }
+.menu-btn:hover{color:var(--accent)}
 .divider{
   width:1px;
-  height:28px;
-  background:rgba(255,255,255,0.08);
+  height:32px;
+  background:rgba(232,85,255,0.1);
 }
 .topbar-spacer{flex:1}
 .login-btn{
-  padding:10px 16px;
-  border-radius:14px;
-  border:1px solid rgba(255,255,255,0.1);
-  background:rgba(255,255,255,0.05);
-  color:#fff;
-  font-size:15px;
+  padding:12px 24px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:linear-gradient(135deg, rgba(232,85,255,0.15) 0%, rgba(232,85,255,0.08) 100%);
+  color:var(--accent);
+  font-size:14px;
   font-weight:700;
   cursor:pointer;
+  transition:.2s ease;
 }
-.login-btn:hover{background:rgba(255,255,255,0.08)}
+.login-btn:hover{
+  background:linear-gradient(135deg, rgba(232,85,255,0.25) 0%, rgba(232,85,255,0.15) 100%);
+  border-color:var(--border-strong);
+}
 .content{
   flex:1;
-  padding:22px 8px 0 8px;
+  padding:28px 12px 0 12px;
 }
 .error-title{
-  font-size:18px;
-  font-weight:700;
-  margin-bottom:6px;
-  color:#fff;
+  font-size:32px;
+  font-weight:800;
+  margin-bottom:12px;
+  background:linear-gradient(135deg, var(--accent) 0%, #ff88ff 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
 }
 .error-subtitle{
-  font-size:18px;
-  font-weight:600;
-  color:#fff;
+  font-size:16px;
+  font-weight:500;
+  color:var(--muted);
 }
 .footer{
-  border-top:1px solid rgba(255,255,255,0.06);
-  padding:22px 0 10px;
+  border-top:1px solid rgba(232,85,255,0.1);
+  padding:24px 0 12px;
   display:flex;
   align-items:flex-end;
   justify-content:space-between;
   gap:20px;
   flex-wrap:wrap;
+  font-size:13px;
 }
 .footer-left-main{
-  font-size:15px;
-  color:#8e82a5;
+  color:var(--muted);
 }
-.footer-left-main strong{color:#fff}
+.footer-left-main strong{color:var(--accent)}
 .footer-left-sub{
-  margin-top:8px;
+  margin-top:6px;
   font-size:12px;
-  color:#635777;
+  color:var(--muted-2);
 }
 .footer-right{
   display:flex;
   align-items:center;
-  gap:22px;
+  gap:20px;
   flex-wrap:wrap;
-  font-size:14px;
-  color:#9a8eb1;
+  color:var(--muted);
 }
 .footer-right a{
   color:inherit;
   text-decoration:none;
+  transition:.2s ease;
 }
-.footer-right a:hover{color:#fff}
+.footer-right a:hover{color:var(--accent)}
 .footer-divider{
   width:1px;
-  height:20px;
-  background:rgba(255,255,255,0.08);
+  height:18px;
+  background:rgba(232,85,255,0.1);
 }
 .status{
   display:inline-flex;
   align-items:center;
   gap:8px;
-  color:#b8abc9;
 }
 .status-dot{
   width:10px;
   height:10px;
   border-radius:50%;
   background:var(--success);
-  box-shadow:0 0 10px rgba(24,210,107,0.55);
+  box-shadow:0 0 10px rgba(0,255,136,0.6);
 }
 @media (max-width: 900px){
   .dashboard{flex-direction:column}
-  .sidebar{width:100%}
-  .main{padding:16px}
-  .footer{padding-bottom:20px}
+  .sidebar{width:100%;padding-bottom:0}
+  .main{padding:14px}
+  .footer{padding-bottom:16px}
 }
 </style>
 </head>
@@ -236,13 +248,12 @@ body{
   <aside class="sidebar">
     <div class="logo-wrap">
       <div class="logo">
-        <div class="logo-mark">FB</div>
-        <div class="logo-title">Foundation Blacksite</div>
-        <div class="logo-subtitle">The Foundation</div>
+        <div class="logo-title">Foundation</div>
+        <div class="logo-subtitle">Blacksite Access Portal</div>
       </div>
     </div>
 
-    <div class="sidebar-label">The Foundation</div>
+    <div class="sidebar-label">Navigation</div>
 
     <nav class="nav">
       <a class="nav-item active" href="#">
@@ -255,29 +266,29 @@ body{
 
       <a class="nav-item" href="#">
         <span class="nav-left">
-          <span class="nav-icon">🛡</span>
+          <span class="nav-icon">👥</span>
           <span class="nav-text">Staff List</span>
         </span>
       </a>
 
       <a class="nav-item" href="#">
         <span class="nav-left">
-          <span class="nav-icon">▦</span>
+          <span class="nav-icon">📊</span>
           <span class="nav-text">Server Status</span>
         </span>
       </a>
 
       <a class="nav-item" href="#">
         <span class="nav-left">
-          <span class="nav-icon">$</span>
-          <span class="nav-text">Patrons</span>
+          <span class="nav-icon">⭐</span>
+          <span class="nav-text">Leaderboard</span>
         </span>
       </a>
 
       <a class="nav-item" href="#">
         <span class="nav-left">
-          <span class="nav-icon">▮</span>
-          <span class="nav-text">Leaderboard</span>
+          <span class="nav-icon">📋</span>
+          <span class="nav-text">Rules</span>
         </span>
       </a>
     </nav>
@@ -289,28 +300,28 @@ body{
       <div class="divider"></div>
       <div class="topbar-spacer"></div>
       <div class="divider"></div>
-      <button class="login-btn">Login</button>
+      <button class="login-btn">Apply Now</button>
     </header>
 
     <section class="content">
-      <div class="error-title">Something went wrong!</div>
-      <div class="error-subtitle">Try again</div>
+      <div class="error-title">Welcome Back</div>
+      <div class="error-subtitle">Foundation Blacksite Access Portal</div>
     </section>
 
     <footer class="footer">
       <div class="footer-left">
-        <div class="footer-left-main">© 2026 <strong>Foundation Blacksite.</strong></div>
-        <div class="footer-left-sub">All rights reserved. Not affiliated with SCP:SL.</div>
+        <div class="footer-left-main">© 2026 <strong>Foundation Blacksite</strong></div>
+        <div class="footer-left-sub">Secure Access Portal - Not affiliated with SCP:SL</div>
       </div>
 
       <div class="footer-right">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
         <a href="#">Support</a>
         <span class="footer-divider"></span>
         <span class="status">
           <span class="status-dot"></span>
-          System Normal
+          All Systems Online
         </span>
       </div>
     </footer>
