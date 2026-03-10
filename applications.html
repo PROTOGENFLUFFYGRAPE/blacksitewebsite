@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Application</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,16 +15,15 @@
         body {
             background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0f0f1e 100%);
             min-height: 100vh;
-            display: block;
             font-family: 'Poppins', sans-serif;
-            overflow: auto;
+            overflow-y: auto;
             position: relative;
-            padding: 20px;
+            padding: 40px 20px;
         }
 
         body::before {
             content: '';
-            position: absolute;
+            position: fixed;
             width: 600px;
             height: 600px;
             background: radial-gradient(circle, rgba(167, 51, 255, 0.15) 0%, transparent 70%);
@@ -32,11 +31,12 @@
             top: -200px;
             left: -200px;
             animation: float1 8s ease-in-out infinite;
+            z-index: 0;
         }
 
         body::after {
             content: '';
-            position: absolute;
+            position: fixed;
             width: 500px;
             height: 500px;
             background: radial-gradient(circle, rgba(167, 51, 255, 0.1) 0%, transparent 70%);
@@ -44,6 +44,7 @@
             bottom: -150px;
             right: -150px;
             animation: float2 10s ease-in-out infinite;
+            z-index: 0;
         }
 
         @keyframes float1 {
@@ -56,59 +57,49 @@
             50% { transform: translate(-50px, 50px); }
         }
 
-        body {
-            background-image: 
-                linear-gradient(rgba(167, 51, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(167, 51, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0f0f1e 100%);
-            background-size: 50px 50px, 50px 50px, 100% 100%;
-        }
-
-        .form-container {
+        .container {
             position: relative;
             z-index: 10;
-            background: rgba(26, 10, 46, 0.8);
+            background: rgba(26, 10, 46, 0.85);
             border: 1px solid rgba(167, 51, 255, 0.3);
             border-radius: 15px;
-            padding: 40px;
-            max-width: 600px;
-            width: 100%;
+            padding: 50px;
+            max-width: 700px;
+            margin: 0 auto;
             backdrop-filter: blur(10px);
-            margin: 50px auto;
         }
 
-        .form-title {
-            font-size: 2rem;
+        h1 {
+            font-size: 2.5rem;
             font-weight: 800;
             background: linear-gradient(135deg, #a733ff 0%, #ff5af0 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             text-align: center;
         }
 
-        .form-description {
+        .subtitle {
             color: rgba(255, 255, 255, 0.6);
             text-align: center;
-            margin-bottom: 30px;
-            font-size: 0.95rem;
+            margin-bottom: 35px;
+            font-size: 1rem;
         }
 
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         label {
             display: block;
             color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 8px;
-            font-weight: 500;
+            margin-bottom: 10px;
+            font-weight: 600;
             font-size: 0.95rem;
         }
 
-        .required::after {
-            content: ' *';
+        .required {
             color: #ff5af0;
         }
 
@@ -117,24 +108,22 @@
         textarea,
         select {
             width: 100%;
-            padding: 12px 15px;
+            padding: 14px 16px;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(167, 51, 255, 0.3);
-            border-radius: 8px;
+            border-radius: 10px;
             color: white;
             font-family: 'Poppins', sans-serif;
             font-size: 0.95rem;
             transition: all 0.3s ease;
         }
 
-        input[type="text"]::placeholder,
-        input[type="number"]::placeholder,
+        input::placeholder,
         textarea::placeholder {
             color: rgba(255, 255, 255, 0.4);
         }
 
-        input[type="text"]:focus,
-        input[type="number"]:focus,
+        input:focus,
         textarea:focus,
         select:focus {
             outline: none;
@@ -145,66 +134,73 @@
 
         textarea {
             resize: vertical;
-            min-height: 100px;
+            min-height: 120px;
         }
 
         select {
             cursor: pointer;
         }
 
-        .checkbox-group {
+        .checkbox-wrapper {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            padding: 12px 0;
         }
 
         input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             cursor: pointer;
             accent-color: #a733ff;
         }
 
-        .checkbox-group label {
+        .checkbox-wrapper label {
             margin-bottom: 0;
             cursor: pointer;
         }
 
-        .submit-button {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #a733ff 0%, #ff5af0 100%);
-            color: white;
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 40px;
+        }
+
+        button,
+        .back-link {
+            flex: 1;
+            padding: 16px;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
             font-weight: 600;
             font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 20px;
+        }
+
+        .submit-button {
+            background: linear-gradient(135deg, #a733ff 0%, #ff5af0 100%);
+            color: white;
         }
 
         .submit-button:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
             box-shadow: 0 10px 30px rgba(167, 51, 255, 0.4);
         }
 
-        .back-button {
-            background: rgba(167, 51, 255, 0.3);
+        .back-link {
+            background: rgba(167, 51, 255, 0.2);
             color: white;
-            border: 1px solid rgba(167, 51, 255, 0.5);
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 15px;
-            width: 100%;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(167, 51, 255, 0.4);
         }
 
-        .back-button:hover {
-            background: rgba(167, 51, 255, 0.5);
+        .back-link:hover {
+            background: rgba(167, 51, 255, 0.3);
         }
 
         .success-message {
@@ -214,8 +210,8 @@
             right: 20px;
             background: #a733ff;
             color: white;
-            padding: 15px 25px;
-            border-radius: 8px;
+            padding: 16px 24px;
+            border-radius: 10px;
             z-index: 1000;
             animation: slideIn 0.3s ease;
         }
@@ -232,156 +228,112 @@
         }
 
         @media (max-width: 600px) {
-            .form-container {
-                padding: 25px;
+            .container {
+                padding: 30px;
             }
 
-            .form-title {
-                font-size: 1.5rem;
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .button-group {
+                flex-direction: column;
             }
         }
     </style>
 </head>
 <body>
-    <div class="form-container">
-        <h1 class="form-title" id="formTitle"></h1>
-        <p class="form-description" id="formDescription"></p>
+    <div class="container">
+        <h1 id="formTitle">Application</h1>
+        <p class="subtitle" id="formDescription">Fill out the form below</p>
+        
         <form id="applicationForm"></form>
-        <a href="index.html" class="back-button">Back to Welcome</a>
+
+        <div class="button-group">
+            <button type="submit" form="applicationForm" class="submit-button">Submit Application</button>
+            <a href="index.html" class="back-link">Back to Home</a>
+        </div>
     </div>
 
     <div class="success-message" id="successMessage">Application submitted successfully!</div>
 
     <script>
-        async function loadApplicationForm() {
-            try {
-                const response = await fetch('application.json');
-                const data = await response.json();
+        document.addEventListener('DOMContentLoaded', function() {
+            loadForm();
+        });
 
-                document.getElementById('formTitle').textContent = data.applicationTitle;
-                document.getElementById('formDescription').textContent = data.description;
+        function loadForm() {
+            fetch('application.json')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('formTitle').textContent = data.applicationTitle;
+                    document.getElementById('formDescription').textContent = data.description;
 
-                const form = document.getElementById('applicationForm');
+                    const form = document.getElementById('applicationForm');
+                    form.innerHTML = '';
 
-                data.fields.forEach(field => {
-                    const formGroup = document.createElement('div');
-                    formGroup.className = 'form-group';
+                    data.fields.forEach(field => {
+                        const group = document.createElement('div');
+                        group.className = 'form-group';
 
-                    if (field.type === 'checkbox') {
-                        const checkboxGroup = document.createElement('div');
-                        checkboxGroup.className = 'checkbox-group';
-
-                        const checkbox = document.createElement('input');
-                        checkbox.type = 'checkbox';
-                        checkbox.id = field.id;
-                        checkbox.name = field.id;
-                        checkbox.required = field.required;
-
-                        const label = document.createElement('label');
-                        label.htmlFor = field.id;
-                        label.textContent = field.label;
-                        if (field.required) {
-                            label.className = 'required';
+                        if (field.type === 'checkbox') {
+                            group.innerHTML = `
+                                <div class="checkbox-wrapper">
+                                    <input type="checkbox" id="${field.id}" name="${field.id}" ${field.required ? 'required' : ''}>
+                                    <label for="${field.id}">${field.label}${field.required ? '<span class="required">*</span>' : ''}</label>
+                                </div>
+                            `;
+                        } else if (field.type === 'textarea') {
+                            group.innerHTML = `
+                                <label for="${field.id}">${field.label}${field.required ? '<span class="required">*</span>' : ''}</label>
+                                <textarea id="${field.id}" name="${field.id}" placeholder="${field.placeholder}" ${field.required ? 'required' : ''}></textarea>
+                            `;
+                        } else if (field.type === 'select') {
+                            let options = '<option value="">Select an option</option>';
+                            field.options.forEach(option => {
+                                options += `<option value="${option}">${option}</option>`;
+                            });
+                            group.innerHTML = `
+                                <label for="${field.id}">${field.label}${field.required ? '<span class="required">*</span>' : ''}</label>
+                                <select id="${field.id}" name="${field.id}" ${field.required ? 'required' : ''}>
+                                    ${options}
+                                </select>
+                            `;
+                        } else {
+                            group.innerHTML = `
+                                <label for="${field.id}">${field.label}${field.required ? '<span class="required">*</span>' : ''}</label>
+                                <input type="${field.type}" id="${field.id}" name="${field.id}" placeholder="${field.placeholder}" ${field.required ? 'required' : ''}>
+                            `;
                         }
 
-                        checkboxGroup.appendChild(checkbox);
-                        checkboxGroup.appendChild(label);
-                        formGroup.appendChild(checkboxGroup);
-                    } else if (field.type === 'textarea') {
-                        const label = document.createElement('label');
-                        label.htmlFor = field.id;
-                        label.textContent = field.label;
-                        if (field.required) {
-                            label.className = 'required';
-                        }
+                        form.appendChild(group);
+                    });
 
-                        const textarea = document.createElement('textarea');
-                        textarea.id = field.id;
-                        textarea.name = field.id;
-                        textarea.placeholder = field.placeholder;
-                        textarea.required = field.required;
-
-                        formGroup.appendChild(label);
-                        formGroup.appendChild(textarea);
-                    } else if (field.type === 'select') {
-                        const label = document.createElement('label');
-                        label.htmlFor = field.id;
-                        label.textContent = field.label;
-                        if (field.required) {
-                            label.className = 'required';
-                        }
-
-                        const select = document.createElement('select');
-                        select.id = field.id;
-                        select.name = field.id;
-                        select.required = field.required;
-
-                        const defaultOption = document.createElement('option');
-                        defaultOption.value = '';
-                        defaultOption.textContent = 'Select an option';
-                        select.appendChild(defaultOption);
-
-                        field.options.forEach(option => {
-                            const optionElement = document.createElement('option');
-                            optionElement.value = option;
-                            optionElement.textContent = option;
-                            select.appendChild(optionElement);
-                        });
-
-                        formGroup.appendChild(label);
-                        formGroup.appendChild(select);
-                    } else {
-                        const label = document.createElement('label');
-                        label.htmlFor = field.id;
-                        label.textContent = field.label;
-                        if (field.required) {
-                            label.className = 'required';
-                        }
-
-                        const input = document.createElement('input');
-                        input.type = field.type;
-                        input.id = field.id;
-                        input.name = field.id;
-                        input.placeholder = field.placeholder;
-                        input.required = field.required;
-
-                        formGroup.appendChild(label);
-                        formGroup.appendChild(input);
-                    }
-
-                    form.appendChild(formGroup);
+                    form.addEventListener('submit', handleSubmit);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('formDescription').textContent = 'Error loading form. Check console.';
                 });
-
-                const submitButton = document.createElement('button');
-                submitButton.type = 'submit';
-                submitButton.className = 'submit-button';
-                submitButton.textContent = data.submitButton.text;
-                form.appendChild(submitButton);
-
-                form.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    
-                    const formData = new FormData(form);
-                    const formValues = Object.fromEntries(formData);
-                    
-                    console.log('Form submitted:', formValues);
-                    
-                    const successMsg = document.getElementById('successMessage');
-                    successMsg.style.display = 'block';
-                    
-                    setTimeout(() => {
-                        successMsg.style.display = 'none';
-                    }, 3000);
-
-                    form.reset();
-                });
-
-            } catch (error) {
-                console.error('Error loading form:', error);
-            }
         }
 
-        loadApplicationForm();
+        function handleSubmit(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(document.getElementById('applicationForm'));
+            const data = Object.fromEntries(formData);
+            
+            console.log('Form submitted:', data);
+            
+            const msg = document.getElementById('successMessage');
+            msg.style.display = 'block';
+            
+            setTimeout(() => {
+                msg.style.display = 'none';
+            }, 3000);
+
+            document.getElementById('applicationForm').reset();
+        }
     </script>
 </body>
 </html>
