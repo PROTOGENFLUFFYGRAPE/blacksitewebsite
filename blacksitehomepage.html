@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Site</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0f0f1e 100%);
+            min-height: 100vh;
+            display: flex;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(167, 51, 255, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -200px;
+            left: -200px;
+            animation: float1 8s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(167, 51, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: -150px;
+            right: -150px;
+            animation: float2 10s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(50px, -50px); }
+        }
+
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-50px, 50px); }
+        }
+
+        body {
+            background-image: 
+                linear-gradient(rgba(167, 51, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(167, 51, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0f0f1e 100%);
+            background-size: 50px 50px, 50px 50px, 100% 100%;
+        }
+
+        .sidebar {
+            position: relative;
+            z-index: 10;
+            width: 300px;
+            background: rgba(26, 10, 46, 0.8);
+            border-right: 1px solid rgba(167, 51, 255, 0.3);
+            padding: 30px 20px;
+            overflow-y: auto;
+            backdrop-filter: blur(10px);
+        }
+
+        .sidebar-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #a733ff 0%, #ff5af0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .sidebar-section {
+            margin-bottom: 30px;
+        }
+
+        .sidebar-section-title {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(167, 51, 255, 0.2);
+        }
+
+        .sidebar-item {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 10px 0;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 2px solid transparent;
+            padding-left: 10px;
+        }
+
+        .sidebar-item:hover {
+            color: #a733ff;
+            border-left-color: #a733ff;
+        }
+
+        .main-content {
+            position: relative;
+            z-index: 10;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .content-container {
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .welcome-text {
+            font-size: 5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #a733ff 0%, #ff5af0 50%, #a733ff 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
+            letter-spacing: -2px;
+            animation: slideInText 1s ease-out, gradientShift 6s ease-in-out infinite;
+            line-height: 1;
+            margin-bottom: 30px;
+        }
+
+        @keyframes slideInText {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .accent-line {
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #a733ff, transparent);
+            margin: 30px auto;
+            animation: expandLine 0.8s ease-out 0.3s both;
+            border-radius: 2px;
+        }
+
+        @keyframes expandLine {
+            from {
+                width: 0;
+                opacity: 0;
+            }
+            to {
+                width: 150px;
+                opacity: 1;
+            }
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 400;
+            font-family: 'Space Mono', monospace;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: fadeInUp 0.8s ease-out 0.5s both;
+            margin-bottom: 30px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .enter-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 50px;
+            background: linear-gradient(135deg, #a733ff 0%, #ff5af0 100%);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 50px;
+            border: none;
+        }
+
+        .enter-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(167, 51, 255, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid rgba(167, 51, 255, 0.3);
+                max-height: 200px;
+                overflow-x: auto;
+                display: flex;
+                gap: 30px;
+                padding: 20px;
+            }
+
+            .sidebar-section {
+                margin-bottom: 0;
+                white-space: nowrap;
+            }
+
+            .main-content {
+                min-height: 100vh;
+            }
+
+            .welcome-text {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2 class="sidebar-title">Black Site</h2>
+        
+        <div class="sidebar-section">
+            <div class="sidebar-section-title">Server Status</div>
+            <div class="sidebar-item">● Online</div>
+            <div class="sidebar-item">Players: 42/100</div>
+            <div class="sidebar-item">Ping: 45ms</div>
+        </div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-section-title">Leaderboards</div>
+            <div class="sidebar-item">🥇 Top Players</div>
+            <div class="sidebar-item">🎯 Best Scores</div>
+            <div class="sidebar-item">⭐ Achievements</div>
+        </div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-section-title">Community</div>
+            <div class="sidebar-item">📢 Join Us</div>
+            <div class="sidebar-item">💬 Discord</div>
+            <div class="sidebar-item">📝 Rules</div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="content-container">
+            <h1 class="welcome-text">Black Site</h1>
+            <div class="accent-line"></div>
+            <p class="subtitle">Welcome Agent</p>
+            <a href="index.html" class="enter-button">Enter</a>
+        </div>
+    </div>
+</body>
+</html>
