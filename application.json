@@ -42,12 +42,7 @@
       "label": "Availability",
       "type": "select",
       "required": true,
-      "options": [
-        "Weekdays",
-        "Weekends",
-        "Both",
-        "Occasionally"
-      ]
+      "options": ["Weekdays", "Weekends", "Both", "Occasionally"]
     },
     {
       "id": "tos_agreement",
