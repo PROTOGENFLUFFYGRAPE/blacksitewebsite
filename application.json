@@ -42,15 +42,13 @@
       "label": "Availability",
       "type": "select",
       "required": true,
-  
-      },
       "options": [
         "Weekdays",
         "Weekends",
         "Both",
         "Occasionally"
       ]
-   
+    },
     {
       "id": "tos_agreement",
       "label": "I agree that all information provided is truthful.",
