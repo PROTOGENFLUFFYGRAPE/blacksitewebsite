@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foundation1</title>
+    <title>Foundation2</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
     <style>
         * {
@@ -105,7 +105,16 @@
             margin: 20px;
             text-align: center;
         }
-
+        .modal-item{
+            color: rgba(255, 255, 255, 0.03);
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(51, 197, 255, 0.03);
+            cursor: pointer;
+            transition: all 0.4 s ease;
+        }
+        .modal-item:hover{
+            color: #a733ff;
+        }
         .sidebar-title {
             font-size: 1.5rem;
             font-weight: 800;
@@ -274,7 +283,7 @@
         <h2 class="sidebar-title">Foundation Blacksite</h2>
         
         <div class="sidebar-section">
-            <div class="sidebar-section-title">Server Status</div>
+            <div class="sidebar-item" onclick="toggleModal()">Servers</div>
             <div class="sidebar-item">● Online</div>
             <div class="sidebar-item">Players: 0/25</div>
             
