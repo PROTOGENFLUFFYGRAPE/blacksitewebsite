@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function loadForm() {
-  fetch('app.json')
+  fetch('applications.json')
     .then(response => response.json())
     .then(data => {
       const titleEl = document.getElementById('formTitle');
@@ -357,11 +357,11 @@ function handleSubmit(e) {
     }]
   };
 
-  fetch('XDNOWEBHOOKFORU', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(discordMessage)
-  })
+ fetch("https://uwu-bot-uwu.protogenca995.workers.dev", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ content: "your message here" })
+})
   .then(response => {
     if (response.ok) {
       const msg = document.getElementById('successMessage');
