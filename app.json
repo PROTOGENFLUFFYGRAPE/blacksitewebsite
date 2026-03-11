@@ -28,7 +28,7 @@
       "label": "What is your steam ID?",
       "type": "text",
       "required": true,
-      "placeholder": "Enter your steam id"
+      "placeholder": "Enter your steam ID"
     },
     {
       "id": "experience",
