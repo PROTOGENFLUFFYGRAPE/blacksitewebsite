@@ -1,6 +1,6 @@
 {
   "applicationTitle": "Staff Application",
-  "description": "Please fill out all fields honestly and completely if you don't use your real discord username or steam ID you will be auto rejected.",
+  "description": "All fields must be filled out accurately and honestly. Failure to provide your correct Discord username or Steam ID will result in automatic rejection.",
   "fields": [
     {
       "id": "Postion",
