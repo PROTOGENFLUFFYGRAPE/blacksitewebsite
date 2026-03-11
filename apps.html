@@ -360,7 +360,7 @@ function handleSubmit(e) {
 fetch("https://uwu-bot-uwu.protogenca995.workers.dev", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(discordMessage)  // ✅ uses the actual form data
+  body: JSON.stringify(discordMessage)  
 })
   .then(response => {
     if (response.ok) {
