@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function loadForm() {
-  fetch('app.json')
+  fetch('applications.json')
     .then(response => response.json())
     .then(data => {
       const titleEl = document.getElementById('formTitle');
@@ -343,13 +343,24 @@ function handleSubmit(e) {
     fields.push({
       name: key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' '),
       value: value || 'Not provided',
+      inline: false
     });
   }
 
-fetch("uwu-bot-uwu.protogenca995.workers.dev", {
+  const discordMessage = {
+    content: 'New Application Submitted!',
+    embeds: [{
+      title: 'New Application',
+      color: 14826816,
+      fields: fields,
+      timestamp: new Date().toISOString()
+    }]
+  };
+
+fetch("https://uwu-bot-uwu.protogenca995.workers.dev", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(fields)  
+  body: JSON.stringify(discordMessage)  
 })
   .then(response => {
     if (response.ok) {
