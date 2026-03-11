@@ -343,24 +343,13 @@ function handleSubmit(e) {
     fields.push({
       name: key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' '),
       value: value || 'Not provided',
-      inline: false
     });
   }
 
-  const discordMessage = {
-    content: 'New Application Submitted!',
-    embeds: [{
-      title: 'New Application',
-      color: 14826816,
-      fields: fields,
-      timestamp: new Date().toISOString()
-    }]
-  };
-
-fetch("https://uwu-bot-uwu.protogenca995.workers.dev", {
+fetch("uwu-bot-uwu.protogenca995.workers.dev", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(discordMessage)  
+  body: JSON.stringify(fields)  
 })
   .then(response => {
     if (response.ok) {
