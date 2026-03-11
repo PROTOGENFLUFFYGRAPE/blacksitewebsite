@@ -1,5 +1,5 @@
 {
-  "applicationTitle": "staff Application",
+  "applicationTitle": "Staff Application",
   "description": "Please fill out all fields honestly and completely.",
   "fields": [
     {
@@ -7,7 +7,7 @@
       "label": "postion",
       "type": "select",
       "required": true,
-      "options": ["discord mod", "in game staff"]
+      "options": ["Discord Mod", "In-game Staff"]
     },
     {
       "id": "discord_name",
