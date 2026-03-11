@@ -11,10 +11,10 @@
     },
     {
       "id": "discord_name",
-      "label": "What is your Discord name?",
+      "label": "What is your Discord username?",
       "type": "text",
       "required": true,
-      "placeholder": "Enter your Discord name"
+      "placeholder": "Enter your Discord username"
     },
     {
       "id": "age",
