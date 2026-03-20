@@ -235,8 +235,9 @@ body{font-family:'Inter',sans-serif;color:var(--text);min-height:100vh;backgroun
             <div class="server-card-name">FOUNDATION BLACKSITE #US EAST 1</div>
             <div class="server-card-info">
               <span class="status-online">ONLINE</span>
-              <span class="player-count">0/25</span>
+              <span class="player-count">-/-</span>
             </div>
+            <div id="playerListContainer" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(232,85,255,0.1);"></div>
           </div>
         </div>
       </div>
@@ -433,36 +434,61 @@ let newsEditId = null;
 function fetchServerPlayers() {
   const workerUrl = 'https://icy-heart-3606.protogenca995.workers.dev/';
   
-  fetch(workerUrl)
-    .then(response => response.json())
-    .then(data => {
-      if (data.online === 1) {
-        const playerCount = data.players.length;
-        const maxPlayers = data.max_players;
-        document.querySelector('.player-count').textContent = `${playerCount}/${maxPlayers}`;
-        document.querySelector('.status-online').textContent = 'ONLINE';
-      } else {
-        document.querySelector('.status-online').textContent = 'OFFLINE';
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      document.querySelector('.status-online').textContent = 'OFFLINE';
-    });
-  
-  // Auto-refresh every 30 seconds
-  setInterval(() => {
+  function updatePlayers() {
     fetch(workerUrl)
       .then(response => response.json())
       .then(data => {
-        if (data.online === 1) {
-          const playerCount = data.players.length;
-          const maxPlayers = data.max_players;
-          document.querySelector('.player-count').textContent = `${playerCount}/${maxPlayers}`;
+        console.log('Full Server data:', JSON.stringify(data, null, 2));
+        if (data.Success && data.Servers && data.Servers.length > 0) {
+          const server = data.Servers[0];
+          let displayText = '';
+          
+          // Check if Players is a string like "5/24" or separate numbers
+          if (typeof server.Players === 'string') {
+            displayText = server.Players;
+          } else {
+            const playerCount = server.Players || 0;
+            const maxPlayers = server.MaxPlayers || 25;
+            displayText = `${playerCount}/${maxPlayers}`;
+          }
+          
+          document.querySelector('.player-count').textContent = displayText;
+          document.querySelector('.status-online').textContent = 'ONLINE';
+          
+          // Get player list - note: it's "PlayersList" not "PlayerList"
+          let playerList = server.PlayersList || [];
+          console.log('Player list:', playerList);
+          
+          const playerListHtml = playerList && playerList.length > 0 
+            ? playerList.map(p => {
+                const name = p.Nickname || p.nickname || p.Name || p.name || 'Unknown';
+                return `<div style="color: rgba(255,255,255,0.6); font-size: 13px; padding: 4px 0;">• ${name}</div>`;
+              }).join('')
+            : '<div style="color: rgba(255,255,255,0.6); font-size: 13px;">No players online</div>';
+          
+          const playerListContainer = document.getElementById('playerListContainer');
+          if (playerListContainer) {
+            playerListContainer.innerHTML = playerListHtml;
+          }
+        } else {
+          document.querySelector('.status-online').textContent = 'OFFLINE';
+          const playerListContainer = document.getElementById('playerListContainer');
+          if (playerListContainer) {
+            playerListContainer.innerHTML = '<div style="color: rgba(255,255,255,0.6); font-size: 13px;">Server is offline</div>';
+          }
         }
       })
-      .catch(() => {});
-  }, 30000);
+      .catch(error => {
+        console.error('Error:', error);
+        document.querySelector('.status-online').textContent = 'OFFLINE';
+      });
+  }
+  
+  // Update immediately
+  updatePlayers();
+  
+  // Auto-refresh every 30 seconds
+  setInterval(updatePlayers, 30000);
 }
 
 function getNews() {
@@ -656,20 +682,52 @@ function saveLog() {
     return;
   }
 
-  const logs = getLogs();
-  logs.unshift({
-    id: Date.now(),
-    type: currentLogType,
-    warnType: warnType,
-    user: user,
-    staff: staff,
-    reason: reason,
-    duration: duration,
-    notes: notes,
-    date: new Date(date).toISOString()
-  });
-
-  setLogs(logs);
+  // Send to FastAPI server
+  if (currentLogType === "warn") {
+    const warnData = {
+      userId: user,
+      guildId: "1405701060793860147",
+      reason: `${warnType}: ${reason}`,
+      moderatorId: staff
+    };
+    
+    fetch("http://localhost:3000/api/warns", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(warnData)
+    }).then(response => {
+      if (response.ok) {
+        console.log("Warn saved to server");
+      }
+    }).catch(err => console.error("Server error:", err));
+  }
+  
+  // Send to Discord webhook
+  if (currentLogType === "warn") {
+    const webhookUrl = "https://discord.com/api/webhooks/1484348034346258463/_LECQn8nIQ5Y5Musmj0Lsn4OZ3o4jLRXRSOPqTdlPh4NTa0aVCOQua4UMhlZs8lnMbiU";
+    
+    const discordMessage = {
+      embeds: [{
+        title: "Warning Logged",
+        color: 16776960,
+        fields: [
+          { name: "Player", value: user, inline: true },
+          { name: "Staff", value: staff, inline: true },
+          { name: "Type", value: warnType, inline: false },
+          { name: "Reason", value: reason, inline: false },
+          { name: "Notes", value: notes || "None", inline: false },
+          { name: "Date", value: date, inline: false }
+        ]
+      }]
+    };
+    
+    fetch(webhookUrl, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(discordMessage)
+    }).catch(err => console.error('Webhook error:', err));
+  }
+  
   closeModal();
   renderLogs();
 }
@@ -762,6 +820,14 @@ function getBanTimeLeft(log) {
   if (days > 0) return `${days}d ${hours}h left`;
   if (hours > 0) return `${hours}h ${minutes}m left`;
   return `${minutes}m left`;
+}
+
+function deleteWarn(warnId) {
+  fetch(`http://localhost:5000/api/warns/${warnId}`, {
+    method: "DELETE"
+  }).then(() => {
+    renderLogs();
+  }).catch(err => console.error("Delete error:", err));
 }
 
 function renderLogs() {
