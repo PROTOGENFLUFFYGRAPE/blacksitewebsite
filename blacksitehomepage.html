@@ -433,68 +433,83 @@ let newsEditId = null;
 
 let lastPlayerFetchTime = 0;
 const playerFetchInterval = 10000; // 10 seconds
+let cachedServerData = null;
 
 function fetchServerPlayers() {
   const workerUrl = 'https://icy-heart-3606.protogenca995.workers.dev/';
   
-  function updatePlayers() {
-    const now = Date.now();
-    
-    // Only fetch if enough time has passed
-    if (now - lastPlayerFetchTime < playerFetchInterval) {
-      console.log('Rate limited - wait before fetching again');
-      return;
+  function updatePlayers(data) {
+    if (data.Success && data.Servers && data.Servers.length > 0) {
+      const server = data.Servers[0];
+      let displayText = '';
+      
+      if (typeof server.Players === 'string') {
+        displayText = server.Players;
+      } else {
+        const playerCount = server.Players || 0;
+        const maxPlayers = server.MaxPlayers || 25;
+        displayText = `${playerCount}/${maxPlayers}`;
+      }
+      
+      document.querySelector('.player-count').textContent = displayText;
+      document.querySelector('.status-online').textContent = 'ONLINE';
+      
+      let playerList = server.PlayersList || [];
+      
+      const playerListHtml = playerList && playerList.length > 0 
+        ? playerList.map(p => {
+            const name = p.Nickname || p.nickname || p.Name || p.name || 'Unknown';
+            return `<div style="color: rgba(255,255,255,0.6); font-size: 13px; padding: 4px 0;">• ${name}</div>`;
+          }).join('')
+        : '<div style="color: rgba(255,255,255,0.6); font-size: 13px;">No players online</div>';
+      
+      const playerListContainer = document.getElementById('playerListContainer');
+      if (playerListContainer) {
+        playerListContainer.innerHTML = playerListHtml;
+      }
+    } else {
+      document.querySelector('.status-online').textContent = 'OFFLINE';
     }
-    
-    lastPlayerFetchTime = now;
-    
+  }
+  
+  function doFetch() {
     fetch(workerUrl)
       .then(response => response.json())
       .then(data => {
-        console.log('Server data:', data);
-        if (data.Success && data.Servers && data.Servers.length > 0) {
-          const server = data.Servers[0];
-          let displayText = '';
-          
-          if (typeof server.Players === 'string') {
-            displayText = server.Players;
-          } else {
-            const playerCount = server.Players || 0;
-            const maxPlayers = server.MaxPlayers || 25;
-            displayText = `${playerCount}/${maxPlayers}`;
-          }
-          
-          document.querySelector('.player-count').textContent = displayText;
-          document.querySelector('.status-online').textContent = 'ONLINE';
-          
-          let playerList = server.PlayersList || [];
-          
-          const playerListHtml = playerList && playerList.length > 0 
-            ? playerList.map(p => {
-                const name = p.Nickname || p.nickname || p.Name || p.name || 'Unknown';
-                return `<div style="color: rgba(255,255,255,0.6); font-size: 13px; padding: 4px 0;">• ${name}</div>`;
-              }).join('')
-            : '<div style="color: rgba(255,255,255,0.6); font-size: 13px;">No players online</div>';
-          
-          const playerListContainer = document.getElementById('playerListContainer');
-          if (playerListContainer) {
-            playerListContainer.innerHTML = playerListHtml;
-          }
-        } else {
-          document.querySelector('.status-online').textContent = 'OFFLINE';
-        }
+        console.log('Fetched fresh server data');
+        cachedServerData = data;
+        lastPlayerFetchTime = Date.now();
+        updatePlayers(data);
       })
       .catch(error => {
         console.error('Error:', error);
-        document.querySelector('.status-online').textContent = 'OFFLINE';
+        if (cachedServerData) {
+          console.log('Fetch failed, using cached data');
+          updatePlayers(cachedServerData);
+        } else {
+          document.querySelector('.status-online').textContent = 'OFFLINE';
+        }
       });
   }
   
-  // Update immediately on first load
-  updatePlayers();
+  const now = Date.now();
   
-  // Auto-refresh every 15 seconds (safe from rate limit)
-  setInterval(updatePlayers, playerFetchInterval);
+  // If less than 10 seconds have passed, use cached data
+  if (cachedServerData && (now - lastPlayerFetchTime < playerFetchInterval)) {
+    console.log('Using cached server data');
+    updatePlayers(cachedServerData);
+  } else {
+    // 10 seconds have passed or no cache, fetch fresh data
+    doFetch();
+  }
+  
+  // Auto-refresh every 10 seconds
+  setInterval(() => {
+    const now = Date.now();
+    if (now - lastPlayerFetchTime >= playerFetchInterval) {
+      doFetch();
+    }
+  }, playerFetchInterval);
 }
 
 function getNews() {
