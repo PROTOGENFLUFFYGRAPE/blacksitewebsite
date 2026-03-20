@@ -167,6 +167,9 @@ body{font-family:'Inter',sans-serif;color:var(--text);min-height:100vh;backgroun
       <a class="nav-item" onclick="showPage('rules', this); return false;" href="#">
         <span class="nav-left"><span class="nav-text">Rules</span></span>
       </a>
+      <a class="nav-item" onclick="showPage('staffArea', this); return false;" href="#">
+        <span class="nav-left"><span class="nav-text">Staff Area</span></span>
+      </a>
     </nav>
   </aside>
 
@@ -428,19 +431,31 @@ let banPage = 1;
 const itemsPerPage = 10;
 let newsEditId = null;
 
+let lastPlayerFetchTime = 0;
+const playerFetchInterval = 10000; // 10 seconds
+
 function fetchServerPlayers() {
   const workerUrl = 'https://icy-heart-3606.protogenca995.workers.dev/';
   
   function updatePlayers() {
+    const now = Date.now();
+    
+    // Only fetch if enough time has passed
+    if (now - lastPlayerFetchTime < playerFetchInterval) {
+      console.log('Rate limited - wait before fetching again');
+      return;
+    }
+    
+    lastPlayerFetchTime = now;
+    
     fetch(workerUrl)
       .then(response => response.json())
       .then(data => {
-        console.log('Full Server data:', JSON.stringify(data, null, 2));
+        console.log('Server data:', data);
         if (data.Success && data.Servers && data.Servers.length > 0) {
           const server = data.Servers[0];
           let displayText = '';
           
-          // Check if Players is a string like "5/24" or separate numbers
           if (typeof server.Players === 'string') {
             displayText = server.Players;
           } else {
@@ -452,9 +467,7 @@ function fetchServerPlayers() {
           document.querySelector('.player-count').textContent = displayText;
           document.querySelector('.status-online').textContent = 'ONLINE';
           
-          // Get player list - note: it's "PlayersList" not "PlayerList"
           let playerList = server.PlayersList || [];
-          console.log('Player list:', playerList);
           
           const playerListHtml = playerList && playerList.length > 0 
             ? playerList.map(p => {
@@ -469,10 +482,6 @@ function fetchServerPlayers() {
           }
         } else {
           document.querySelector('.status-online').textContent = 'OFFLINE';
-          const playerListContainer = document.getElementById('playerListContainer');
-          if (playerListContainer) {
-            playerListContainer.innerHTML = '<div style="color: rgba(255,255,255,0.6); font-size: 13px;">Server is offline</div>';
-          }
         }
       })
       .catch(error => {
@@ -481,11 +490,11 @@ function fetchServerPlayers() {
       });
   }
   
-  // Update immediately
+  // Update immediately on first load
   updatePlayers();
   
-  // Auto-refresh every 30 seconds
-  setInterval(updatePlayers, 30000);
+  // Auto-refresh every 15 seconds (safe from rate limit)
+  setInterval(updatePlayers, playerFetchInterval);
 }
 
 function getNews() {
@@ -628,7 +637,11 @@ function showPage(pageName, element) {
     renderAppeals();
   }
   if (pageName === 'status') {
-    fetchServerPlayers();
+    const now = Date.now();
+    // Allow fetch if 10 seconds have passed
+    if (now - lastPlayerFetchTime >= 10000) {
+      fetchServerPlayers();
+    }
   }
 }
 
@@ -688,20 +701,22 @@ function saveLog() {
       moderatorId: staff
     };
     
-    fetch("http://localhost:3000/api/warns", {
+    fetch("http://localhost:3000/api/warn", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(warnData)
     }).then(response => {
       if (response.ok) {
         console.log("Warn saved to server");
+      } else {
+        console.error("API error:", response.status);
       }
     }).catch(err => console.error("Server error:", err));
   }
   
   // Send to Discord webhook
   if (currentLogType === "warn") {
-    const webhookUrl = "lolU";
+    const webhookUrl = "https://discord.com/api/webhooks/1484348034346258463/_LECQn8nIQ5Y5Musmj0Lsn4OZ3o4jLRXRSOPqTdlPh4NTa0aVCOQua4UMhlZs8lnMbiU";
     
     const discordMessage = {
       embeds: [{
