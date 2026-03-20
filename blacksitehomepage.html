@@ -431,9 +431,38 @@ const itemsPerPage = 10;
 let newsEditId = null;
 
 function fetchServerPlayers() {
-  // Static data - you can update these manually
-  document.querySelector('.player-count').textContent = '0/25';
-  document.querySelector('.status-online').textContent = 'OFFLINE';
+  const workerUrl = 'https://icy-heart-3606.protogenca995.workers.dev/';
+  
+  fetch(workerUrl)
+    .then(response => response.json())
+    .then(data => {
+      if (data.online === 1) {
+        const playerCount = data.players.length;
+        const maxPlayers = data.max_players;
+        document.querySelector('.player-count').textContent = `${playerCount}/${maxPlayers}`;
+        document.querySelector('.status-online').textContent = 'ONLINE';
+      } else {
+        document.querySelector('.status-online').textContent = 'OFFLINE';
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      document.querySelector('.status-online').textContent = 'OFFLINE';
+    });
+  
+  // Auto-refresh every 30 seconds
+  setInterval(() => {
+    fetch(workerUrl)
+      .then(response => response.json())
+      .then(data => {
+        if (data.online === 1) {
+          const playerCount = data.players.length;
+          const maxPlayers = data.max_players;
+          document.querySelector('.player-count').textContent = `${playerCount}/${maxPlayers}`;
+        }
+      })
+      .catch(() => {});
+  }, 30000);
 }
 
 function getNews() {
