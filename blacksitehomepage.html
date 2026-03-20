@@ -431,22 +431,9 @@ const itemsPerPage = 10;
 let newsEditId = null;
 
 function fetchServerPlayers() {
-  const apiUrl = `https://api.scpslgame.com/serverinfo.php?ip=${API_CONFIG.ip}&key=${API_CONFIG.key}&lo=true&players=true&list=true&nicknames=true&online=true`;
-  
-  fetch(apiUrl)
-    .then(response => response.json())
-    .then(data => {
-      if (data.online === 1) {
-        const playerCount = data.players.length;
-        const maxPlayers = data.max_players;
-        document.querySelector('.player-count').textContent = `${playerCount}/${maxPlayers}`;
-        document.querySelector('.status-online').textContent = 'ONLINE';
-      }
-    })
-    .catch(error => {
-      console.error('Error fetching server data:', error);
-      document.querySelector('.status-online').textContent = 'OFFLINE';
-    });
+  // Static data - you can update these manually
+  document.querySelector('.player-count').textContent = '0/25';
+  document.querySelector('.status-online').textContent = 'OFFLINE';
 }
 
 function getNews() {
