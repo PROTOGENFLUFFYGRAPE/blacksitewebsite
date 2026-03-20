@@ -8,8 +8,8 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg-1:#0a0a14;
-  --bg-2:#0f0f1a;
+  --bg-1:#080209;
+  --bg-2:#080209;
   --sidebar:#0d0d17;
   --sidebar-2:#12121f;
   --border:rgba(210,93,255,0.2);
@@ -17,9 +17,12 @@
   --text:#ffffff;
   --muted:#a89abc;
   --muted-2:#7a6f8f;
-  --accent:#e855ff;
-  --accent-glow:rgba(232,85,255,0.4);
+  --accent:#FBB0EA;
+  --accent-glow:#FBB0EA;
   --success:#00ff88;
+  --danger:#ff4d6d;
+  --warning:#ffb84d;
+  --card-bg:rgba(243, 237, 237, 0.05);
 }
 body{font-family:'Inter',sans-serif;color:var(--text);min-height:100vh;background:linear-gradient(rgba(232,85,255,0.04) 1px, transparent 1px),linear-gradient(90deg, rgba(232,85,255,0.04) 1px, transparent 1px),radial-gradient(circle at 20% 50%, rgba(100,20,150,0.25), transparent 45%),radial-gradient(circle at 80% 80%, rgba(50,20,100,0.2), transparent 50%),linear-gradient(135deg,var(--bg-1) 0%,var(--bg-2) 100%);background-size:50px 50px,50px 50px,100% 100%,100% 100%,100% 100%;}
 .dashboard{display:flex;min-height:100vh}
@@ -38,8 +41,7 @@ body{font-family:'Inter',sans-serif;color:var(--text);min-height:100vh;backgroun
 .nav-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent-glow);}
 .main{flex:1;display:flex;flex-direction:column;padding:16px 20px 12px 20px;}
 .topbar{min-height:68px;border:1px solid rgba(232,85,255,0.1);border-radius:16px;background:linear-gradient(135deg, rgba(20,10,40,0.6) 0%, rgba(15,10,35,0.5) 100%);display:flex;align-items:center;gap:16px;padding:0 20px;box-shadow:0 4px 20px rgba(0,0,0,0.3);backdrop-filter:blur(8px);}
-.menu-btn{background:transparent;border:none;color:var(--muted);font-size:24px;line-height:1;cursor:pointer;transition:.2s ease;}
-.menu-btn:hover{color:var(--accent)}
+
 .divider{width:1px;height:32px;background:rgba(232,85,255,0.1);}
 .topbar-spacer{flex:1}
 .login-btn{padding:12px 24px;border-radius:12px;border:1px solid var(--border);background:linear-gradient(135deg, rgba(232,85,255,0.15) 0%, rgba(232,85,255,0.08) 100%);color:var(--accent);font-size:14px;font-weight:700;cursor:pointer;transition:.2s ease;}
@@ -56,22 +58,15 @@ body{font-family:'Inter',sans-serif;color:var(--text);min-height:100vh;backgroun
 .page{display:none}
 .page.active{display:block}
 .page-title{font-size:28px;font-weight:800;color:var(--accent);margin-bottom:30px;}
-.staff-table{width:100%;color:rgba(255,255,255,0.8);}
+.staff-table{width:100%;color:rgba(255,255,255,0.8);border-collapse:collapse;}
 .staff-table tr{border-bottom:1px solid rgba(232,85,255,0.1);}
-.staff-table th{text-align:left;padding:16px 0;color:var(--accent);font-weight:600;border-bottom:1px solid rgba(232,85,255,0.3);}
-.staff-table td{padding:16px 0;}
+.staff-table th{text-align:left;padding:16px 12px 16px 0;color:var(--accent);font-weight:600;border-bottom:1px solid rgba(232,85,255,0.3);}
+.staff-table td{padding:16px 12px 16px 0;vertical-align:top;}
 .role-badge{padding:6px 14px;border-radius:6px;font-size:0.85rem;font-weight:600;}
 .role-badge.owner{background:rgba(255,215,0,0.2);color:#ffd700;}
 .role-badge.admin{background:rgba(134,8,236,0.2);color:#8608ec;}
 .role-badge.o5{background:rgba(76,175,80,0.2);color:#4caf50;}
 .role-badge.council{background:rgba(76,175,80,0.2);color:#4caf50;}
-.role-badge.siteDirector{background:rgba(100,200,255,0.2);color:#64c8ff;}
-.role-badge.headMod{background:rgba(255,165,0,0.2);color:#ffa500;}
-.role-badge.discordMod{background:rgba(184,8,75,0.2);color:#ff1744;}
-.role-badge.trailDiscordMod{background:rgba(156,39,176,0.2);color:#9c27b0;}
-.role-badge.tacticalCommander{background:rgba(255,87,34,0.2);color:#ff5722;}
-.role-badge.commandOfficer{background:rgba(63,81,181,0.2);color:#3f51b5;}
-.role-badge.foundationAgent{background:rgba(0,188,212,0.2);color:#00bcd4;}
 .role-badge.fieldTrainee{background:rgba(158,158,158,0.2);color:#9e9e9e;}
 .server-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px;}
 .server-card{background:rgba(232,85,255,0.05);border:1px solid rgba(232,85,255,0.2);border-radius:12px;padding:24px;}
@@ -86,7 +81,60 @@ body{font-family:'Inter',sans-serif;color:var(--text);min-height:100vh;backgroun
 .leaderboard-name{flex:1;color:rgba(255,255,255,0.8);}
 .rules-list{margin-top:20px;}
 .rule-item{padding:20px 0;border-bottom:1px solid rgba(232,85,255,0.1);color:rgba(255,255,255,0.8);line-height:1.6;}
+.staff-area-top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:24px;}
+.staff-area-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.action-btn{padding:12px 18px;border-radius:12px;border:1px solid var(--border);background:linear-gradient(135deg, rgba(232,85,255,0.15) 0%, rgba(232,85,255,0.08) 100%);color:var(--text);font-size:14px;font-weight:700;cursor:pointer;transition:.2s ease;}
+.action-btn:hover{border-color:var(--border-strong);transform:translateY(-1px);}
+.action-btn.warn-btn{color:#ffcc66;}
+.action-btn.ban-btn{color:#ff7b9a;}
+.staff-stats{display:grid;grid-template-columns:repeat(4, 1fr);gap:16px;margin-bottom:24px;}
+.stat-card{background:var(--card-bg);border:1px solid rgba(232,85,255,0.18);border-radius:16px;padding:20px;}
+.stat-label{font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted-2);margin-bottom:10px;}
+.stat-value{font-size:28px;font-weight:800;color:var(--text);}
+.stat-value.warn{color:var(--warning);}
+.stat-value.ban{color:var(--danger);}
+.stat-value.today{color:var(--accent);}
+.staff-controls{display:grid;grid-template-columns:2fr;gap:16px;margin-bottom:22px;}
+.staff-input{width:100%;border:1px solid rgba(232,85,255,0.18);background:rgba(10,10,20,0.8);color:var(--text);border-radius:12px;padding:14px 16px;font-size:14px;outline:none;transition:.2s ease;}
+.staff-input:focus{border-color:var(--border-strong);box-shadow:0 0 0 4px rgba(232,85,255,0.08);}
+.staff-panels{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.staff-panel{background:var(--card-bg);border:1px solid rgba(232,85,255,0.18);border-radius:16px;padding:20px;}
+.panel-title{font-size:20px;font-weight:800;color:var(--accent);margin-bottom:16px;}
+.panel-sub{font-size:13px;color:var(--muted);margin-bottom:18px;}
+.warn-type-badge{display:inline-flex;align-items:center;justify-content:center;padding:6px 12px;border-radius:999px;font-size:12px;font-weight:700;margin-bottom:6px;}
+.warn-type-badge.minor{background:rgba(255,184,77,0.15);color:#ffb84d;}
+.warn-type-badge.major{background:rgba(255,77,109,0.15);color:#ff4d6d;}
+.table-action-btn{border:none;background:rgba(255,77,109,0.12);color:#ff8ca2;padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:700;transition:.2s ease;}
+.table-action-btn:hover{background:rgba(255,77,109,0.22);}
+.empty-state{padding:24px;border:1px dashed rgba(232,85,255,0.2);border-radius:14px;color:var(--muted);text-align:center;background:rgba(232,85,255,0.03);}
+.pagination{display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding:12px 0;border-top:1px solid rgba(232,85,255,0.1);}
+.pagination-btn{background:rgba(232,85,255,0.1);border:1px solid rgba(232,85,255,0.2);color:var(--accent);padding:8px 16px;border-radius:8px;cursor:pointer;font-weight:700;transition:.2s;font-size:14px;}
+.pagination-btn:hover:not(:disabled){background:rgba(232,85,255,0.2);border-color:rgba(232,85,255,0.3);}
+.pagination-btn:disabled{opacity:0.5;cursor:not-allowed;}
+.pagination-info{font-size:12px;color:var(--muted-2);text-transform:uppercase;letter-spacing:.06em;}
+.news-item{background:rgba(232,85,255,0.08);border:1px solid rgba(232,85,255,0.2);border-radius:12px;padding:20px;margin-bottom:16px;}
+.news-date{font-size:12px;color:var(--muted-2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;}
+.news-title{font-size:18px;font-weight:700;color:var(--accent);margin-bottom:12px;}
+.news-content{color:rgba(255,255,255,0.8);line-height:1.6;margin-bottom:12px;}
+.news-actions{display:flex;gap:12px;}
+.news-btn{padding:8px 14px;border-radius:8px;border:1px solid rgba(232,85,255,0.2);background:rgba(232,85,255,0.08);color:var(--text);font-size:12px;font-weight:700;cursor:pointer;transition:.2s;}
+.news-btn:hover{border-color:rgba(232,85,255,0.3);background:rgba(232,85,255,0.12);}
+.modal{position:fixed;inset:0;background:rgba(5,5,10,0.7);display:none;align-items:center;justify-content:center;z-index:999;padding:20px;}
+.modal.active{display:flex;}
+.modal-card{width:100%;max-width:560px;background:linear-gradient(180deg, rgba(18,18,31,0.98) 0%, rgba(12,12,22,0.98) 100%);border:1px solid rgba(232,85,255,0.2);border-radius:20px;padding:24px;box-shadow:0 24px 60px rgba(0,0,0,0.45);}
+.modal-title{font-size:24px;font-weight:800;color:var(--accent);margin-bottom:8px;}
+.modal-sub{color:var(--muted);margin-bottom:20px;font-size:14px;}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.full-span{grid-column:1 / -1;}
+.modal-input,.modal-select,.modal-textarea{width:100%;border:1px solid rgba(232,85,255,0.18);background:rgba(10,10,20,0.8);color:var(--text);border-radius:12px;padding:14px 16px;font-size:14px;outline:none;transition:.2s ease;}
+.modal-input:focus,.modal-select:focus,.modal-textarea:focus{border-color:var(--border-strong);box-shadow:0 0 0 4px rgba(232,85,255,0.08);}
+.modal-actions{display:flex;justify-content:flex-end;gap:12px;margin-top:18px;flex-wrap:wrap;}
+.modal-btn{padding:12px 16px;border-radius:12px;border:1px solid var(--border);font-weight:700;cursor:pointer;background:rgba(232,85,255,0.08);color:var(--text);}
+.modal-btn.primary{background:linear-gradient(135deg, rgba(232,85,255,0.24) 0%, rgba(232,85,255,0.12) 100%);color:var(--accent);}
+.modal-btn:hover{border-color:var(--border-strong);}
+@media (max-width:1100px){.staff-stats{grid-template-columns:repeat(2, 1fr);}.staff-panels{grid-template-columns:1fr;}}
 @media (max-width:900px){.dashboard{flex-direction:column}.sidebar{width:100%;padding-bottom:0}.main{padding:14px}.server-grid{grid-template-columns:1fr}}
+@media (max-width:650px){.staff-stats{grid-template-columns:1fr;}.modal-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -107,6 +155,9 @@ body{font-family:'Inter',sans-serif;color:var(--text);min-height:100vh;backgroun
       <a class="nav-item" onclick="showPage('staff', this); return false;" href="#">
         <span class="nav-left"><span class="nav-text">Staff List</span></span>
       </a>
+      <a class="nav-item" onclick="showPage('unban', this); return false;" href="#">
+        <span class="nav-left"><span class="nav-text">Appeal bans or warnings</span></span>
+      </a>
       <a class="nav-item" onclick="showPage('status', this); return false;" href="#">
         <span class="nav-left"><span class="nav-text">Server Status</span></span>
       </a>
@@ -116,13 +167,15 @@ body{font-family:'Inter',sans-serif;color:var(--text);min-height:100vh;backgroun
       <a class="nav-item" onclick="showPage('rules', this); return false;" href="#">
         <span class="nav-left"><span class="nav-text">Rules</span></span>
       </a>
+      <a class="nav-item" onclick="showPage('staffArea', this); return false;" href="#">
+        <span class="nav-left"><span class="nav-text">Staff Area</span></span>
+      </a>
     </nav>
   </aside>
 
   <main class="main">
-    <header class="topbar">
-      <button class="menu-btn">☰</button>
-      <div class="divider"></div>
+    <header class="topbar"> 
+        <div class="divider"></div>
       <div class="topbar-spacer"></div>
       <div class="divider"></div>
       <button class="login-btn" onclick="window.location.href='apps.html'">Apply Now</button>
@@ -132,6 +185,27 @@ body{font-family:'Inter',sans-serif;color:var(--text);min-height:100vh;backgroun
       <div class="page active" id="dashboardPage">
         <h1 class="page-title">Welcome Back</h1>
         <p style="color:var(--muted)">Foundation Blacksite Access Portal</p>
+        <div class="staff-stats" style="margin-top:30px;">
+          <div class="stat-card">
+            <div class="stat-label">Playtime</div>
+            <div class="stat-value" style="color:#FBB0EA;" id="playerPlaytime">0h 0m</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Total Kills</div>
+            <div class="stat-value" style="color:#FBB0EA;" id="playerKills">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Fastest Escape</div>
+            <div class="stat-value" style="color:#FBB0EA;" id="playerEscapeTime">0s</div>
+          </div>
+        </div>
+        <div style="margin-top:40px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+            <h2 style="font-size:20px;font-weight:800;color:var(--accent);">Latest News</h2>
+            <button class="action-btn warn-btn" onclick="addNewsPrompt()" style="padding:10px 16px;font-size:13px;">+ Add</button>
+          </div>
+          <div id="newsContainer" style="margin-top:16px;"></div>
+        </div>
       </div>
 
       <div class="page" id="staffPage">
@@ -144,30 +218,12 @@ body{font-family:'Inter',sans-serif;color:var(--text);min-height:100vh;backgroun
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Therod</td>
-              <td><span class="role-badge owner">The Administrator</span></td>
-            </tr>
-            <tr>
-              <td>PumpkinProto</td>
-              <td><span class="role-badge admin">System Administrator</span></td>
-            </tr>
-            <tr>
-              <td>Penwon</td>
-              <td><span class="role-badge o5">O5 Council</span></td>
-            </tr>
-            <tr>
-              <td>Deadman</td>
-              <td><span class="role-badge o5">trial discrd mod</span></td>
-            </tr>
-               <tr></tr>
-              <td>K605</td>
-              <td><span class="role-badge fieldTrainee">Field Trainee</span></td>
-            </tr>
-            <tr>
-              <td>DaxCj</td>
-              <td><span class="role-badge fieldTrainee">Field Trainee</span></td>
-            </tr>
+            <tr><td>Therod</td><td><span class="role-badge owner">The Administrator</span></td></tr>
+            <tr><td>PumpkinProto</td><td><span class="role-badge admin">System Administrator</span></td></tr>
+            <tr><td>Penwon</td><td><span class="role-badge o5">O5 Council</span></td></tr>
+            <tr><td>Deadman</td><td><span class="role-badge o5">Trial Discord Mod</span></td></tr>
+            <tr><td>K605</td><td><span class="role-badge fieldTrainee">Field Trainee</span></td></tr>
+            <tr><td>DaxCj</td><td><span class="role-badge fieldTrainee">Field Trainee</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -178,7 +234,7 @@ body{font-family:'Inter',sans-serif;color:var(--text);min-height:100vh;backgroun
           <div class="server-card">
             <div class="server-card-name">FOUNDATION BLACKSITE #US EAST 1</div>
             <div class="server-card-info">
-              <span class="status-online">● ONLINE</span>
+              <span class="status-online">ONLINE</span>
               <span class="player-count">0/25</span>
             </div>
           </div>
@@ -188,26 +244,11 @@ body{font-family:'Inter',sans-serif;color:var(--text);min-height:100vh;backgroun
       <div class="page" id="leaderboardPage">
         <h1 class="page-title">Leaderboard</h1>
         <div class="leaderboard-list">
-          <div class="leaderboard-row">
-            <div class="leaderboard-rank">1</div>
-            <div class="leaderboard-name">wewewe</div>
-          </div>
-          <div class="leaderboard-row">
-            <div class="leaderboard-rank">2</div>
-            <div class="leaderboard-name">wewew</div>
-          </div>
-          <div class="leaderboard-row">
-            <div class="leaderboard-rank">3</div>
-            <div class="leaderboard-name">waee</div>
-          </div>
-          <div class="leaderboard-row">
-            <div class="leaderboard-rank">4</div>
-            <div class="leaderboard-name">weae</div>
-          </div>
-          <div class="leaderboard-row">
-            <div class="leaderboard-rank">5</div>
-            <div class="leaderboard-name">TEST</div>
-          </div>
+          <div class="leaderboard-row"><div class="leaderboard-rank">1</div><div class="leaderboard-name">wewewe</div></div>
+          <div class="leaderboard-row"><div class="leaderboard-rank">2</div><div class="leaderboard-name">wewew</div></div>
+          <div class="leaderboard-row"><div class="leaderboard-rank">3</div><div class="leaderboard-name">waee</div></div>
+          <div class="leaderboard-row"><div class="leaderboard-rank">4</div><div class="leaderboard-name">weae</div></div>
+          <div class="leaderboard-row"><div class="leaderboard-rank">5</div><div class="leaderboard-name">TEST</div></div>
         </div>
       </div>
 
@@ -227,6 +268,57 @@ body{font-family:'Inter',sans-serif;color:var(--text);min-height:100vh;backgroun
           <div class="rule-item">11. These are the ingame rules</div>
         </div>
       </div>
+
+      <div class="page" id="unbanPage">
+        <h1 class="page-title">Appeal Bans or Warnings</h1>
+        <div id="appealsContainer"></div>
+      </div>
+
+      <div class="page" id="staffAreaPage">
+        <h1 class="page-title">Staff Area</h1>
+        <div class="staff-area-top">
+          <div><p style="color:var(--muted);margin-top:-10px;">Advanced moderation logs for warns and bans.</p></div>
+          <div class="staff-area-actions">
+            <button class="action-btn warn-btn" onclick="openModal('warn')">+ Add Warn</button>
+            <button class="action-btn ban-btn" onclick="openModal('ban')">+ Add Ban</button>
+            <button class="action-btn" onclick="clearAllLogs()">Clear All Logs</button>
+          </div>
+        </div>
+
+        <div class="staff-stats">
+          <div class="stat-card"><div class="stat-label">Total Warns</div><div class="stat-value warn" id="totalWarns">0</div></div>
+          <div class="stat-card"><div class="stat-label">Total Bans</div><div class="stat-value ban" id="totalBans">0</div></div>
+          <div class="stat-card"><div class="stat-label">Actions Today</div><div class="stat-value today" id="actionsToday">0</div></div>
+          <div class="stat-card"><div class="stat-label">Staff Count</div><div class="stat-value" id="staffCount">0</div></div>
+        </div>
+
+        <div class="staff-controls">
+          <input type="text" id="searchLogs" class="staff-input" placeholder="Search by user, reason, moderator, or duration..." oninput="renderLogs()">
+        </div>
+
+        <div class="staff-panels">
+          <div class="staff-panel">
+            <div class="panel-title">Warn Logs</div>
+            <div class="panel-sub">Track rule breaks and behavior issues.</div>
+            <div id="warnLogsContainer"></div>
+            <div class="pagination">
+              <button class="pagination-btn" onclick="prevWarnPage()" id="warnPrevBtn">< Previous</button>
+              <span class="pagination-info" id="warnPageInfo">Page 1</span>
+              <button class="pagination-btn" onclick="nextWarnPage()" id="warnNextBtn">Next ></button>
+            </div>
+          </div>
+          <div class="staff-panel">
+            <div class="panel-title">Ban Logs</div>
+            <div class="panel-sub">Track permanent and temporary bans.</div>
+            <div id="banLogsContainer"></div>
+            <div class="pagination">
+              <button class="pagination-btn" onclick="prevBanPage()" id="banPrevBtn">< Previous</button>
+              <span class="pagination-info" id="banPageInfo">Page 1</span>
+              <button class="pagination-btn" onclick="nextBanPage()" id="banNextBtn">Next ></button>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <footer class="footer">
@@ -242,17 +334,619 @@ body{font-family:'Inter',sans-serif;color:var(--text);min-height:100vh;backgroun
       </div>
     </footer>
   </main>
-</div><script>
+</div>
+
+<div class="modal" id="logModal">
+  <div class="modal-card">
+    <div class="modal-title" id="modalTitle">Add Warn</div>
+    <div class="modal-sub">Fill out the moderation action below.</div>
+    <div class="modal-grid">
+      <input type="text" id="logUser" class="modal-input" placeholder="Player Username">
+      <input type="text" id="logStaff" class="modal-input" placeholder="Staff Name">
+      <div id="warnTypeWrap">
+        <select id="warnType" class="modal-select">
+          <option value="">Select Warn Type</option>
+          <option value="Minor Warn">Minor Warn</option>
+          <option value="Major Warn">Major Warn</option>
+        </select>
+      </div>
+      <div id="durationWrap" style="display:none;">
+        <select id="logDuration" class="modal-select">
+          <option value="">Select Duration</option>
+          <option value="1 Hour">1 Hour</option>
+          <option value="6 Hours">6 Hours</option>
+          <option value="12 Hours">12 Hours</option>
+          <option value="1 Day">1 Day</option>
+          <option value="3 Days">3 Days</option>
+          <option value="7 Days">7 Days</option>
+          <option value="30 Days">30 Days</option>
+          <option value="Permanent">Permanent</option>
+        </select>
+      </div>
+      <div class="full-span">
+        <input type="text" id="logReason" class="modal-input" placeholder="Reason">
+      </div>
+      <div>
+        <input type="datetime-local" id="logDate" class="modal-input">
+      </div>
+      <div class="full-span">
+        <textarea id="logNotes" class="modal-textarea" rows="4" placeholder="Extra notes (optional)"></textarea>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn" onclick="closeModal()">Cancel</button>
+      <button class="modal-btn primary" id="submitBtn" onclick="saveLog()">Add Warn</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="appealModal">
+  <div class="modal-card">
+    <div class="modal-title">Submit Appeal</div>
+    <div class="modal-sub">Request to remove your ban or warning.</div>
+    <div class="modal-grid">
+      <div class="full-span">
+        <input type="text" id="appealUsername" class="modal-input" placeholder="Your username">
+      </div>
+      <div class="full-span">
+        <textarea id="appealReason" class="modal-textarea" rows="5" placeholder="Why should this be removed?"></textarea>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn" onclick="closeAppealModal()">Cancel</button>
+      <button class="modal-btn primary" onclick="saveAppeal()">Submit Appeal</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="newsModal">
+  <div class="modal-card">
+    <div class="modal-title" id="newsModalTitle">Add News</div>
+    <div class="modal-sub">Post server updates.</div>
+    <div class="modal-grid">
+      <div class="full-span">
+        <input type="text" id="newsTitle" class="modal-input" placeholder="News title">
+      </div>
+      <div class="full-span">
+        <textarea id="newsContent" class="modal-textarea" rows="5" placeholder="News content"></textarea>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn" onclick="closeNewsModal()">Cancel</button>
+      <button class="modal-btn primary" id="newsSubmitBtn" onclick="saveNews()">Post</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const API_CONFIG = {
+  ip: "50.20.203.72",
+  key: "Doxg36oCH4hblaIG3Vz1u7/y"
+};
+
+let currentLogType = "warn";
+let warnPage = 1;
+let banPage = 1;
+const itemsPerPage = 10;
+let newsEditId = null;
+
+function fetchServerPlayers() {
+  const apiUrl = `https://api.scpslgame.com/serverinfo.php?ip=${API_CONFIG.ip}&key=${API_CONFIG.key}&lo=true&players=true&list=true&nicknames=true&online=true`;
+  
+  fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      if (data.online === 1) {
+        const playerCount = data.players.length;
+        const maxPlayers = data.max_players;
+        document.querySelector('.player-count').textContent = `${playerCount}/${maxPlayers}`;
+        document.querySelector('.status-online').textContent = 'ONLINE';
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching server data:', error);
+      document.querySelector('.status-online').textContent = 'OFFLINE';
+    });
+}
+
+function getNews() {
+  const saved = localStorage.getItem("serverNews");
+  return saved ? JSON.parse(saved) : [];
+}
+
+function setNews(news) {
+  localStorage.setItem("serverNews", JSON.stringify(news));
+}
+
+function addNews(title, content) {
+  const news = getNews();
+  news.unshift({
+    id: Date.now(),
+    title: title,
+    content: content,
+    date: new Date().toISOString()
+  });
+  setNews(news);
+  renderNews();
+}
+
+function deleteNews(id) {
+  const news = getNews().filter(n => n.id !== id);
+  setNews(news);
+  renderNews();
+}
+
+function editNews(id, title, content) {
+  const news = getNews();
+  const item = news.find(n => n.id === id);
+  if (item) {
+    item.title = title;
+    item.content = content;
+    setNews(news);
+    renderNews();
+  }
+}
+
+function renderNews() {
+  const news = getNews();
+  const container = document.getElementById("newsContainer");
+  
+  if (!news.length) {
+    container.innerHTML = '<div class="empty-state">No news posted yet.</div>';
+    return;
+  }
+  
+  let html = '';
+  news.forEach(item => {
+    const date = new Date(item.date).toLocaleDateString();
+    html += `
+      <div class="news-item">
+        <div class="news-date">${date}</div>
+        <div class="news-title">${escapeHtml(item.title)}</div>
+        <div class="news-content">${escapeHtml(item.content)}</div>
+        <div class="news-actions">
+          <button class="news-btn" onclick="editNewsPrompt(${item.id})">Edit</button>
+          <button class="news-btn" onclick="deleteNews(${item.id})" style="color:#ff7b9a;">Delete</button>
+        </div>
+      </div>
+    `;
+  });
+  container.innerHTML = html;
+}
+
+function openNewsModal(id = null) {
+  newsEditId = id;
+  const modal = document.getElementById("newsModal");
+  modal.classList.add("active");
+  
+  if (id) {
+    const news = getNews().find(n => n.id === id);
+    document.getElementById("newsTitle").value = news.title;
+    document.getElementById("newsContent").value = news.content;
+    document.getElementById("newsModalTitle").textContent = "Edit News";
+    document.getElementById("newsSubmitBtn").textContent = "Update";
+  } else {
+    document.getElementById("newsTitle").value = "";
+    document.getElementById("newsContent").value = "";
+    document.getElementById("newsModalTitle").textContent = "Add News";
+    document.getElementById("newsSubmitBtn").textContent = "Post";
+  }
+}
+
+function closeNewsModal() {
+  document.getElementById("newsModal").classList.remove("active");
+  newsEditId = null;
+}
+
+function saveNews() {
+  const title = document.getElementById("newsTitle").value.trim();
+  const content = document.getElementById("newsContent").value.trim();
+  
+  if (!title || !content) {
+    alert("Fill in title and content.");
+    return;
+  }
+  
+  if (newsEditId) {
+    editNews(newsEditId, title, content);
+  } else {
+    addNews(title, content);
+  }
+  
+  closeNewsModal();
+}
+
+function addNewsPrompt() {
+  openNewsModal();
+}
+
+function editNewsPrompt(id) {
+  openNewsModal(id);
+}
+
+function getLogs() {
+  const saved = localStorage.getItem("foundationLogs");
+  return saved ? JSON.parse(saved) : [];
+}
+
+function setLogs(logs) {
+  localStorage.setItem("foundationLogs", JSON.stringify(logs));
+}
+
 function showPage(pageName, element) {
   const pages = document.querySelectorAll('.page');
   const navItems = document.querySelectorAll('.nav-item');
-  
   pages.forEach(page => page.classList.remove('active'));
   navItems.forEach(item => item.classList.remove('active'));
-  
   document.getElementById(pageName + 'Page').classList.add('active');
   element.classList.add('active');
+  if (pageName === 'staffArea') {
+    warnPage = 1;
+    banPage = 1;
+    renderLogs();
+  }
+  if (pageName === 'unban') {
+    renderAppeals();
+  }
+  if (pageName === 'status') {
+    fetchServerPlayers();
+  }
 }
+
+function openModal(type) {
+  currentLogType = type;
+  document.getElementById("logModal").classList.add("active");
+  const btnText = type === "warn" ? "Add Warn" : "Add Ban";
+  document.getElementById("modalTitle").textContent = btnText;
+  document.getElementById("submitBtn").textContent = btnText;
+  document.getElementById("warnTypeWrap").style.display = type === "warn" ? "block" : "none";
+  document.getElementById("durationWrap").style.display = type === "ban" ? "block" : "none";
+  const now = new Date();
+  now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+  document.getElementById("logDate").value = now.toISOString().slice(0, 16);
+  document.getElementById("logUser").value = "";
+  document.getElementById("logStaff").value = "";
+  document.getElementById("warnType").value = "";
+  document.getElementById("logReason").value = "";
+  document.getElementById("logDuration").value = "";
+  document.getElementById("logNotes").value = "";
+}
+
+function closeModal() {
+  document.getElementById("logModal").classList.remove("active");
+}
+
+function saveLog() {
+  const user = document.getElementById("logUser").value.trim();
+  const staff = document.getElementById("logStaff").value.trim();
+  const warnType = document.getElementById("warnType").value;
+  const reason = document.getElementById("logReason").value.trim();
+  const duration = document.getElementById("logDuration").value.trim();
+  const notes = document.getElementById("logNotes").value.trim();
+  const date = document.getElementById("logDate").value;
+
+  if (!user || !staff || !reason || !date) {
+    alert("Fill out username, staff name, reason, and date.");
+    return;
+  }
+
+  if (currentLogType === "warn" && !warnType) {
+    alert("Select warn type.");
+    return;
+  }
+
+  if (currentLogType === "ban" && !duration) {
+    alert("Select duration.");
+    return;
+  }
+
+  const logs = getLogs();
+  logs.unshift({
+    id: Date.now(),
+    type: currentLogType,
+    warnType: warnType,
+    user: user,
+    staff: staff,
+    reason: reason,
+    duration: duration,
+    notes: notes,
+    date: new Date(date).toISOString()
+  });
+
+  setLogs(logs);
+  closeModal();
+  renderLogs();
+}
+
+function deleteLog(id) {
+  const logs = getLogs().filter(log => log.id !== id);
+  setLogs(logs);
+  renderLogs();
+}
+
+function clearAllLogs() {
+  if (confirm("Clear all logs?")) {
+    setLogs([]);
+    warnPage = 1;
+    banPage = 1;
+    renderLogs();
+  }
+}
+
+function prevWarnPage() {
+  if (warnPage > 1) {
+    warnPage--;
+    renderLogs();
+  }
+}
+
+function nextWarnPage() {
+  const logs = getLogs().filter(log => log.type === "warn");
+  const maxPage = Math.ceil(logs.length / itemsPerPage);
+  if (warnPage < maxPage) {
+    warnPage++;
+    renderLogs();
+  }
+}
+
+function prevBanPage() {
+  if (banPage > 1) {
+    banPage--;
+    renderLogs();
+  }
+}
+
+function nextBanPage() {
+  const logs = getLogs().filter(log => log.type === "ban");
+  const maxPage = Math.ceil(logs.length / itemsPerPage);
+  if (banPage < maxPage) {
+    banPage++;
+    renderLogs();
+  }
+}
+
+function formatDate(dateString) {
+  return new Date(dateString).toLocaleString();
+}
+
+function isToday(dateString) {
+  const d = new Date(dateString);
+  const now = new Date();
+  return d.getDate() === now.getDate() && d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+}
+
+function getBanTimeLeft(log) {
+  if (!log.duration || log.duration === "Permanent") return "Permanent";
+  
+  const startDate = new Date(log.date);
+  const endDate = new Date(startDate);
+  
+  const durationMap = {
+    "1 Hour": 3600000,
+    "6 Hours": 21600000,
+    "12 Hours": 43200000,
+    "1 Day": 86400000,
+    "3 Days": 259200000,
+    "7 Days": 604800000,
+    "30 Days": 2592000000
+  };
+  
+  const durationMs = durationMap[log.duration];
+  if (!durationMs) return "Unknown";
+  
+  endDate.setTime(startDate.getTime() + durationMs);
+  const diff = endDate - new Date();
+  
+  if (diff <= 0) return "Expired";
+  
+  const days = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const minutes = Math.floor((diff % 3600000) / 60000);
+  
+  if (days > 0) return `${days}d ${hours}h left`;
+  if (hours > 0) return `${hours}h ${minutes}m left`;
+  return `${minutes}m left`;
+}
+
+function renderLogs() {
+  const logs = getLogs();
+  const searchValue = document.getElementById("searchLogs").value.toLowerCase().trim();
+  
+  const warnLogs = logs.filter(log => log.type === "warn");
+  const banLogs = logs.filter(log => log.type === "ban");
+  
+  const filteredWarns = warnLogs.filter(log =>
+    log.user.toLowerCase().includes(searchValue) ||
+    log.reason.toLowerCase().includes(searchValue) ||
+    log.staff.toLowerCase().includes(searchValue) ||
+    (log.notes || "").toLowerCase().includes(searchValue)
+  );
+  
+  const filteredBans = banLogs.filter(log =>
+    log.user.toLowerCase().includes(searchValue) ||
+    log.reason.toLowerCase().includes(searchValue) ||
+    log.staff.toLowerCase().includes(searchValue) ||
+    (log.duration || "").toLowerCase().includes(searchValue) ||
+    (log.notes || "").toLowerCase().includes(searchValue)
+  );
+  
+  const warnStart = (warnPage - 1) * itemsPerPage;
+  const warnEnd = warnStart + itemsPerPage;
+  const paginatedWarns = filteredWarns.slice(warnStart, warnEnd);
+  
+  const banStart = (banPage - 1) * itemsPerPage;
+  const banEnd = banStart + itemsPerPage;
+  const paginatedBans = filteredBans.slice(banStart, banEnd);
+  
+  document.getElementById("warnLogsContainer").innerHTML = buildTable(paginatedWarns, "warn");
+  document.getElementById("banLogsContainer").innerHTML = buildTable(paginatedBans, "ban");
+  
+  const warnMaxPage = Math.ceil(filteredWarns.length / itemsPerPage) || 1;
+  const banMaxPage = Math.ceil(filteredBans.length / itemsPerPage) || 1;
+  
+  document.getElementById("warnPageInfo").textContent = `Page ${warnPage} of ${warnMaxPage}`;
+  document.getElementById("banPageInfo").textContent = `Page ${banPage} of ${banMaxPage}`;
+  
+  document.getElementById("warnPrevBtn").disabled = warnPage === 1;
+  document.getElementById("warnNextBtn").disabled = warnPage >= warnMaxPage;
+  document.getElementById("banPrevBtn").disabled = banPage === 1;
+  document.getElementById("banNextBtn").disabled = banPage >= banMaxPage;
+  
+  document.getElementById("totalWarns").textContent = warnLogs.length;
+  document.getElementById("totalBans").textContent = banLogs.length;
+  document.getElementById("actionsToday").textContent = logs.filter(log => isToday(log.date)).length;
+  document.getElementById("staffCount").textContent = new Set(logs.map(log => log.staff)).size;
+}
+
+function buildTable(logs, type) {
+  if (!logs.length) return '<div class="empty-state">No ' + type + ' logs found.</div>';
+  
+  let html = '<table class="staff-table"><thead><tr>';
+  
+  if (type === "warn") {
+    html += '<th>User</th><th>Warn</th><th>Staff</th><th>Date</th><th>Action</th></tr></thead><tbody>';
+    logs.forEach(log => {
+      html += `<tr>
+        <td>${escapeHtml(log.user)}</td>
+        <td>
+          <div class="warn-type-badge ${log.warnType === 'Major Warn' ? 'major' : 'minor'}">${escapeHtml(log.warnType || "Minor Warn")}</div>
+          <div style="font-weight:700;color:#fff;margin-bottom:4px;">${escapeHtml(log.reason)}</div>
+          ${log.notes ? `<div style="font-size:12px;color:var(--muted);">${escapeHtml(log.notes)}</div>` : ""}
+        </td>
+        <td>${escapeHtml(log.staff)}</td>
+        <td>${formatDate(log.date)}</td>
+        <td><button class="table-action-btn" onclick="deleteLog(${log.id})">Delete</button></td>
+      </tr>`;
+    });
+  } else {
+    html += '<th>User</th><th>Reason</th><th>Duration</th><th>Time Left</th><th>Staff</th><th>Date</th><th>Action</th></tr></thead><tbody>';
+    logs.forEach(log => {
+      html += `<tr>
+        <td>${escapeHtml(log.user)}</td>
+        <td>
+          <div style="font-weight:700;color:#fff;margin-bottom:4px;">${escapeHtml(log.reason)}</div>
+          ${log.notes ? `<div style="font-size:12px;color:var(--muted);">${escapeHtml(log.notes)}</div>` : ""}
+        </td>
+        <td>${escapeHtml(log.duration || "Permanent")}</td>
+        <td>${escapeHtml(getBanTimeLeft(log))}</td>
+        <td>${escapeHtml(log.staff)}</td>
+        <td>${formatDate(log.date)}</td>
+        <td><button class="table-action-btn" onclick="deleteLog(${log.id})">Delete</button></td>
+      </tr>`;
+    });
+  }
+  
+  html += '</tbody></table>';
+  return html;
+}
+
+function getAppeals() {
+  const saved = localStorage.getItem("unbanAppeals");
+  return saved ? JSON.parse(saved) : [];
+}
+
+function submitUnbanRequest() {
+  document.getElementById("appealModal").classList.add("active");
+  document.getElementById("appealUsername").value = "";
+  document.getElementById("appealReason").value = "";
+}
+
+function closeAppealModal() {
+  document.getElementById("appealModal").classList.remove("active");
+}
+
+function saveAppeal() {
+  const username = document.getElementById("appealUsername").value.trim();
+  const reason = document.getElementById("appealReason").value.trim();
+  
+  if (!username || !reason) {
+    alert("Fill in both username and reason.");
+    return;
+  }
+  
+  const appeals = getAppeals();
+  appeals.unshift({
+    id: Date.now(),
+    username: username,
+    reason: reason,
+    status: "Pending",
+    date: new Date().toISOString()
+  });
+  
+  localStorage.setItem("unbanAppeals", JSON.stringify(appeals));
+  alert("Appeal submitted!");
+  closeAppealModal();
+  renderAppeals();
+}
+
+function approveAppeal(appealId) {
+  if (confirm("Approve this appeal?")) {
+    const appeals = getAppeals();
+    const appeal = appeals.find(a => a.id === appealId);
+    if (appeal) {
+      appeal.status = "Approved";
+      localStorage.setItem("unbanAppeals", JSON.stringify(appeals));
+      renderAppeals();
+    }
+  }
+}
+
+function denyAppeal(appealId) {
+  if (confirm("Deny this appeal?")) {
+    const appeals = getAppeals();
+    const appeal = appeals.find(a => a.id === appealId);
+    if (appeal) {
+      appeal.status = "Denied";
+      localStorage.setItem("unbanAppeals", JSON.stringify(appeals));
+      renderAppeals();
+    }
+  }
+}
+
+function renderAppeals() {
+  const appeals = getAppeals();
+  const container = document.getElementById("appealsContainer");
+  
+  if (!appeals.length) {
+    container.innerHTML = '<div class="empty-state">No appeals yet. <button class="action-btn warn-btn" onclick="submitUnbanRequest()" style="margin-top:12px;">+ Submit Appeal</button></div>';
+    return;
+  }
+  
+  let html = '<button class="action-btn warn-btn" onclick="submitUnbanRequest()" style="margin-bottom:20px;">+ Submit Appeal</button>';
+  appeals.forEach(appeal => {
+    const date = new Date(appeal.date).toLocaleDateString();
+    html += `
+      <div class="news-item">
+        <div class="news-date">${date}</div>
+        <div class="news-title">${escapeHtml(appeal.username)}</div>
+        <div style="color:#ffb84d;margin-bottom:8px;font-weight:700;">Status: ${appeal.status}</div>
+        <div class="news-content"><strong>Reason:</strong> ${escapeHtml(appeal.reason)}</div>
+        <div class="news-actions">
+          <button class="news-btn" onclick="approveAppeal(${appeal.id})" style="color:#4caf50;">Approve</button>
+          <button class="news-btn" onclick="denyAppeal(${appeal.id})" style="color:#ff7b9a;">Deny</button>
+        </div>
+      </div>
+    `;
+  });
+  container.innerHTML = html;
+}
+
+function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.textContent = text || "";
+  return div.innerHTML;
+}
+
+window.addEventListener("click", e => {
+  const modal = document.getElementById("logModal");
+  if (e.target === modal) closeModal();
+  const newsModal = document.getElementById("newsModal");
+  if (e.target === newsModal) closeNewsModal();
+});
+
+renderLogs();
+renderNews();
+renderAppeals();
 </script>
 </body>
 </html>
