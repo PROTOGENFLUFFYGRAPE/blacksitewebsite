@@ -11,10 +11,11 @@ app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
 
 # Discord OAuth config
-DISCORD_CLIENT_ID = os.environ.get('DISCORD_CLIENT_ID')
-DISCORD_CLIENT_SECRET = os.environ.get('DISCORD_CLIENT_SECRET')
-DISCORD_REDIRECT_URI = os.environ.get('DISCORD_REDIRECT_URI')
-DISCORD_API_BASE_URL = 'https://discordapp.com/api'
+DISCORD_CLIENT_ID = os.environ.get('discord_client_id')
+DISCORD_CLIENT_SECRET = os.environ.get('discord_client_secret')
+DISCORD_REDIRECT_URI = os.environ.get('discord_redirect_uri')
+WEBSITE_URL = os.environ.get('website_url')
+SECRET_KEY = os.environ.get('secret_key')
 
 @app.route('/')
 def index():
