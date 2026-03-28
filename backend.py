@@ -4,7 +4,7 @@ import os
 from datetime import timedelta
 
 app = Flask(__name__)
-app.secret_key = os.environ.get('SECRET_KEY', 'your-secret-key-change-this')
+app.secret_key = os.environ.get('secret_key', 'your-secret-key-change-this')
 app.config['SESSION_COOKIE_SECURE'] = True
 app.config['SESSION_COOKIE_HTTPONLY'] = True
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
@@ -14,8 +14,7 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
 DISCORD_CLIENT_ID = os.environ.get('discord_client_id')
 DISCORD_CLIENT_SECRET = os.environ.get('discord_client_secret')
 DISCORD_REDIRECT_URI = os.environ.get('discord_redirect_uri')
-WEBSITE_URL = os.environ.get('website_url')
-SECRET_KEY = os.environ.get('secret_key')
+DISCORD_API_BASE_URL = 'https://discordapp.com/api'
 
 @app.route('/')
 def index():
@@ -87,7 +86,7 @@ def callback():
         session['guilds'] = guilds
         
         # Redirect back to website with token
-        redirect_url = f"{os.environ.get('WEBSITE_URL', 'http://localhost:5000')}?token={access_token}&user_id={user_id}&username={username}"
+        redirect_url = f"{os.environ.get('website_url', 'http://localhost:5000')}?token={access_token}&user_id={user_id}&username={username}"
         return redirect(redirect_url)
         
     except Exception as e:
