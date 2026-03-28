@@ -707,28 +707,6 @@ function saveLog() {
     return;
   }
 
-  // Send to FastAPI server
-  if (currentLogType === "warn") {
-    const warnData = {
-      userId: user,
-      guildId: "1405701060793860147",
-      reason: `${warnType}: ${reason}`,
-      moderatorId: staff
-    };
-    
-    fetch("http://localhost:3000/api/warn", {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(warnData)
-    }).then(response => {
-      if (response.ok) {
-        console.log("Warn saved to server");
-      } else {
-        console.error("API error:", response.status);
-      }
-    }).catch(err => console.error("Server error:", err));
-  }
-  
   // Send to Discord webhook
   if (currentLogType === "warn") {
     const webhookUrl = "https://discord.com/api/webhooks/1484348034346258463/_LECQn8nIQ5Y5Musmj0Lsn4OZ3o4jLRXRSOPqTdlPh4NTa0aVCOQua4UMhlZs8lnMbiU";
