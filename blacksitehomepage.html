@@ -178,13 +178,22 @@ body{font-family:'Inter',sans-serif;color:var(--text);min-height:100vh;backgroun
         <div class="divider"></div>
       <div class="topbar-spacer"></div>
       <div class="divider"></div>
-      <button class="login-btn" onclick="window.location.href='https://blacksitewebsite-nvxj.onrender.com/login'">Login</button>
-      <button class="login-btn" onclick="window.location.href='apps.html'">Apply Now</button>
+      <div id="loginSection">
+        <button class="login-btn" onclick="window.location.href='http://localhost:5001/login'">Login with Discord</button>
+        <button class="login-btn" onclick="window.location.href='apps.html'">Apply Now</button>
+      </div>
+      <div id="profileSection" style="display:none; display: flex; align-items: center; gap: 16px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <img id="userAvatar" src="" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--accent);">
+          <span id="userNameDisplay" style="color: var(--accent); font-weight: 700;"></span>
+        </div>
+        <button class="login-btn" onclick="logoutUser()">Logout</button>
+      </div>
     </header>
 
     <section class="content">
       <div class="page active" id="dashboardPage">
-        <h1 class="page-title">Welcome Back</h1>
+        <h1 class="page-title" id="welcomeMsg">Welcome Back</h1>
         <p style="color:var(--muted)">Foundation Blacksite Access Portal</p>
         <div class="staff-stats" style="margin-top:30px;">
           <div class="stat-card">
@@ -1035,6 +1044,55 @@ window.addEventListener("click", e => {
 renderLogs();
 renderNews();
 renderAppeals();
+
+// Discord OAuth Login Handler
+function checkDiscordLogin() {
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get('token');
+  const userId = params.get('user_id');
+  const username = params.get('username');
+  
+  if (token && userId && username) {
+    // Store login info
+    localStorage.setItem('discord_token', token);
+    localStorage.setItem('discord_user_id', userId);
+    localStorage.setItem('discord_username', username);
+    
+    // Update UI
+    showLoggedInUser(username);
+    
+    // Clean up URL
+    window.history.replaceState({}, document.title, window.location.pathname);
+  } else if (localStorage.getItem('discord_token')) {
+    // Check if already logged in
+    const storedUsername = localStorage.getItem('discord_username');
+    showLoggedInUser(storedUsername);
+  }
+}
+
+function showLoggedInUser(username) {
+  document.getElementById('loginSection').style.display = 'none';
+  document.getElementById('profileSection').style.display = 'flex';
+  document.getElementById('userNameDisplay').textContent = username;
+  document.getElementById('welcomeMsg').textContent = `Welcome Back, ${username}`;
+  
+  // Set avatar
+  const userId = localStorage.getItem('discord_user_id');
+  const avatarUrl = `https://cdn.discordapp.com/avatars/${userId}/USER_AVATAR_HASH.png`;
+  document.getElementById('userAvatar').src = avatarUrl;
+}
+
+function logoutUser() {
+  localStorage.removeItem('discord_token');
+  localStorage.removeItem('discord_user_id');
+  localStorage.removeItem('discord_username');
+  
+  document.getElementById('loginSection').style.display = 'block';
+  document.getElementById('profileSection').style.display = 'none';
+  document.getElementById('welcomeMsg').textContent = 'Welcome Back';
+}
+
+checkDiscordLogin();
 </script>
 </body>
 </html>
