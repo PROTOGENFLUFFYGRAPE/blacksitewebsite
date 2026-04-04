@@ -21,7 +21,7 @@ def index():
 
 @app.route('/login')
 def login():
-    discord_login_url = f'{DISCORD_API_BASE_URL}/oauth2/authorize?client_id={DISCORD_CLIENT_ID}&redirect_uri={DISCORD_REDIRECT_URI}&response_type=code&scope=identify%20guilds%20guilds.members.read'
+    discord_login_url = f'{DISCORD_API_BASE_URL}/oauth2/authorize?client_id={DISCORD_CLIENT_ID}&redirect_uri={DISCORD_REDIRECT_URI}&response_type=code&scope=identify%20guilds'
     return redirect(discord_login_url)
 
 @app.route('/callback')
