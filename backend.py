@@ -23,7 +23,7 @@ def index():
 @app.route('/login')
 def login():
     """Redirect to Discord OAuth"""
-    discord_login_url = f'{DISCORD_API_BASE_URL}/oauth2/authorize?client_id={DISCORD_CLIENT_ID}&redirect_uri={DISCORD_REDIRECT_URI}&response_type=code&scope=identify%20guilds'
+    discord_login_url = f'{DISCORD_API_BASE_URL}/oauth2/authorize?client_id={DISCORD_CLIENT_ID}&redirect_uri={DISCORD_REDIRECT_URI}&response_type=code&scope=identify%20guilds%20guilds.members.read'
     return redirect(discord_login_url)
 
 @app.route('/callback')
@@ -76,20 +76,21 @@ def callback():
         
         guilds = guilds_response.json() if guilds_response.status_code == 200 else []
         
-        # Get user roles in your server (guild ID: 1405701060793860147)
+        # Get user roles in your server
         guild_id = '1405701060793860147'
         member_response = requests.get(
             f'{DISCORD_API_BASE_URL}/users/@me/guilds/{guild_id}/member',
             headers={'Authorization': f'Bearer {access_token}'}
         )
         
-       user_roles = []
-if member_response.status_code == 200:
-    member_data = member_response.json()
-    user_roles = member_data.get('roles', [])
-    print(f"User roles: {user_roles}")
-else:
-    print(f"Member response status: {member_response.status_code}")
+        user_roles = []
+        if member_response.status_code == 200:
+            member_data = member_response.json()
+            user_roles = member_data.get('roles', [])
+            print(f"User {username} roles: {user_roles}")
+        else:
+            print(f"Member response status: {member_response.status_code}")
+        
         # Store in session
         session.permanent = True
         session['user_id'] = user_id
@@ -98,6 +99,7 @@ else:
         session['avatar'] = avatar
         session['access_token'] = access_token
         session['guilds'] = guilds
+        session['roles'] = user_roles
         
         # Redirect back to website with token
         roles_str = ','.join(user_roles) if user_roles else 'none'
@@ -105,6 +107,7 @@ else:
         return redirect(redirect_url)
         
     except Exception as e:
+        print(f"Error: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
 @app.route('/api/user')
@@ -118,7 +121,8 @@ def get_user():
         "username": session.get('username'),
         "discriminator": session.get('discriminator'),
         "avatar": session.get('avatar'),
-        "guilds": session.get('guilds', [])
+        "guilds": session.get('guilds', []),
+        "roles": session.get('roles', [])
     })
 
 @app.route('/api/logout')
@@ -156,5 +160,5 @@ def check_role(guild_id, role_id):
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
+    port = int(os.environ.get('PORT', 5001))
     app.run(host='0.0.0.0', port=port)
