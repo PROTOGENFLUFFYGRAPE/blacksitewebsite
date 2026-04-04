@@ -1147,6 +1147,7 @@ function checkDiscordLogin() {
   const userId = params.get('user_id');
   const username = params.get('username');
   const avatar = params.get('avatar');
+  const roles = params.get('roles');
   
   if (token && userId && username) {
     // Store login info
@@ -1154,9 +1155,10 @@ function checkDiscordLogin() {
     localStorage.setItem('discord_user_id', userId);
     localStorage.setItem('discord_username', username);
     localStorage.setItem('discord_avatar', avatar);
+    localStorage.setItem('discord_roles', roles || 'none');
     
     // Update UI
-    showLoggedInUser(username, userId, avatar);
+    showLoggedInUser(username, userId, avatar, roles);
     
     // Clean up URL
     window.history.replaceState({}, document.title, window.location.pathname);
@@ -1165,11 +1167,12 @@ function checkDiscordLogin() {
     const storedUsername = localStorage.getItem('discord_username');
     const storedUserId = localStorage.getItem('discord_user_id');
     const storedAvatar = localStorage.getItem('discord_avatar');
-    showLoggedInUser(storedUsername, storedUserId, storedAvatar);
+    const storedRoles = localStorage.getItem('discord_roles');
+    showLoggedInUser(storedUsername, storedUserId, storedAvatar, storedRoles);
   }
 }
 
-function showLoggedInUser(username, userId, avatar) {
+function showLoggedInUser(username, userId, avatar, roles) {
   document.getElementById('loginSection').style.display = 'none';
   document.getElementById('profileSection').style.display = 'flex';
   document.getElementById('userNameDisplay').textContent = username;
@@ -1187,6 +1190,23 @@ function showLoggedInUser(username, userId, avatar) {
   document.getElementById('profileUsername').textContent = username;
   document.getElementById('settingsUsername').value = username;
   document.getElementById('settingsUserId').value = userId;
+  
+  // Set role
+  const roleId = roles && roles !== 'none' ? roles.split(',')[0] : null;
+  let roleName = 'Unranked';
+  
+  const roleMap = {
+    '1405701060793860147': 'O5 Council',
+    '1405701345921843261': 'Admin',
+    '1405701444056969259': 'Moderator'
+  };
+  
+  if (roleId && roleMap[roleId]) {
+    roleName = roleMap[roleId];
+  }
+  
+  document.getElementById('userRank').textContent = roleName;
+  document.getElementById('currentRole').textContent = roleName;
 }
 
 function toggleProfileMenu() {
