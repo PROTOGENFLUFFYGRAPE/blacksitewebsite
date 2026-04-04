@@ -76,6 +76,18 @@ def callback():
         
         guilds = guilds_response.json() if guilds_response.status_code == 200 else []
         
+        # Get user roles in your server (guild ID: 1405701060793860147)
+        guild_id = '1405701060793860147'
+        member_response = requests.get(
+            f'{DISCORD_API_BASE_URL}/users/@me/guilds/{guild_id}/member',
+            headers={'Authorization': f'Bearer {access_token}'}
+        )
+        
+        user_roles = []
+        if member_response.status_code == 200:
+            member_data = member_response.json()
+            user_roles = member_data.get('roles', [])
+        
         # Store in session
         session.permanent = True
         session['user_id'] = user_id
@@ -86,7 +98,8 @@ def callback():
         session['guilds'] = guilds
         
         # Redirect back to website with token
-        redirect_url = f"{os.environ.get('website_url', 'http://localhost:5000')}?token={access_token}&user_id={user_id}&username={username}"
+        roles_str = ','.join(user_roles) if user_roles else 'none'
+        redirect_url = f"{os.environ.get('website_url', 'http://localhost:5000')}?token={access_token}&user_id={user_id}&username={username}&avatar={avatar}&roles={roles_str}"
         return redirect(redirect_url)
         
     except Exception as e:
