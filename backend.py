@@ -93,14 +93,13 @@ else:
     print(f"Response: {member_response.text}")
         
         # Store in session
-        session.permanent = True
-        session['user_id'] = user_id
-        session['username'] = username
-        session['discriminator'] = discriminator
-        session['avatar'] = avatar
-        session['access_token'] = access_token
-        session['guilds'] = guilds
-        session['roles'] = user_roles
+       # Store in session - MINIMAL data only
+session.permanent = True
+session['user_id'] = user_id
+session['username'] = username
+session['avatar'] = avatar
+session['roles'] = user_roles
+# Don't store guilds, access_token, discriminator
         
         # Redirect back to website with token
         roles_str = ','.join(user_roles) if user_roles else 'none'
