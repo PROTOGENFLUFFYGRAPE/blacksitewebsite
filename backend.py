@@ -84,12 +84,13 @@ def callback():
         )
         
         user_roles = []
-        if member_response.status_code == 200:
-            member_data = member_response.json()
-            user_roles = member_data.get('roles', [])
-            print(f"User {username} roles: {user_roles}")
-        else:
-            print(f"Member response status: {member_response.status_code}")
+if member_response.status_code == 200:
+    member_data = member_response.json()
+    user_roles = member_data.get('roles', [])
+    print(f"✓ Got roles for {username}: {user_roles}")
+else:
+    print(f"✗ Failed to get member info. Status: {member_response.status_code}")
+    print(f"Response: {member_response.text}")
         
         # Store in session
         session.permanent = True
