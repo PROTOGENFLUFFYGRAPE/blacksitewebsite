@@ -182,12 +182,16 @@ body{font-family:'Inter',sans-serif;color:var(--text);min-height:100vh;backgroun
         <button class="login-btn" onclick="window.location.href='https://blacksitewebsite-nvxj.onrender.com/login'">Login with Discord</button>
         <button class="login-btn" onclick="window.location.href='apps.html'">Apply Now</button>
       </div>
-      <div id="profileSection" style="display:none; display: flex; align-items: center; gap: 16px;">
-        <div style="display: flex; align-items: center; gap: 12px;">
+      <div id="profileSection" style="display:none; display: flex; align-items: center; gap: 16px; position: relative;">
+        <button onclick="toggleProfileMenu()" style="background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 12px; padding: 0;">
           <img id="userAvatar" src="" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--accent);">
           <span id="userNameDisplay" style="color: var(--accent); font-weight: 700;"></span>
+        </button>
+        <div id="profileMenu" style="display: none; position: absolute; top: 60px; right: 0; background: var(--sidebar); border: 1px solid var(--border); border-radius: 12px; min-width: 180px; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+          <button onclick="showPage('userProfile', null); toggleProfileMenu()" style="width: 100%; text-align: left; padding: 12px 16px; border: none; background: none; color: var(--text); cursor: pointer; border-bottom: 1px solid var(--border); font-weight: 600; transition: .2s;">Profile</button>
+          <button onclick="showPage('userSettings', null); toggleProfileMenu()" style="width: 100%; text-align: left; padding: 12px 16px; border: none; background: none; color: var(--text); cursor: pointer; border-bottom: 1px solid var(--border); font-weight: 600; transition: .2s;">Settings</button>
+          <button onclick="logoutUser()" style="width: 100%; text-align: left; padding: 12px 16px; border: none; background: none; color: #ff7b9a; cursor: pointer; font-weight: 600; transition: .2s;">Logout</button>
         </div>
-        <button class="login-btn" onclick="logoutUser()">Logout</button>
       </div>
     </header>
 
@@ -327,6 +331,97 @@ body{font-family:'Inter',sans-serif;color:var(--text);min-height:100vh;backgroun
               <span class="pagination-info" id="banPageInfo">Page 1</span>
               <button class="pagination-btn" onclick="nextBanPage()" id="banNextBtn">Next ></button>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page" id="userProfilePage">
+        <h1 class="page-title">My Profile</h1>
+        <div style="display: flex; gap: 20px; margin-bottom: 30px;">
+          <img id="profileAvatar" src="" alt="Avatar" style="width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--accent);">
+          <div>
+            <h2 id="profileUsername" style="color: var(--accent); font-size: 24px; font-weight: 700; margin-bottom: 8px;"></h2>
+            <p style="color: var(--muted);">Discord User</p>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 12px; margin-bottom: 20px; border-bottom: 1px solid rgba(232,85,255,0.1); padding-bottom: 16px;">
+          <button class="action-btn" onclick="showUserTab('stats')" id="statsBtn" style="background: linear-gradient(135deg, rgba(232,85,255,0.24) 0%, rgba(232,85,255,0.12) 100%); color: var(--accent);">Stats</button>
+          <button class="action-btn" onclick="showUserTab('warns')" id="warnsBtn">Warns</button>
+          <button class="action-btn" onclick="showUserTab('kicks')" id="kicksBtn">Kicks</button>
+          <button class="action-btn" onclick="showUserTab('bans')" id="bansBtn">Bans</button>
+          <button class="action-btn" onclick="showUserTab('settings')" id="settingsBtn">Settings</button>
+        </div>
+
+        <div id="statsContent">
+          <div class="staff-stats" style="grid-template-columns: repeat(4, 1fr);">
+            <div class="stat-card">
+              <div class="stat-label">Total Playtime</div>
+              <div class="stat-value" id="userPlaytime">0h 0m</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Total Kills</div>
+              <div class="stat-value" id="userKills">0</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Fastest Escape</div>
+              <div class="stat-value" id="userEscapeTime">0s</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Rank</div>
+              <div class="stat-value" id="userRank">Unranked</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="warnsContent" style="display: none;">
+          <div style="margin-bottom: 20px;">
+            <button class="action-btn warn-btn" onclick="openModal('warn')" style="padding: 10px 16px;">+ Add Warning</button>
+          </div>
+          <div id="userWarnsContainer"></div>
+        </div>
+
+        <div id="kicksContent" style="display: none;">
+          <div style="margin-bottom: 20px;">
+            <button class="action-btn" onclick="alert('Kick user functionality')" style="padding: 10px 16px; color: #ffb84d;">+ Kick User</button>
+          </div>
+          <div class="empty-state">No kicks on record.</div>
+        </div>
+
+        <div id="bansContent" style="display: none;">
+          <div style="margin-bottom: 20px;">
+            <button class="action-btn ban-btn" onclick="openModal('ban')" style="padding: 10px 16px;">+ Ban User</button>
+          </div>
+          <div id="userBansContainer"></div>
+        </div>
+
+        <div id="settingsContent" style="display: none;">
+          <div class="staff-panel">
+            <div class="panel-title">User Roles</div>
+            <div class="panel-sub">Manage roles: O5 Council, Admin, Moderator, etc.</div>
+            <div style="margin-top: 20px;">
+              <div style="color: var(--muted); padding: 16px; background: rgba(232,85,255,0.05); border-radius: 12px;">
+                Current Role: <span style="color: var(--accent); font-weight: 700;" id="currentRole">Unranked</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page" id="userSettingsPage">
+        <h1 class="page-title">Account Settings</h1>
+        <div class="staff-panel" style="max-width: 500px;">
+          <div class="panel-title">Profile Settings</div>
+          <div style="margin-top: 20px;">
+            <div style="margin-bottom: 16px;">
+              <label style="display: block; color: var(--muted); font-size: 12px; margin-bottom: 8px;">Username</label>
+              <input type="text" id="settingsUsername" class="staff-input" disabled>
+            </div>
+            <div style="margin-bottom: 16px;">
+              <label style="display: block; color: var(--muted); font-size: 12px; margin-bottom: 8px;">User ID</label>
+              <input type="text" id="settingsUserId" class="staff-input" disabled>
+            </div>
+            <button class="action-btn" onclick="logoutUser()" style="color: #ff7b9a;">Logout</button>
           </div>
         </div>
       </div>
@@ -1051,45 +1146,135 @@ function checkDiscordLogin() {
   const token = params.get('token');
   const userId = params.get('user_id');
   const username = params.get('username');
+  const avatar = params.get('avatar');
   
   if (token && userId && username) {
     // Store login info
     localStorage.setItem('discord_token', token);
     localStorage.setItem('discord_user_id', userId);
     localStorage.setItem('discord_username', username);
+    localStorage.setItem('discord_avatar', avatar);
     
     // Update UI
-    showLoggedInUser(username);
+    showLoggedInUser(username, userId, avatar);
     
     // Clean up URL
     window.history.replaceState({}, document.title, window.location.pathname);
   } else if (localStorage.getItem('discord_token')) {
     // Check if already logged in
     const storedUsername = localStorage.getItem('discord_username');
-    showLoggedInUser(storedUsername);
+    const storedUserId = localStorage.getItem('discord_user_id');
+    const storedAvatar = localStorage.getItem('discord_avatar');
+    showLoggedInUser(storedUsername, storedUserId, storedAvatar);
   }
 }
 
-function showLoggedInUser(username) {
+function showLoggedInUser(username, userId, avatar) {
   document.getElementById('loginSection').style.display = 'none';
   document.getElementById('profileSection').style.display = 'flex';
   document.getElementById('userNameDisplay').textContent = username;
   document.getElementById('welcomeMsg').textContent = `Welcome Back, ${username}`;
   
-  // Use Discord default avatar based on username
-  const userId = localStorage.getItem('discord_user_id');
-  const avatarUrl = `https://cdn.discordapp.com/embed/avatars/${parseInt(userId) % 5}.png`;
+  // Set avatar
+  let avatarUrl;
+  if (avatar && avatar !== 'null') {
+    avatarUrl = `https://cdn.discordapp.com/avatars/${userId}/${avatar}.png`;
+  } else {
+    avatarUrl = `https://cdn.discordapp.com/embed/avatars/${parseInt(userId) % 5}.png`;
+  }
   document.getElementById('userAvatar').src = avatarUrl;
+  document.getElementById('profileAvatar').src = avatarUrl;
+  document.getElementById('profileUsername').textContent = username;
+  document.getElementById('settingsUsername').value = username;
+  document.getElementById('settingsUserId').value = userId;
+}
+
+function toggleProfileMenu() {
+  const menu = document.getElementById('profileMenu');
+  menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+}
+
+function showUserTab(tab) {
+  document.getElementById('statsContent').style.display = 'none';
+  document.getElementById('warnsContent').style.display = 'none';
+  document.getElementById('kicksContent').style.display = 'none';
+  document.getElementById('bansContent').style.display = 'none';
+  document.getElementById('settingsContent').style.display = 'none';
+  
+  document.getElementById('statsBtn').style.background = '';
+  document.getElementById('statsBtn').style.color = '';
+  document.getElementById('warnsBtn').style.background = '';
+  document.getElementById('warnsBtn').style.color = '';
+  document.getElementById('kicksBtn').style.background = '';
+  document.getElementById('kicksBtn').style.color = '';
+  document.getElementById('bansBtn').style.background = '';
+  document.getElementById('bansBtn').style.color = '';
+  document.getElementById('settingsBtn').style.background = '';
+  document.getElementById('settingsBtn').style.color = '';
+  
+  if (tab === 'stats') {
+    document.getElementById('statsContent').style.display = 'block';
+    document.getElementById('statsBtn').style.background = 'linear-gradient(135deg, rgba(232,85,255,0.24) 0%, rgba(232,85,255,0.12) 100%)';
+    document.getElementById('statsBtn').style.color = 'var(--accent)';
+  } else if (tab === 'warns') {
+    document.getElementById('warnsContent').style.display = 'block';
+    document.getElementById('warnsBtn').style.background = 'linear-gradient(135deg, rgba(232,85,255,0.24) 0%, rgba(232,85,255,0.12) 100%)';
+    document.getElementById('warnsBtn').style.color = 'var(--accent)';
+    renderUserWarns();
+  } else if (tab === 'kicks') {
+    document.getElementById('kicksContent').style.display = 'block';
+    document.getElementById('kicksBtn').style.background = 'linear-gradient(135deg, rgba(232,85,255,0.24) 0%, rgba(232,85,255,0.12) 100%)';
+    document.getElementById('kicksBtn').style.color = 'var(--accent)';
+  } else if (tab === 'bans') {
+    document.getElementById('bansContent').style.display = 'block';
+    document.getElementById('bansBtn').style.background = 'linear-gradient(135deg, rgba(232,85,255,0.24) 0%, rgba(232,85,255,0.12) 100%)';
+    document.getElementById('bansBtn').style.color = 'var(--accent)';
+    renderUserBans();
+  } else if (tab === 'settings') {
+    document.getElementById('settingsContent').style.display = 'block';
+    document.getElementById('settingsBtn').style.background = 'linear-gradient(135deg, rgba(232,85,255,0.24) 0%, rgba(232,85,255,0.12) 100%)';
+    document.getElementById('settingsBtn').style.color = 'var(--accent)';
+  }
+}
+
+function renderUserWarns() {
+  const username = localStorage.getItem('discord_username');
+  const logs = getLogs();
+  const userWarns = logs.filter(log => log.type === 'warn' && log.user.toLowerCase() === username.toLowerCase());
+  
+  const container = document.getElementById('userWarnsContainer');
+  if (!userWarns.length) {
+    container.innerHTML = '<div class="empty-state">No warnings on record.</div>';
+    return;
+  }
+  
+  container.innerHTML = buildTable(userWarns, 'warn');
+}
+
+function renderUserBans() {
+  const username = localStorage.getItem('discord_username');
+  const logs = getLogs();
+  const userBans = logs.filter(log => log.type === 'ban' && log.user.toLowerCase() === username.toLowerCase());
+  
+  const container = document.getElementById('userBansContainer');
+  if (!userBans.length) {
+    container.innerHTML = '<div class="empty-state">No bans on record.</div>';
+    return;
+  }
+  
+  container.innerHTML = buildTable(userBans, 'ban');
 }
 
 function logoutUser() {
   localStorage.removeItem('discord_token');
   localStorage.removeItem('discord_user_id');
   localStorage.removeItem('discord_username');
+  localStorage.removeItem('discord_avatar');
   
   document.getElementById('loginSection').style.display = 'block';
   document.getElementById('profileSection').style.display = 'none';
   document.getElementById('welcomeMsg').textContent = 'Welcome Back';
+  toggleProfileMenu();
 }
 
 checkDiscordLogin();
