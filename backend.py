@@ -83,11 +83,13 @@ def callback():
             headers={'Authorization': f'Bearer {access_token}'}
         )
         
-        user_roles = []
-        if member_response.status_code == 200:
-            member_data = member_response.json()
-            user_roles = member_data.get('roles', [])
-        
+       user_roles = []
+if member_response.status_code == 200:
+    member_data = member_response.json()
+    user_roles = member_data.get('roles', [])
+    print(f"User roles: {user_roles}")
+else:
+    print(f"Member response status: {member_response.status_code}")
         # Store in session
         session.permanent = True
         session['user_id'] = user_id
